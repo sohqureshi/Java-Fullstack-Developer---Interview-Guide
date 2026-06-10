@@ -2,7 +2,7 @@
 Java Full-Stack Developer - Interview Guide
 
 ## Demo
-Live demo & repository: https://github.com/sohqureshi/Java-Fullstack-Developer---Interview-Guide
+Live demo: https://sohqureshi.github.io/Java-Fullstack-Developer---Interview-Guide/
 
 ## Project Overview
 This repository contains a single-page interactive study guide for senior Java Full-Stack interviews. It organizes high-value topics (Core Java, Java 8+ features, Spring Boot & Microservices, Database & SQL, System Design, Leadership/Behavioural) into searchable, expandable Q&A cards with formatted code examples and tips.
