@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,7 +29,7 @@
             background: white;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
             text-align: center;
         }
@@ -49,7 +50,7 @@
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .nav-buttons {
@@ -74,7 +75,7 @@
         button:hover {
             background: #764ba2;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         button.active {
@@ -95,7 +96,7 @@
             background: white;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .topic {
@@ -108,8 +109,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .topic h2 {
@@ -131,7 +139,7 @@
 
         .question:hover {
             background: #e9ecef;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .question h3 {
@@ -159,8 +167,15 @@
         }
 
         @keyframes slideDown {
-            from { opacity: 0; max-height: 0; }
-            to { opacity: 1; max-height: 2000px; }
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+
+            to {
+                opacity: 1;
+                max-height: 2000px;
+            }
         }
 
         .answer-section {
@@ -173,7 +188,8 @@
             font-size: 1.1em;
         }
 
-        .answer-section p, .answer-section ul {
+        .answer-section p,
+        .answer-section ul {
             color: #555;
             line-height: 1.8;
             margin-bottom: 10px;
@@ -199,8 +215,17 @@
             line-height: 1.4;
         }
 
+        /* Ensure code preserves whitespace, indentation and wraps sensibly */
         .code-block code {
             color: #f8f8f2;
+            display: block;
+            white-space: pre; /* preserve formatting and newlines */
+            tab-size: 4;
+            -moz-tab-size: 4;
+            -o-tab-size: 4;
+            word-break: normal;
+            hyphens: none;
+            overflow-x: auto;
         }
 
         .tip {
@@ -251,7 +276,8 @@
             margin: 15px 0;
         }
 
-        table th, table td {
+        table th,
+        table td {
             border: 1px solid #ddd;
             padding: 12px;
             text-align: left;
@@ -338,7 +364,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             display: none;
         }
 
@@ -348,21 +374,29 @@
         }
 
         @keyframes slideIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 768px) {
             .comparison-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             header h1 {
                 font-size: 1.8em;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -1425,7 +1459,7 @@ Use JWT tokens with short expiry (15 min) + refresh tokens (7 days).
                 btn.addEventListener('click', () => selectTopic(topic, btn));
                 navButtons.appendChild(btn);
             }
-            
+
             // Display first topic
             selectTopic(Object.keys(topicsData)[0], navButtons.querySelector('button'));
         }
@@ -1434,11 +1468,11 @@ Use JWT tokens with short expiry (15 min) + refresh tokens (7 days).
             // Update buttons
             document.querySelectorAll('.nav-buttons button').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
+
             // Render content
             const contentArea = document.getElementById('contentArea');
             const topicData = topicsData[topic];
-            
+
             let html = `<h2>${topicData.icon} ${topic}</h2>`;
             topicData.questions.forEach((q, idx) => {
                 html += `
@@ -1451,7 +1485,7 @@ Use JWT tokens with short expiry (15 min) + refresh tokens (7 days).
                     </div>
                 `;
             });
-            
+
             contentArea.innerHTML = html;
         }
 
@@ -1460,10 +1494,10 @@ Use JWT tokens with short expiry (15 min) + refresh tokens (7 days).
         }
 
         // Search functionality
-        document.getElementById('searchBox').addEventListener('keyup', function(e) {
+        document.getElementById('searchBox').addEventListener('keyup', function (e) {
             const query = e.target.value.toLowerCase();
             let found = false;
-            
+
             for (const topic in topicsData) {
                 const topicData = topicsData[topic];
                 topicData.questions.forEach((q, idx) => {
@@ -1477,12 +1511,12 @@ Use JWT tokens with short expiry (15 min) + refresh tokens (7 days).
         });
 
         // Back to top button
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             const btn = document.getElementById('backToTop');
             btn.classList.toggle('show', window.scrollY > 300);
         });
 
-        document.getElementById('backToTop').addEventListener('click', function() {
+        document.getElementById('backToTop').addEventListener('click', function () {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
@@ -1490,4 +1524,5 @@ Use JWT tokens with short expiry (15 min) + refresh tokens (7 days).
         initializeUI();
     </script>
 </body>
+
 </html>
