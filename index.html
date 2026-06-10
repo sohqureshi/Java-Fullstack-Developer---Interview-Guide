@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Full Stack Interview - Detailed Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .nav-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: #667eea;
+            color: white;
+        }
+
+        button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        button.active {
+            background: #764ba2;
+            box-shadow: 0 4px 12px rgba(118, 75, 162, 0.4);
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .topic {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .topic.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .topic h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .question {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .question:hover {
+            background: #e9ecef;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .question h3 {
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .question .toggle {
+            color: #667eea;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .question-body {
+            display: none;
+            margin-top: 15px;
+        }
+
+        .question.open .question-body {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 2000px; }
+        }
+
+        .answer-section {
+            margin: 15px 0;
+        }
+
+        .answer-section h4 {
+            color: #764ba2;
+            margin: 10px 0 8px 0;
+            font-size: 1.1em;
+        }
+
+        .answer-section p, .answer-section ul {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .answer-section ul {
+            margin-left: 20px;
+        }
+
+        .answer-section li {
+            margin: 8px 0;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.4;
+        }
+
+        .code-block code {
+            color: #f8f8f2;
+        }
+
+        .tip {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .tip::before {
+            content: "💡 Tip: ";
+            font-weight: bold;
+            color: #856404;
+        }
+
+        .important {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .important::before {
+            content: "⚠️ Important: ";
+            font-weight: bold;
+            color: #721c24;
+        }
+
+        .example {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .example::before {
+            content: "📝 Example: ";
+            font-weight: bold;
+            color: #0c5460;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+
+        table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .comparison-box {
+            border: 2px solid #667eea;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .comparison-box h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .summary-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .summary-box h4 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #667eea;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: none;
+        }
+
+        .back-to-top.show {
+            display: flex;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>☕ Java Full Stack Interview Prep</h1>
+            <p>Detailed Explanations for Senior Engineer Role | 7.5+ Years Experience</p>
+        </header>
+
+        <div class="nav-section">
+            <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search topics or questions...">
+            <div class="nav-buttons" id="navButtons"></div>
+        </div>
+
+        <div class="content" id="contentArea"></div>
+    </div>
+
+    <div class="back-to-top" id="backToTop">↑</div>
+
+    <script>
+        const topicsData = {
+            "Core Java & OOP": {
+                icon: "☕",
+                questions: [
+                    {
+                        q: "Explain the four pillars of OOP with real-world Java examples",
+                        a: `
+                            <div class="answer-section">
+                                <h4>The Four Pillars of Object-Oriented Programming</h4>
+                                <p>OOP is built on four fundamental pillars that help you write scalable, maintainable code. Let's break down each one:</p>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>1️⃣ Encapsulation</h4>
+                                <p><strong>Definition:</strong> Bundling data (variables) and methods into a single unit (class) and hiding internal implementation details from the outside world.</p>
+                                <p><strong>How it works:</strong> Use access modifiers (private, protected, public) to control what information is exposed.</p>
+                                <div class="code-block"><code>// Without Encapsulation (BAD)
+public class BankAccount {
+    public double balance;  // Anyone can change this!
+}
+
+// With Encapsulation (GOOD)
+public class BankAccount {
+    private double balance;  // Hidden from outside
+    
+    public double getBalance() {
+        return balance;
+    }
+    
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;  // Validation happens here
+        }
+    }
+}</code></div>
+                                <div class="tip">Encapsulation protects your data from invalid states. For example, balance can never go negative because the setter validates it.</div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>2️⃣ Inheritance</h4>
+                                <p><strong>Definition:</strong> A child class inherits properties and methods from a parent class, promoting code reuse.</p>
+                                <p><strong>Key Concept:</strong> It creates an "is-a" relationship. A SavingsAccount IS-A BankAccount.</p>
+                                <div class="code-block"><code>// Parent class
+public class BankAccount {
+    protected double balance;
+    
+    public void withdraw(double amount) {
+        if (amount <= balance) {
+            balance -= amount;
+        }
+    }
+}
+
+// Child class inherits from parent
+public class SavingsAccount extends BankAccount {
+    private double interestRate;
+    
+    public void applyInterest() {
+        balance += balance * interestRate;  // Uses inherited balance
+    }
+}</code></div>
+                                <div class="important">In Java, a class can extend only ONE parent class (single inheritance). To avoid the "diamond problem", use interfaces for multiple inheritance of type.</div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>3️⃣ Polymorphism</h4>
+                                <p><strong>Definition:</strong> "Many forms" - the ability of an object to take multiple forms or for methods to behave differently based on context.</p>
+                                <p><strong>Two Types:</strong></p>
+                                <ul>
+                                    <li><strong>Compile-time (Static) Polymorphism:</strong> Method Overloading - same method name, different parameters</li>
+                                    <li><strong>Runtime (Dynamic) Polymorphism:</strong> Method Overriding - child class redefines parent's method</li>
+                                </ul>
+                                <div class="code-block"><code>// Method Overloading (Compile-time)
+public class Calculator {
+    public int add(int a, int b) {
+        return a + b;
+    }
+    
+    public double add(double a, double b) {  // Same name, different params
+        return a + b;
+    }
+}
+
+// Method Overriding (Runtime)
+public class Animal {
+    public void sound() {
+        System.out.println("Animal makes sound");
+    }
+}
+
+public class Dog extends Animal {
+    @Override
+    public void sound() {  // Overrides parent's method
+        System.out.println("Dog barks");
+    }
+}
+
+// Runtime polymorphism in action
+Animal animal = new Dog();  // Reference is Animal, object is Dog
+animal.sound();  // Prints "Dog barks" - JVM decides at runtime</code></div>
+                                <div class="tip">This is the key to building flexible, extensible code. You can pass Dog, Cat, or Bird where Animal is expected, and each will behave differently.</div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>4️⃣ Abstraction</h4>
+                                <p><strong>Definition:</strong> Hiding complex implementation details and showing only essential features to the user.</p>
+                                <p><strong>Real-world analogy:</strong> You use a car's steering wheel without knowing how the internal engine works.</p>
+                                <div class="code-block"><code>// Abstract Class - defines contract but hides implementation
+public abstract class PaymentProcessor {
+    public abstract void processPayment(double amount);
+    
+    public void logTransaction(double amount) {
+        System.out.println("Transaction: " + amount);
+    }
+}
+
+// Concrete implementations
+public class CreditCardPayment extends PaymentProcessor {
+    @Override
+    public void processPayment(double amount) {
+        // Implementation specific to credit cards
+        System.out.println("Processing credit card payment");
+    }
+}
+
+public class UPIPayment extends PaymentProcessor {
+    @Override
+    public void processPayment(double amount) {
+        // Implementation specific to UPI
+        System.out.println("Processing UPI payment");
+    }
+}
+
+// Client code doesn't know HOW payment works, just calls it
+PaymentProcessor processor = new CreditCardPayment();
+processor.processPayment(100.0);</code></div>
+                                <div class="example">Benefits: If you change how credit card processing works internally, the client code doesn't break. You only expose what's necessary.</div>
+                            </div>
+
+                            <div class="summary-box">
+                                <h4>Quick Summary</h4>
+                                <ul>
+                                    <li>✅ <strong>Encapsulation:</strong> Hide data, expose behavior</li>
+                                    <li>✅ <strong>Inheritance:</strong> Reuse code through parent-child relationships</li>
+                                    <li>✅ <strong>Polymorphism:</strong> Same interface, different behaviors</li>
+                                    <li>✅ <strong>Abstraction:</strong> Hide complexity, show only what's needed</li>
+                                </ul>
+                            </div>
+                        `
+                    },
+                    {
+                        q: "What is the difference between an abstract class and an interface?",
+                        a: `
+                            <div class="comparison-grid">
+                                <div class="comparison-box">
+                                    <h4>Abstract Class</h4>
+                                    <ul>
+                                        <li>Can have state (fields)</li>
+                                        <li>Can have constructors</li>
+                                        <li>Can have concrete methods</li>
+                                        <li>Can have private methods</li>
+                                        <li>Single inheritance only</li>
+                                        <li>Used for "is-a" relationships</li>
+                                    </ul>
+                                </div>
+                                <div class="comparison-box">
+                                    <h4>Interface (Java 8+)</h4>
+                                    <ul>
+                                        <li>Cannot have state (only constants)</li>
+                                        <li>No constructors</li>
+                                        <li>Default & static methods allowed (Java 8+)</li>
+                                        <li>All methods public by default</li>
+                                        <li>Multiple inheritance allowed</li>
+                                        <li>Used for contracts/capabilities</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>When to Use What?</h4>
+                                <div class="code-block"><code>// Use Abstract Class when classes share COMMON CODE
+public abstract class Vehicle {
+    protected String color;  // State
+    
+    public Vehicle(String color) {  // Constructor
+        this.color = color;
+    }
+    
+    public void startEngine() {  // Concrete method
+        System.out.println("Engine started");
+    }
+    
+    abstract void drive();  // Abstract method
+}
+
+// Use Interface to define CAPABILITIES
+public interface Serializable {
+    byte[] serialize();
+    void deserialize(byte[] data);
+}
+
+public class Car extends Vehicle implements Serializable {
+    @Override
+    void drive() {
+        System.out.println("Car drives on road");
+    }
+    
+    @Override
+    public byte[] serialize() {
+        // Implementation
+    }
+}</code></div>
+                            </div>
+
+                            <div class="tip">Since Java 8, interfaces can have default methods. This blurs the line. Use interfaces to define what a class CAN DO (contracts), and abstract classes to share implementation.</div>
+                        `
+                    },
+                    {
+                        q: "Explain Java memory model: Stack vs Heap, and how Garbage Collection works",
+                        a: `
+                            <div class="comparison-grid">
+                                <div class="comparison-box">
+                                    <h4>Stack Memory</h4>
+                                    <ul>
+                                        <li>Stores method calls & local variables</li>
+                                        <li>LIFO (Last-In-First-Out)</li>
+                                        <li>Auto-cleared when method exits</li>
+                                        <li>Thread-private</li>
+                                        <li>Smaller, faster</li>
+                                        <li>Fixed size → StackOverflowError</li>
+                                    </ul>
+                                </div>
+                                <div class="comparison-box">
+                                    <h4>Heap Memory</h4>
+                                    <ul>
+                                        <li>Stores all objects</li>
+                                        <li>Unordered access</li>
+                                        <li>Requires garbage collection</li>
+                                        <li>Shared across threads</li>
+                                        <li>Larger, slower</li>
+                                        <li>Dynamic size → OutOfMemoryError</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Visual Example</h4>
+                                <div class="code-block"><code>void processUser() {
+    // Stack: a reference, b reference (4 bytes each on 32-bit)
+    User a = new User("Alice");     // Object stored in HEAP
+    User b = new User("Bob");       // Another object in HEAP
+    int x = 10;                     // Primitive in STACK
+    
+    // Stack frame for processUser():
+    // [a reference] → points to object in HEAP
+    // [b reference] → points to object in HEAP
+    // [x = 10]
+}
+// Method exits → stack frame removed, a & b references gone
+// Objects in heap are orphaned (eligible for GC)</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Garbage Collection in Java</h4>
+                                <p>GC automatically reclaims memory of unreachable objects. Modern JVMs use <strong>generational garbage collection</strong>:</p>
+                                <ul>
+                                    <li><strong>Young Generation:</strong> Most objects die young. Fast GC (Minor GC)</li>
+                                    <li><strong>Old Generation:</strong> Long-lived objects. Slow GC (Major/Full GC)</li>
+                                    <li><strong>Metaspace (Java 8+):</strong> Class metadata, no more PermGen overflow</li>
+                                </ul>
+                                <div class="code-block"><code>// JVM starts with initial heap size
+java -Xms512m -Xmx2g MyApp
+// -Xms: initial heap (512MB)
+// -Xmx: maximum heap (2GB)</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Modern GC Algorithms</h4>
+                                <table>
+                                    <tr>
+                                        <th>GC Type</th>
+                                        <th>Pause Time</th>
+                                        <th>Throughput</th>
+                                        <th>Use Case</th>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>G1GC</strong> (default Java 9+)</td>
+                                        <td>Predictable &lt;200ms</td>
+                                        <td>Balanced</td>
+                                        <td>Large heaps (4GB+)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>ZGC</strong> (Java 15+)</td>
+                                        <td>&lt;10ms</td>
+                                        <td>Low</td>
+                                        <td>Low-latency apps</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Shenandoah</strong> (Java 12+)</td>
+                                        <td>&lt;10ms</td>
+                                        <td>Low</td>
+                                        <td>Cloud/containers</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="tip">Tune GC for your app: If you need low latency (trading systems), use ZGC. If you need high throughput (batch processing), G1GC is fine.</div>
+                        `
+                    }
+                ]
+            },
+            "Java 8+ Features": {
+                icon: "⚡",
+                questions: [
+                    {
+                        q: "What are lambda expressions and functional interfaces?",
+                        a: `
+                            <div class="answer-section">
+                                <h4>Lambda Expressions (Anonymous Functions)</h4>
+                                <p>A lambda is a concise way to write an anonymous function. It replaces verbose anonymous inner classes.</p>
+                                <div class="code-block"><code>// Before Java 8 (Verbose)
+Runnable r = new Runnable() {
+    @Override
+    public void run() {
+        System.out.println("Hello");
+    }
+};
+
+// Java 8 Lambda (Concise)
+Runnable r = () -> System.out.println("Hello");</code></div>
+                                <p><strong>Syntax:</strong> (parameters) -> body</p>
+                                <div class="code-block"><code>// No parameters
+Supplier&lt;String&gt; supplier = () -> "Hello";
+
+// One parameter
+Consumer&lt;String&gt; consumer = name -> System.out.println(name);
+
+// Multiple parameters
+BiFunction&lt;Integer, Integer, Integer&gt; add = (a, b) -> a + b;
+
+// Multi-line body
+Function&lt;Integer, Integer&gt; square = n -> {
+    int result = n * n;
+    return result;
+};</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Functional Interfaces</h4>
+                                <p>A functional interface has exactly ONE abstract method. It's the target type for lambda expressions.</p>
+                                <div class="code-block"><code>@FunctionalInterface  // Compiler checks only 1 abstract method
+public interface Processor&lt;T&gt; {
+    T process(T input);  // Single abstract method
+    
+    default String getName() {  // Default methods are OK
+        return "Processor";
+    }
+}
+
+// Using the functional interface
+Processor&lt;Integer&gt; doubler = n -> n * 2;
+System.out.println(doubler.process(5));  // Output: 10</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Common Built-in Functional Interfaces</h4>
+                                <table>
+                                    <tr>
+                                        <th>Interface</th>
+                                        <th>Method</th>
+                                        <th>Example</th>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Predicate&lt;T&gt;</strong></td>
+                                        <td>boolean test(T t)</td>
+                                        <td>x -> x > 10</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Consumer&lt;T&gt;</strong></td>
+                                        <td>void accept(T t)</td>
+                                        <td>x -> System.out.println(x)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Function&lt;T,R&gt;</strong></td>
+                                        <td>R apply(T t)</td>
+                                        <td>x -> x * 2</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Supplier&lt;T&gt;</strong></td>
+                                        <td>T get()</td>
+                                        <td>() -> 42</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Real-World Example: Chaining Predicates</h4>
+                                <div class="code-block"><code>Predicate&lt;Integer&gt; isEven = n -> n % 2 == 0;
+Predicate&lt;Integer&gt; isGreaterThan10 = n -> n > 10;
+Predicate&lt;Integer&gt; isGreaterThan100 = n -> n > 100;
+
+// Chain predicates
+Predicate&lt;Integer&gt; complexCheck = isEven
+    .and(isGreaterThan10)
+    .or(isGreaterThan100);
+
+System.out.println(complexCheck.test(20));   // true (even AND > 10)
+System.out.println(complexCheck.test(150));  // true (> 100)</code></div>
+                            </div>
+
+                            <div class="tip">Lambdas make code more readable. But don't overuse them – if logic is complex, use a named method instead.</div>
+                        `
+                    },
+                    {
+                        q: "Explain the Stream API with examples",
+                        a: `
+                            <div class="answer-section">
+                                <h4>What is a Stream?</h4>
+                                <p>A Stream is a sequence of elements that supports functional-style operations. It processes data in a declarative, pipeline-like manner.</p>
+                                <p><strong>Key Points:</strong></p>
+                                <ul>
+                                    <li>Lazy evaluation - operations aren't performed until a terminal operation is called</li>
+                                    <li>Not a data structure - doesn't store data, it processes from a source</li>
+                                    <li>Immutable - doesn't modify the original collection</li>
+                                </ul>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Intermediate vs Terminal Operations</h4>
+                                <div class="comparison-grid">
+                                    <div class="comparison-box">
+                                        <h4>Intermediate (Lazy)</h4>
+                                        <p>Return a Stream. Executed only when needed.</p>
+                                        <ul>
+                                            <li>filter() - keep matching</li>
+                                            <li>map() - transform</li>
+                                            <li>flatMap() - flatten</li>
+                                            <li>distinct()</li>
+                                            <li>sorted()</li>
+                                            <li>limit()</li>
+                                            <li>peek() - debug</li>
+                                        </ul>
+                                    </div>
+                                    <div class="comparison-box">
+                                        <h4>Terminal (Eager)</h4>
+                                        <p>Produce a result. Close the stream.</p>
+                                        <ul>
+                                            <li>collect() - gather to collection</li>
+                                            <li>forEach() - iterate</li>
+                                            <li>reduce() - combine</li>
+                                            <li>count() - size</li>
+                                            <li>findFirst() - get one</li>
+                                            <li>anyMatch() - boolean</li>
+                                            <li>toArray()</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Complete Example</h4>
+                                <div class="code-block"><code>List&lt;Employee&gt; employees = List.of(
+    new Employee("Alice", "Engineering", 80000),
+    new Employee("Bob", "Sales", 50000),
+    new Employee("Charlie", "Engineering", 90000),
+    new Employee("Diana", "HR", 60000)
+);
+
+// Find engineering employees with salary > 75k, sorted by name
+List&lt;String&gt; result = employees.stream()
+    .filter(e -> e.getDepartment().equals("Engineering"))  // Intermediate
+    .filter(e -> e.getSalary() > 75000)                     // Intermediate
+    .map(Employee::getName)                                  // Intermediate
+    .sorted()                                                // Intermediate
+    .collect(Collectors.toList());                          // Terminal
+
+System.out.println(result);  // [Alice, Charlie]</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Collectors for Complex Operations</h4>
+                                <div class="code-block"><code>// Group by department
+Map&lt;String, List&lt;Employee&gt;&gt; byDept = employees.stream()
+    .collect(Collectors.groupingBy(Employee::getDepartment));
+
+// Count employees per department
+Map&lt;String, Long&gt; counts = employees.stream()
+    .collect(Collectors.groupingBy(Employee::getDepartment, 
+                                   Collectors.counting()));
+
+// Calculate average salary by department
+Map&lt;String, Double&gt; avgSalary = employees.stream()
+    .collect(Collectors.groupingBy(Employee::getDepartment,
+                                   Collectors.averagingDouble(Employee::getSalary)));
+
+// Partition into two groups (salary > 70k or not)
+Map&lt;Boolean, List&lt;Employee&gt;&gt; highEarners = employees.stream()
+    .collect(Collectors.partitioningBy(e -> e.getSalary() > 70000));</code></div>
+                            </div>
+
+                            <div class="tip">For parallel streams use .parallelStream(), but be careful with ordering and side-effects. It's not always faster – only use when processing large datasets.</div>
+                        `
+                    }
+                ]
+            },
+            "Spring Boot & Microservices": {
+                icon: "🚀",
+                questions: [
+                    {
+                        q: "How does Spring Boot auto-configuration work?",
+                        a: `
+                            <div class="answer-section">
+                                <h4>The Magic Behind Spring Boot Auto-Configuration</h4>
+                                <p>Spring Boot automatically configures your application based on classpath dependencies. You don't need XML or explicit config for common scenarios.</p>
+                                <p><strong>How it works:</strong></p>
+                                <ul>
+                                    <li>You add a dependency (e.g., spring-boot-starter-web)</li>
+                                    <li>Spring Boot detects it on classpath</li>
+                                    <li>Looks up auto-configuration classes in META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports</li>
+                                    <li>Uses @Conditional annotations to register beans conditionally</li>
+                                </ul>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Auto-Configuration Example</h4>
+                                <div class="code-block"><code>// When you have spring-boot-starter-data-jpa and a DB driver on classpath:
+// Spring Boot automatically creates:
+// - DataSource bean
+// - JdbcTemplate bean
+// - EntityManagerFactory bean
+// - TransactionManager bean
+
+// You don't write any config - it just works!
+
+// To verify, run with --debug:
+java -jar myapp.jar --debug
+
+// Output shows which auto-configs were applied and why</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Overriding Auto-Configuration</h4>
+                                <div class="code-block"><code>// application.yml
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/mydb
+    username: root
+    password: secret
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+// Or create your own bean to override auto-config
+@Configuration
+public class DataSourceConfig {
+    @Bean
+    public DataSource customDataSource() {
+        // Your custom DataSource
+        return new HikariDataSource(...);
+    }
+}</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Exclude Specific Auto-Configurations</h4>
+                                <div class="code-block"><code>// In application.yml
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+
+// Or in @SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+public class MyApp {}</code></div>
+                            </div>
+
+                            <div class="important">Auto-configuration is the reason Spring Boot is so productive. But understand it! Knowing which beans are created helps debug issues faster.</div>
+                        `
+                    },
+                    {
+                        q: "Explain microservices communication patterns",
+                        a: `
+                            <div class="comparison-grid">
+                                <div class="comparison-box">
+                                    <h4>Synchronous (Request-Reply)</h4>
+                                    <ul>
+                                        <li>Client waits for response</li>
+                                        <li>REST, gRPC, SOAP</li>
+                                        <li>Simple, familiar</li>
+                                        <li>Tight coupling possible</li>
+                                        <li>Network failure = failure</li>
+                                    </ul>
+                                </div>
+                                <div class="comparison-box">
+                                    <h4>Asynchronous (Event-Driven)</h4>
+                                    <ul>
+                                        <li>Client continues immediately</li>
+                                        <li>Kafka, RabbitMQ, AWS SQS</li>
+                                        <li>Loosely coupled</li>
+                                        <li>Scalable, resilient</li>
+                                        <li>Eventually consistent</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Synchronous REST with WebClient</h4>
+                                <div class="code-block"><code>// Old way (blocking)
+RestTemplate restTemplate = new RestTemplate();
+User user = restTemplate.getForObject("http://api/users/1", User.class);
+
+// Modern way (non-blocking)
+@Service
+public class UserService {
+    @Autowired
+    private WebClient webClient;
+    
+    public Mono&lt;User&gt; getUser(Long id) {
+        return webClient.get()
+            .uri("http://user-service/users/{id}", id)
+            .retrieve()
+            .bodyToMono(User.class);  // Returns immediately, async
+    }
+}</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Asynchronous with Spring Cloud Stream (Kafka)</h4>
+                                <div class="code-block"><code>// Producer
+@Service
+public class OrderService {
+    @Autowired
+    private StreamBridge streamBridge;
+    
+    public void placeOrder(Order order) {
+        streamBridge.send("orders-out-0", order);  // Send event, don't wait
+    }
+}
+
+// Consumer
+@Service
+public class EmailService {
+    @StreamListener("orders-in-0")
+    public void handleOrderCreated(Order order) {
+        // React to order event asynchronously
+        emailService.sendConfirmation(order);
+    }
+}</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Resilience Patterns</h4>
+                                <div class="code-block"><code>// Circuit Breaker with Resilience4j
+@Service
+public class PaymentService {
+    @CircuitBreaker(name = "payment-service", fallbackMethod = "fallback")
+    @Retry(name = "payment-service")
+    @Timeout(name = "payment-service")
+    public void processPayment(Order order) {
+        // If external service fails, automatically open circuit
+        externalPaymentAPI.charge(order);
+    }
+    
+    private void fallback(Order order, Exception ex) {
+        // Fallback: queue for later processing
+        paymentQueue.add(order);
+        log.warn("Payment queued for later", ex);
+    }
+}</code></div>
+                            </div>
+
+                            <div class="tip">Use synchronous for real-time interactions (user sees result immediately). Use asynchronous for background work and high-volume events.</div>
+                        `
+                    }
+                ]
+            },
+            "Database & SQL": {
+                icon: "🗄️",
+                questions: [
+                    {
+                        q: "Explain database indexing and when NOT to index",
+                        a: `
+                            <div class="answer-section">
+                                <h4>What is an Index?</h4>
+                                <p>An index is a data structure (usually B-Tree) that allows fast data lookup. Without an index, every query must scan every row (table scan).</p>
+                                <div class="code-block"><code>-- Without index: scans 1,000,000 rows
+SELECT * FROM users WHERE email = 'alice@example.com';
+
+-- With index: finds in ~10-15 lookups (log(n))
+CREATE INDEX idx_email ON users(email);
+SELECT * FROM users WHERE email = 'alice@example.com';  -- Fast!</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Types of Indexes</h4>
+                                <table>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Use Case</th>
+                                        <th>Example</th>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>B-Tree (Default)</strong></td>
+                                        <td>Range queries, equality, ORDER BY</td>
+                                        <td>WHERE age BETWEEN 20 AND 30</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Hash</strong></td>
+                                        <td>Exact match only</td>
+                                        <td>WHERE id = 5</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Full-Text</strong></td>
+                                        <td>Text search</td>
+                                        <td>WHERE MATCH(description)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Bitmap</strong></td>
+                                        <td>Low cardinality columns</td>
+                                        <td>WHERE status IN ('active', 'inactive')</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Composite Indexes - The Left-Prefix Rule</h4>
+                                <div class="code-block"><code>-- Create composite index on (department, salary)
+CREATE INDEX idx_dept_salary ON employees(department, salary);
+
+-- This index is used for:
+SELECT * FROM employees WHERE department = 'Engineering';  ✅
+
+-- This index is used for:
+SELECT * FROM employees WHERE department = 'Engineering' AND salary > 80000;  ✅
+
+-- This index is NOT used (starts with salary, not department):
+SELECT * FROM employees WHERE salary > 80000;  ❌
+
+// In Spring Data JPA
+@Entity
+public class Employee {
+    @Index(columnList = "department,salary")
+    private String department;
+    private double salary;
+}</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>When NOT to Index</h4>
+                                <ul>
+                                    <li><strong>Low cardinality columns:</strong> gender, status. Index overhead not worth it (yes/no options)</li>
+                                    <li><strong>Frequently written tables:</strong> Each INSERT/UPDATE/DELETE must update the index (expensive)</li>
+                                    <li><strong>Rarely queried columns:</strong> You're paying index maintenance cost for zero benefit</li>
+                                    <li><strong>Small tables:</strong> Full table scan might be faster than index lookup</li>
+                                    <li><strong>Columns with many NULLs:</strong> Most databases don't index NULLs efficiently</li>
+                                </ul>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Verify Index Usage with EXPLAIN</h4>
+                                <div class="code-block"><code>-- Check if index is used
+EXPLAIN ANALYZE SELECT * FROM users WHERE email = 'alice@example.com';
+
+Output:
+Seq Scan on users  (cost=0.00..35.50 rows=1)  ❌ Full table scan
+Filter: email = 'alice@example.com'
+
+-- After creating index:
+EXPLAIN ANALYZE SELECT * FROM users WHERE email = 'alice@example.com';
+
+Output:
+Index Scan using idx_email on users  ✅ Index used
+(cost=0.29..8.30 rows=1)
+Index Cond: email = 'alice@example.com'</code></div>
+                            </div>
+
+                            <div class="tip">Always use EXPLAIN before and after adding an index. Sometimes indexes don't help as expected or make things worse!</div>
+                        `
+                    }
+                ]
+            },
+            "System Design": {
+                icon: "🏗️",
+                questions: [
+                    {
+                        q: "Design a scalable URL shortener. Walk through your decisions.",
+                        a: `
+                            <div class="answer-section">
+                                <h4>System Requirements</h4>
+                                <ul>
+                                    <li><strong>Functional:</strong> Create short code from long URL, redirect short → long</li>
+                                    <li><strong>Non-Functional:</strong> 1M URLs/day, 10M redirects/day, <100ms response time</li>
+                                </ul>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>API Design</h4>
+                                <div class="code-block"><code>POST /api/shorten
+{
+    "longUrl": "https://very-long-domain.com/path/to/resource?param=value"
+}
+Response:
+{
+    "shortCode": "abc123",
+    "shortUrl": "https://short.io/abc123",
+    "createdAt": "2024-01-15T10:30:00Z"
+}
+
+GET /abc123
+Response: 301 Moved Permanently
+Location: https://very-long-domain.com/path/to/resource?param=value</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>1️⃣ Short Code Generation</h4>
+                                <p><strong>Option A: Base62 Encoding (Recommended)</strong></p>
+                                <div class="code-block"><code>// Generate from database ID
+// ID = 1 → Base62 = "B"
+// ID = 62 → Base62 = "10"
+// ID = 3844 → Base62 = "100"
+
+public String encodeToBase62(long id) {
+    String base62 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    StringBuilder sb = new StringBuilder();
+    while (id > 0) {
+        sb.insert(0, base62.charAt((int)(id % 62)));
+        id /= 62;
+    }
+    return sb.toString();
+}</code></div>
+                                <p><strong>Advantages:</strong> No collisions, predictable, easy to scale</p>
+
+                                <p><strong>Option B: MD5 Hash (Not recommended)</strong></p>
+                                <ul>
+                                    <li>Hash the long URL → collision possible</li>
+                                    <li>Need retry logic if collision occurs</li>
+                                    <li>Less predictable</li>
+                                </ul>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>2️⃣ Database Design</h4>
+                                <div class="code-block"><code>-- Primary table
+CREATE TABLE url_mappings (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    short_code VARCHAR(8) UNIQUE NOT NULL,
+    long_url VARCHAR(2048) NOT NULL,
+    user_id BIGINT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    expires_at TIMESTAMP,
+    click_count INT DEFAULT 0,
+    INDEX idx_short_code (short_code),
+    INDEX idx_user_id (user_id),
+    INDEX idx_created_at (created_at)
+);
+
+-- Analytics table (separate for scale)
+CREATE TABLE url_clicks (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    short_code VARCHAR(8),
+    user_ip VARCHAR(45),
+    user_agent VARCHAR(512),
+    referrer VARCHAR(512),
+    clicked_at TIMESTAMP,
+    INDEX idx_short_code_time (short_code, clicked_at)
+);</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>3️⃣ Caching Strategy</h4>
+                                <div class="code-block"><code>// Redis caching for hot URLs
+@Service
+public class URLService {
+    @Autowired
+    private RedisTemplate&lt;String, String&gt; redis;
+    
+    @Autowired
+    private URLRepository repo;
+    
+    // Read-through cache pattern
+    public String getLongUrl(String shortCode) {
+        // Check cache first
+        String cached = redis.opsForValue().get("url:" + shortCode);
+        if (cached != null) return cached;
+        
+        // Cache miss - fetch from DB
+        String longUrl = repo.findByShortCode(shortCode).getLongUrl();
+        
+        // Cache it (1 day TTL)
+        redis.opsForValue().set("url:" + shortCode, longUrl, 
+                                Duration.ofDays(1));
+        return longUrl;
+    }
+}</code></div>
+                                <p><strong>Why Redis?</strong> Sub-millisecond latency, perfect for read-heavy workload</p>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>4️⃣ Scaling Architecture</h4>
+                                <div class="code-block"><code>┌─────────────────────────────────────────────────┐
+│  Clients (Web, Mobile, API)                     │
+└────────────────────────┬────────────────────────┘
+                         │
+                    ┌────▼─────────┐
+                    │ Load Balancer │ (Nginx, HAProxy)
+                    └────┬─────────┬┘
+         ┌──────────────┼─────────┼──────────────┐
+         │              │         │              │
+      ┌──▼──┐        ┌──▼──┐  ┌──▼──┐        ┌──▼──┐
+      │ App │        │ App │  │ App │        │ App │
+      │ Srv │        │ Srv │  │ Srv │        │ Srv │
+      └──┬──┘        └──┬──┘  └──┬──┘        └──┬──┘
+         │              │         │              │
+         └──────────────┼─────────┼──────────────┘
+                        │
+         ┌──────────────┼───────────────┐
+         │              │               │
+      ┌──▼──┐      ┌────▼────┐     ┌────▼────┐
+      │Redis│      │PostgreSQL      │ Elasticsearch│
+      │Cache│      │Primary  │     │ Logs│
+      └─────┘      └───┬─────┘     └─────────┘
+                       │
+                   Read Replicas
+                   (for analytics)</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>5️⃣ High Availability</h4>
+                                <ul>
+                                    <li><strong>Database:</strong> Primary-Replica setup with automatic failover</li>
+                                    <li><strong>Cache:</strong> Redis Sentinel or Cluster mode</li>
+                                    <li><strong>Application:</strong> Multi-region deployment with geo-routing</li>
+                                    <li><strong>Analytics:</strong> Async writes to queue → Kafka → Elasticsearch</li>
+                                </ul>
+                            </div>
+
+                            <div class="important">At scale, handle edge cases: duplicate submissions (idempotency), expired URLs, rate limiting per user.</div>
+                        `
+                    }
+                ]
+            },
+            "Leadership & Behavioural": {
+                icon: "🎯",
+                questions: [
+                    {
+                        q: "How do you mentor junior developers with tight deadlines?",
+                        a: `
+                            <div class="answer-section">
+                                <h4>The Challenge</h4>
+                                <p>Mentoring takes time. Deadlines are tight. You need to deliver AND invest in people. This requires deliberate strategies.</p>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>1️⃣ Break Work into Discrete Tasks</h4>
+                                <div class="code-block"><code>❌ BAD: "Build the authentication module"
+✅ GOOD: 
+   1. Implement User entity with password hashing (2 days)
+   2. Write login controller (1 day)
+   3. Add JWT token generation (1 day)
+   4. Write unit tests for auth service (1 day)
+   5. Integrate with security filter (1 day)</code></div>
+                                <p>Clear, measurable tasks help juniors work independently and unblock faster.</p>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>2️⃣ Pair Program on Complex Tasks</h4>
+                                <div class="code-block"><code>// First 2 hours: You drive, junior navigates & learns
+// Next 2 hours: Junior drives, you guide
+// They can then continue alone
+
+Outcome: 
+- Knowledge transfer happens fast
+- Quality is high (you're reviewing real-time)
+- Junior gains confidence</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>3️⃣ Async Code Reviews with Constructive Feedback</h4>
+                                <div class="code-block"><code>❌ POOR REVIEW:
+"This is wrong. Use stream() instead."
+
+✅ GOOD REVIEW:
+"I see you're using a for-loop. In modern Java, streams are more idiomatic 
+and support easier parallelization. Try:
+list.stream().filter(...).collect(...)
+See Spring docs on Stream API for more."</code></div>
+                                <p>Include: WHY the change, not just WHAT. Provide learning resources.</p>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>4️⃣ Weekly 1:1 Check-ins</h4>
+                                <p><strong>15-min weekly 1:1 agenda:</strong></p>
+                                <ul>
+                                    <li>What blockers came up? Help unblock immediately</li>
+                                    <li>What did they learn this week? Celebrate it</li>
+                                    <li>What's the next challenge? Preview it</li>
+                                    <li>Growth goals? How to achieve them?</li>
+                                </ul>
+                                <div class="tip">Early detection of issues = faster resolution, junior stays motivated, deadline risk reduces.</div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>5️⃣ Document Architecture Decisions</h4>
+                                <div class="code-block"><code>// Create ADR (Architecture Decision Record) files
+// docs/adr/0001-use-spring-security-jwt.md
+
+# Decision: Use JWT for API Authentication
+
+## Context
+We need stateless auth for microservices. Session storage doesn't scale.
+
+## Decision
+Use JWT tokens with short expiry (15 min) + refresh tokens (7 days).
+
+## Consequences
+✅ Scalable, stateless
+✅ Works across services
+❌ Token revocation is hard
+❌ Can't invalidate on logout immediately</code></div>
+                                <p>This saves juniors time - they understand context without asking "Why?"</p>
+                            </div>
+
+                            <div class="summary-box">
+                                <h4>The Mindset</h4>
+                                <p>Investing 2 hours in mentoring now saves 4 hours of firefighting later. Junior becomes independent faster, takes pressure off you, and team velocity increases. It's not an overhead – it's a force multiplier.</p>
+                            </div>
+                        `
+                    }
+                ]
+            }
+        };
+
+        // Initialize UI
+        function initializeUI() {
+            const navButtons = document.getElementById('navButtons');
+            for (const topic in topicsData) {
+                const btn = document.createElement('button');
+                btn.textContent = `${topicsData[topic].icon} ${topic}`;
+                btn.dataset.topic = topic;
+                btn.className = topic === Object.keys(topicsData)[0] ? 'active' : '';
+                btn.addEventListener('click', () => selectTopic(topic, btn));
+                navButtons.appendChild(btn);
+            }
+            
+            // Display first topic
+            selectTopic(Object.keys(topicsData)[0], navButtons.querySelector('button'));
+        }
+
+        function selectTopic(topic, btn) {
+            // Update buttons
+            document.querySelectorAll('.nav-buttons button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Render content
+            const contentArea = document.getElementById('contentArea');
+            const topicData = topicsData[topic];
+            
+            let html = `<h2>${topicData.icon} ${topic}</h2>`;
+            topicData.questions.forEach((q, idx) => {
+                html += `
+                    <div class="question" onclick="toggleQuestion(this)">
+                        <h3>
+                            Q${idx + 1}. ${q.q}
+                            <span class="toggle">▼</span>
+                        </h3>
+                        <div class="question-body">${q.a}</div>
+                    </div>
+                `;
+            });
+            
+            contentArea.innerHTML = html;
+        }
+
+        function toggleQuestion(el) {
+            el.classList.toggle('open');
+        }
+
+        // Search functionality
+        document.getElementById('searchBox').addEventListener('keyup', function(e) {
+            const query = e.target.value.toLowerCase();
+            let found = false;
+            
+            for (const topic in topicsData) {
+                const topicData = topicsData[topic];
+                topicData.questions.forEach((q, idx) => {
+                    if (q.q.toLowerCase().includes(query)) {
+                        // Automatically select and expand matching question
+                        document.querySelector(`button[data-topic="${topic}"]`).click();
+                        found = true;
+                    }
+                });
+            }
+        });
+
+        // Back to top button
+        window.addEventListener('scroll', function() {
+            const btn = document.getElementById('backToTop');
+            btn.classList.toggle('show', window.scrollY > 300);
+        });
+
+        document.getElementById('backToTop').addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Initialize on load
+        initializeUI();
+    </script>
+</body>
+</html>
