@@ -14,30 +14,36 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
+            background: linear-gradient(135deg, #6b7ff0 0%, #6a4aa8 100%);
+            color: #111827;
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding: 30px 0;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 24px;
         }
 
         header {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
+            background: linear-gradient(90deg, #ffffff 0%, #f7f9ff 100%);
+            padding: 28px 24px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+            margin-bottom: 26px;
             text-align: center;
+            border: 1px solid rgba(102,126,234,0.12);
         }
 
         header h1 {
-            color: #667eea;
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            color: #4c51bf;
+            font-size: 2.1rem;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+            font-weight: 700;
         }
 
         header p {
@@ -46,57 +52,64 @@
         }
 
         .nav-section {
-            background: white;
-            padding: 20px;
+            background: rgba(255,255,255,0.95);
+            padding: 16px;
             border-radius: 10px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
         .nav-buttons {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 0;
         }
 
         button {
-            padding: 12px 20px;
+            padding: 10px 14px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 1em;
+            font-size: 0.95em;
             font-weight: 600;
-            transition: all 0.3s ease;
-            background: #667eea;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+            background: linear-gradient(180deg,#667eea,#5b56d9);
             color: white;
+            box-shadow: 0 6px 14px rgba(83, 67, 217, 0.12);
+            text-align: left;
         }
 
         button:hover {
-            background: #764ba2;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 10px 26px rgba(83, 67, 217, 0.16);
         }
 
         button.active {
-            background: #764ba2;
-            box-shadow: 0 4px 12px rgba(118, 75, 162, 0.4);
+            background: linear-gradient(90deg,#5b56d9,#764ba2);
+            box-shadow: 0 12px 34px rgba(102, 77, 204, 0.18);
         }
 
         .search-box {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #667eea;
-            border-radius: 5px;
-            font-size: 1em;
-            margin-bottom: 20px;
+            padding: 12px 14px;
+            border: 1px solid rgba(102,126,234,0.18);
+            border-radius: 10px;
+            font-size: 0.98em;
+            background: #fff;
+            outline: none;
+            box-shadow: 0 6px 18px rgba(15,23,42,0.04) inset;
         }
 
         .content {
             background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 28px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+            border: 1px solid rgba(15,23,42,0.03);
         }
 
         .topic {
@@ -128,42 +141,55 @@
         }
 
         .question {
-            background: #f8f9fa;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 4px solid #667eea;
-            border-radius: 5px;
+            background: #ffffff;
+            padding: 18px 18px;
+            margin: 18px 0;
+            border-left: 4px solid rgba(102,126,234,0.95);
+            border-radius: 10px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+            box-shadow: 0 6px 18px rgba(15,23,42,0.04);
         }
 
         .question:hover {
-            background: #e9ecef;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 18px 34px rgba(15,23,42,0.06);
         }
 
         .question h3 {
-            color: #333;
-            margin-bottom: 10px;
+            color: #0f1724;
+            margin-bottom: 6px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 12px;
+            font-size: 1.02em;
+            font-weight: 700;
         }
 
         .question .toggle {
             color: #667eea;
-            font-size: 1.5em;
-            font-weight: bold;
+            font-size: 1.2em;
+            font-weight: 800;
+            transition: transform 0.22s ease;
+            display: inline-block;
+            transform-origin: center;
         }
 
         .question-body {
             display: none;
-            margin-top: 15px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed rgba(15,23,42,0.04);
         }
 
         .question.open .question-body {
             display: block;
-            animation: slideDown 0.3s ease;
+            animation: slideDown 0.28s ease;
+        }
+
+        .question.open .toggle {
+            transform: rotate(180deg);
         }
 
         @keyframes slideDown {
@@ -204,15 +230,17 @@
         }
 
         .code-block {
-            background: #2d2d2d;
+            background: #0f1724;
             color: #f8f8f2;
-            padding: 15px;
-            border-radius: 5px;
+            padding: 14px 16px;
+            border-radius: 8px;
             overflow-x: auto;
             margin: 10px 0;
             font-family: 'Courier New', monospace;
             font-size: 0.95em;
-            line-height: 1.4;
+            line-height: 1.5;
+            box-shadow: 0 8px 24px rgba(2,6,23,0.35) inset;
+            border: 1px solid rgba(255,255,255,0.02);
         }
 
         /* Ensure code preserves whitespace, indentation and wraps sensibly */
@@ -723,6 +751,33 @@ java -Xms512m -Xmx2g MyApp
 
                             <div class="tip">Tune GC for your app: If you need low latency (trading systems), use ZGC. If you need high throughput (batch processing), G1GC is fine.</div>
                         `
+                    },
+                    {
+                        q: "Explain equals() vs hashCode() contract and best practices",
+                        a: `
+                            <div class="answer-section">
+                                <h4>equals() vs hashCode()</h4>
+                                <p>If two objects are equal according to <code>equals()</code>, they MUST return the same <code>hashCode()</code>. Violating this breaks hash-based collections like <code>HashMap</code> or <code>HashSet</code>.</p>
+                                <div class="code-block"><code>// Example
+public class Person {
+    private final String id;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return Objects.equals(id, person.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+}</code></div>
+                                <div class="tip">Prefer immutable fields for equals/hashCode and use <code>Objects.equals</code>/<code>Objects.hash</code> or generator tools. Consider <code>record</code> for concise, correct implementations (Java 16+).</div>
+                            </div>
+                        `
                     }
                 ]
             },
@@ -917,6 +972,23 @@ Map&lt;Boolean, List&lt;Employee&gt;&gt; highEarners = employees.stream()
 
                             <div class="tip">For parallel streams use .parallelStream(), but be careful with ordering and side-effects. It's not always faster – only use when processing large datasets.</div>
                         `
+                    },
+                    {
+                        q: "Best practices for using Optional in APIs",
+                        a: `
+                            <div class="answer-section">
+                                <h4>Using <code>Optional</code> Correctly</h4>
+                                <p><code>Optional</code> expresses optional values and avoids nulls. Use it as a return type for methods that may not have a value. Avoid using Optional for fields or parameters in public APIs.</p>
+                                <div class="code-block"><code>// Good: return Optional from finder
+public Optional<User> findByEmail(String email) {
+    // returns Optional.empty() when not found
+}
+
+// Bad: Optional as field or parameter
+class Foo { Optional<String> name; }</code></div>
+                                <div class="tip">Prefer clear method names (find/get) and provide convenience methods like <code>orElse</code>, <code>orElseGet</code>, and <code>ifPresent</code> to consumer code.</div>
+                            </div>
+                        `
                     }
                 ]
             },
@@ -1089,6 +1161,25 @@ public class PaymentService {
 
                             <div class="tip">Use synchronous for real-time interactions (user sees result immediately). Use asynchronous for background work and high-volume events.</div>
                         `
+                    },
+                    {
+                        q: "How to manage environments and profiles in Spring Boot?",
+                        a: `
+                            <div class="answer-section">
+                                <h4>Profiles & Configuration</h4>
+                                <p>Use Spring Profiles (eg. <code>dev</code>, <code>staging</code>, <code>prod</code>) to separate environment-specific configuration. Store secrets securely and avoid committing them.</p>
+                                <div class="code-block"><code># application.yml
+spring:
+  profiles: dev
+
+# application-prod.yml
+spring:
+  datasource:
+    url: jdbc:... # prod DB
+</code></div>
+                                <div class="tip">Prefer externalized config (environment variables, vault, or cloud secrets). Use <code>@Profile</code> and <code>spring.profiles.active</code> to select active profile.</div>
+                            </div>
+                        `
                     }
                 ]
             },
@@ -1193,6 +1284,21 @@ Index Cond: email = 'alice@example.com'</code></div>
                             </div>
 
                             <div class="tip">Always use EXPLAIN before and after adding an index. Sometimes indexes don't help as expected or make things worse!</div>
+                        `
+                    },
+                    {
+                        q: "Explain database transactions and isolation levels",
+                        a: `
+                            <div class="answer-section">
+                                <h4>Transactions & Isolation</h4>
+                                <p>Transactions provide atomicity, consistency, isolation, and durability (ACID). Isolation levels trade off consistency for concurrency: READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ, SERIALIZABLE.</p>
+                                <div class="code-block"><code>-- Example (Postgres):
+BEGIN;
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+COMMIT;</code></div>
+                                <div class="tip">Use the weakest isolation that meets correctness needs. SERIALIZABLE is safest but can reduce concurrency. Understand phantom reads and non-repeatable reads per level.</div>
+                            </div>
                         `
                     }
                 ]
@@ -1354,6 +1460,29 @@ public class URLService {
 
                             <div class="important">At scale, handle edge cases: duplicate submissions (idempotency), expired URLs, rate limiting per user.</div>
                         `
+                    },
+                    {
+                        q: "Rate limiting strategies and cache invalidation patterns",
+                        a: `
+                            <div class="answer-section">
+                                <h4>Rate Limiting</h4>
+                                <p>Common strategies: token bucket, leaky bucket, fixed window, sliding window log. Use API gateway or a distributed store (Redis) for counters. Apply per-IP, per-user, or per-client keys.</p>
+                                <div class="code-block"><code>// Simple Redis fixed-window pseudo-code
+INCR key
+EXPIRE key 60  -- 60 seconds window
+if value > limit then reject</code></div>
+
+                            <div class="answer-section">
+                                <h4>Cache Invalidation Patterns</h4>
+                                <ul>
+                                    <li>Write-through: write cache and DB synchronously</li>
+                                    <li>Read-through: cache miss reads DB and fills cache</li>
+                                    <li>Cache-aside: application invalidates cache on updates</li>
+                                    <li>Event-driven invalidation: publish events to clear caches</li>
+                                </ul>
+                                <div class="tip">Avoid cache stampedes with request coalescing or short randomized TTLs, and prefer event-driven invalidation for correctness.</div>
+                            </div>
+                        `
                     }
                 ]
             },
@@ -1443,9 +1572,415 @@ Use JWT tokens with short expiry (15 min) + refresh tokens (7 days).
                                 <p>Investing 2 hours in mentoring now saves 4 hours of firefighting later. Junior becomes independent faster, takes pressure off you, and team velocity increases. It's not an overhead – it's a force multiplier.</p>
                             </div>
                         `
+                    },
+                    {
+                        q: "How do you manage and prioritize technical debt?",
+                        a: `
+                            <div class="answer-section">
+                                <h4>Managing Technical Debt</h4>
+                                <p>Treat technical debt as a first-class product backlog item. Quantify impact, estimate remediation effort, and prioritize by risk and business value.</p>
+                                <ul>
+                                    <li>Track debt in tickets with clear description and owner</li>
+                                    <li>Allocate regular "tech debt sprints" or a percent of each sprint</li>
+                                    <li>Refactor safely with tests and incremental changes</li>
+                                </ul>
+                                <div class="tip">Don't let debt accumulate untracked. Small frequent paydowns are better than large, risky rewrites.</div>
+                            </div>
+                        `
                     }
                 ]
             }
+        };
+
+        // Add Angular topic dynamically to keep object literal simple
+        topicsData["Angular"] = {
+            icon: "🅰️",
+            questions: [
+                {
+                    q: "Explain Angular architecture: modules, components, services, and dependency injection",
+                    a: `
+                        <div class="answer-section">
+                            <h4>Angular Architecture Overview</h4>
+                            <p>Angular is a component-based framework built around modules, components, templates, services and dependency injection (DI).</p>
+                        </div>
+
+                        <div class="answer-section">
+                            <h4>Modules</h4>
+                            <p>NgModules group related pieces (components, directives, pipes, services). AppModule bootstraps the app; feature modules enable lazy loading and separation of concerns.</p>
+                        </div>
+
+                        <div class="answer-section">
+                            <h4>Components</h4>
+                            <p>Components are the UI building blocks: a TypeScript class, a template (HTML), and metadata. They form a tree; each component owns its view and lifecycle hooks.</p>
+                                                        <div class="code-block"><code>// Simple component
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-hello',
+    template: &#96;<h2>Hello {{name}}</h2>&#96;
+})
+export class HelloComponent {
+    name = 'World';
+}</code></div>
+                        </div>
+
+                        <div class="answer-section">
+                            <h4>Services & DI</h4>
+                            <p>Services encapsulate business logic or shared state. Angular's DI system injects service instances into components or other services via constructor parameters.</p>
+                                                        <div class="code-block"><code>// Service
+import { Injectable } from '@angular/core';
+
+@Injectable({ providedIn: 'root' })
+export class ApiService {
+    getUsers() { return fetch('/api/users'); }
+}
+
+// Injecting into a component
+constructor(private api: ApiService) { }
+</code></div>
+                        </div>
+
+                                                <div class="tip">Use feature modules and lazy loading to keep initial bundles small. Prefer <code>providedIn: 'root'</code> for singleton services unless scope-specific instances are needed.</div>
+                    `
+                },
+                {
+                    q: "How does Angular change detection work and what is Zone.js?",
+                    a: `
+                        <div class="answer-section">
+                            <h4>Change Detection</h4>
+                            <p>Angular's change detection walks the component tree and updates the DOM when model values change. By default it runs after async events (promises, XHR, timers) and when event handlers execute.</p>
+                        </div>
+
+                        <div class="answer-section">
+                            <h4>Zone.js</h4>
+                                                        <p>Zone.js patches async APIs and notifies Angular when to run change detection. For performance, use <code>ChangeDetectionStrategy.OnPush</code> and immutable data to reduce checks.</p>
+                            <div class="code-block"><code>// OnPush example
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'item',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: &#96;{{item.name}}&#96;
+})
+export class ItemComponent { @Input() item: any; }</code></div>
+                        </div>
+
+                                                <div class="tip">OnPush requires inputs to change by reference. Use <code>markForCheck()</code> or observable patterns when updating nested state.</div>
+                    `
+                },
+                {
+                    q: "When should I use Observables (RxJS) vs Promises in Angular?",
+                    a: `
+                        <div class="answer-section">
+                            <h4>Observables vs Promises</h4>
+                            <p>Use Observables for streams of values, cancellation, composition, and operators (map, filter, switchMap). Use Promises for single async results when you don't need streaming or cancellation.</p>
+                        </div>
+
+                        <div class="answer-section">
+                            <h4>Example: HTTP with RxJS</h4>
+                            <div class="code-block"><code>this.http.get('/api/items')
+  .pipe(
+    map(items => items.filter(i => i.active)),
+    catchError(err => of([]))
+  )
+  .subscribe(items => this.items = items);</code></div>
+                        </div>
+
+                        <div class="tip">Prefer <code>async</code> pipe in templates to subscribe/unsubscribe automatically: <code>*ngFor="let x of items$ | async"</code>.</div>
+                    `
+                },
+                {
+                    q: "How to optimize Angular app performance (lazy loading, AOT, bundle size)?",
+                    a: `
+                        <div class="answer-section">
+                            <h4>Performance Checklist</h4>
+                            <ul>
+                                <li>Enable AOT (ahead-of-time) compilation for smaller bundles and faster startup.</li>
+                                <li>Use lazy-loaded feature modules with the router to split code.</li>
+                                <li>Use <code>ChangeDetectionStrategy.OnPush</code> where possible.</li>
+                                <li>Limit polyfills and use differential loading / modern bundles.</li>
+                                <li>Tree-shake and analyze bundle with <code>source-map-explorer</code> or <code>ng build --stats-json</code>.</li>
+                            </ul>
+                        </div>
+
+                        <div class="answer-section">
+                            <h4>Lazy Loading Example</h4>
+                            <div class="code-block"><code>// In your routing module
+{ path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }</code></div>
+                        </div>
+                    `
+                },
+                {
+                    q: "Explain Angular forms: template-driven vs reactive forms",
+                    a: `
+                        <div class="answer-section">
+                            <h4>Template-Driven Forms</h4>
+                                                        <p>Quick to implement for simple forms using <code>ngModel</code>. Less explicit control, suitable for small forms.</p>
+                        </div>
+
+                        <div class="answer-section">
+                            <h4>Reactive Forms</h4>
+                                                        <p>Programmatic, immutable updates via <code>FormGroup</code> / <code>FormControl</code>. Better for complex validation, dynamic forms, and unit testing.</p>
+                            <div class="code-block"><code>// Reactive example
+this.form = new FormGroup({
+  name: new FormControl('', [Validators.required]),
+  email: new FormControl('', [Validators.required, Validators.email])
+});
+
+// In template: <form [formGroup]="form"><input formControlName="name"></form></code></div>
+                        </div>
+
+                        <div class="example">Choose reactive forms for complex scenarios and template-driven for simple, quick forms.</div>
+                    `
+                }
+            ]
+        };
+
+        // Add Design Patterns topic
+        topicsData["Design Patterns"] = {
+            icon: "📐",
+            questions: [
+                {
+                    q: "Explain the Factory, Singleton, and Prototype patterns with Java examples",
+                    a: `
+                        <div class="answer-section">
+                            <h4>Factory Pattern</h4>
+                            <p>Factory encapsulates object creation. Use when you need flexible creation logic.</p>
+                            <div class="code-block"><code>// Simple factory
+public class ShapeFactory {
+    public static Shape create(String type) {
+        if ("circle".equals(type)) return new Circle();
+        if ("square".equals(type)) return new Square();
+        throw new IllegalArgumentException("Unknown type");
+    }
+}</code></div>
+                        </div>
+
+                        <div class="answer-section">
+                            <h4>Singleton Pattern</h4>
+                            <p>Singleton provides a single shared instance. Use enums or holder idioms for threadsafe singletons.</p>
+                            <div class="code-block"><code>// Enum singleton (recommended)
+public enum Config {
+    INSTANCE;
+    private Map<String,String> values = new HashMap<>();
+}
+</code></div>
+                        </div>
+
+                        <div class="answer-section">
+                            <h4>Prototype Pattern</h4>
+                            <p>Prototype clones existing objects rather than creating from scratch. Useful when construction is expensive.</p>
+                            <div class="code-block"><code>// Prototype via clone()
+public class LargeObject implements Cloneable {
+    public LargeObject clone() throws CloneNotSupportedException { return (LargeObject) super.clone(); }
+}
+</code></div>
+                        </div>
+                    `
+                },
+                {
+                    q: "Strategy vs Template Method — when to use which?",
+                    a: `
+                        <div class="answer-section">
+                            <h4>Strategy</h4>
+                            <p>Encapsulates interchangeable algorithms as objects and selects them at runtime.</p>
+                        </div>
+                        <div class="answer-section">
+                            <h4>Template Method</h4>
+                            <p>Defines an algorithm skeleton in a superclass and lets subclasses override steps.</p>
+                            <div class="code-block"><code>// Strategy: pass behavior as object
+public interface SortBehavior { void sort(List&lt;T&gt; items); }
+
+// Template Method: base class defines steps
+public abstract class DataProcessor {
+  public final void process(){ read(); transform(); write(); }
+  protected abstract void transform();
+}
+</code></div>
+                        </div>
+                    `
+                },
+                {
+                    q: "Dependency Injection vs Service Locator — trade-offs?",
+                    a: `
+                        <div class="answer-section">
+                            <p>DI makes dependencies explicit and testable; Service Locator hides wiring behind a lookup API which can make testing harder. Prefer DI for clarity and testability.</p>
+                        </div>
+                    `
+                }
+            ]
+        };
+
+        // Add MongoDB topic (detailed)
+        topicsData["MongoDB"] = {
+            icon: "🍃",
+            questions: [
+                {
+                    q: "When is MongoDB a good choice (pros and cons)?",
+                    a: `
+                        <div class="answer-section">
+                            <h4>When to Choose MongoDB</h4>
+                            <ul>
+                                <li>Flexible / evolving schemas (documents allow varying fields)</li>
+                                <li>Hierarchical or nested data that maps naturally to JSON/BSON</li>
+                                <li>High write throughput and horizontal scalability via sharding</li>
+                                <li>Rapid prototyping and developer productivity</li>
+                            </ul>
+                            <h4>Trade-offs</h4>
+                            <ul>
+                                <li>No built-in JOINs — joins are possible but may increase complexity</li>
+                                <li>Schema design responsibility shifts to developers (must model for queries)</li>
+                                <li>Transactions across many documents have overhead compared to single-document ops</li>
+                            </ul>
+                        </div>
+                    `
+                },
+                {
+                    q: "Data modeling: embedding vs referencing with examples",
+                    a: `
+                        <div class="answer-section">
+                            <h4>Embedding</h4>
+                            <p>Embed when related data is always read together and size is bounded. Good for one-to-few relations.</p>
+                            <div class="code-block"><code>{
+  "_id": "order1",
+  "customer": { "id": 123, "name": "Alice" },
+  "items": [ { "sku": "p1", "qty": 2 }, { "sku": "p2", "qty": 1 } ]
+}</code></div>
+
+                            <h4>Referencing</h4>
+                            <p>Reference when child collections are large, frequently updated independently, or many-to-many relations exist.</p>
+                            <div class="code-block"><code>// orders collection
+{ "_id": "order1", "customerId": 123, "items": [ ... ] }
+
+// customers collection
+{ "_id": 123, "name": "Alice" }</code></div>
+                            <div class="tip">Design for the application's read and write patterns. Favor embedding for read-heavy denormalized views and referencing when relationships are large or updated separately.</div>
+                        </div>
+                    `
+                },
+                {
+                    q: "Common CRUD and aggregation examples (shell / JavaScript)",
+                    a: `
+                        <div class="answer-section">
+                            <h4>Basic CRUD (mongo shell / Node)</h4>
+                            <div class="code-block"><code>// Insert
+db.users.insertOne({ name: 'Alice', email: 'alice@example.com' })
+
+// Query
+db.users.find({ email: /@example.com$/ })
+
+// Update
+db.users.updateOne({ name: 'Alice' }, { $set: { active: true } })
+
+// Delete
+db.users.deleteOne({ name: 'Alice' })</code></div>
+
+                            <h4>Aggregation (example: top categories)</h4>
+                            <div class="code-block"><code>db.orders.aggregate([
+  { $unwind: '$items' },
+  { $group: { _id: '$items.sku', total: { $sum: '$items.qty' } } },
+  { $sort: { total: -1 } },
+  { $limit: 10 }
+])</code></div>
+                        </div>
+                    `
+                },
+                {
+                    q: "Indexing strategies and examples",
+                    a: `
+                        <div class="answer-section">
+                            <p>Use indexes to speed up queries. Types include single-field, compound, multikey (arrays), text, hashed, and TTL indexes.</p>
+                            <div class="code-block"><code>// Single-field index
+db.users.createIndex({ email: 1 })
+
+// Compound index for common query patterns
+db.orders.createIndex({ customerId: 1, createdAt: -1 })
+
+// TTL index for expiring sessions
+db.sessions.createIndex({ createdAt: 1 }, { expireAfterSeconds: 3600 })</code></div>
+                            <div class="tip">Analyze queries with <code>db.collection.explain()</code> and prefer indexes that match your most frequent filters and sort orders. Avoid too many indexes on write-heavy collections.</div>
+                        </div>
+                    `
+                },
+                {
+                    q: "Replication, sharding, and high availability details",
+                    a: `
+                        <div class="answer-section">
+                            <h4>Replica Sets</h4>
+                            <p>Replica sets provide redundancy and automatic failover. Configure a primary and multiple secondaries; secondaries replicate the oplog.</p>
+                            <div class="code-block"><code>// Start a replica set (example)
+mongod --replSet rs0 --dbpath /data/db1 --port 27017
+// Initiate in mongo shell
+rs.initiate({ _id: 'rs0', members: [ { _id: 0, host: 'localhost:27017' } ] })</code></div>
+
+                            <h4>Sharding</h4>
+                            <p>Sharding partitions data across shards for horizontal scale. Choose a shard key that provides good cardinality and query distribution.</p>
+                            <div class="code-block"><code>// Enable sharding on DB
+sh.enableSharding('mydb')
+// Shard collection
+sh.shardCollection('mydb.orders', { customerId: 1 })</code></div>
+                        </div>
+                    `
+                },
+                {
+                    q: "Transactions and ACID support",
+                    a: `
+                        <div class="answer-section">
+                            <p>MongoDB supports multi-document ACID transactions for replica sets (4.0+) and sharded clusters (4.2+). Use transactions sparingly; design schemas to minimize cross-document dependencies when possible.</p>
+                            <div class="code-block"><code>// Example (Node.js / mongo shell style)
+const session = client.startSession();
+session.startTransaction();
+try {
+  db.users.updateOne({ _id: u1 }, { $inc: { balance: -100 } }, { session });
+  db.users.updateOne({ _id: u2 }, { $inc: { balance: 100 } }, { session });
+  session.commitTransaction();
+} catch (e) {
+  session.abortTransaction();
+}
+session.endSession();</code></div>
+                        </div>
+                    `
+                },
+                {
+                    q: "Backup, restore, and maintenance commands",
+                    a: `
+                        <div class="answer-section">
+                            <p>Use <code>mongodump</code>/<code>mongorestore</code> for logical backups, and filesystem snapshots for larger deployments. Monitor oplog size and disk usage regularly.</p>
+                            <div class="code-block"><code>// Logical backup
+mongodump --uri="mongodb://user:pass@host:27017/mydb" --out=/backups/mydb
+
+// Restore
+mongorestore --uri="mongodb://user:pass@host:27017/" /backups/mydb</code></div>
+                        </div>
+                    `
+                },
+                {
+                    q: "Security and production hardening",
+                    a: `
+                        <div class="answer-section">
+                            <ul>
+                                <li>Enable authentication and create least-privilege users/roles</li>
+                                <li>Use TLS for client and inter-node encryption</li>
+                                <li>Enable IP-based network controls and VPCs</li>
+                                <li>Keep MongoDB and drivers up to date</li>
+                            </ul>
+                            <div class="tip">Avoid running with --auth disabled in production. Rotate credentials and audit access logs periodically.</div>
+                        </div>
+                    `
+                },
+                {
+                    q: "Monitoring and performance tuning tips",
+                    a: `
+                        <div class="answer-section">
+                            <p>Monitor with <code>mongostat</code>, <code>mongotop</code>, Cloud Manager / Ops Manager, or Prometheus exporters. Key metrics: operation counts, replication lag, cache hit ratio, index usage, and slow queries.</p>
+                            <div class="code-block"><code>// Quick checks
+mongostat --host localhost:27017
+mongotop --host localhost:27017</code></div>
+                            <div class="tip">Profile slow queries, add appropriate indexes, and avoid large unbounded collection scans. Use connection pooling in application drivers.</div>
+                        </div>
+                    `
+                }
+            ]
         };
 
         // Initialize UI
