@@ -3731,14 +3731,16 @@ mongotop --host localhost:27017</code></div>
         initializeUI();
     </script>
 
-<div id="dev-snippet-container"></div>
-<script>
-  fetch('dev-snippet.html')
-    .then(r => r.text())
-    .then(html => {
-      document.getElementById('dev-snippet-container').innerHTML = html;
-    });
-</script>
+    <div id="footer-container"></div>
+
+   <script>
+     fetch('dev-snippet.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('footer-container').innerHTML = html;
+      });
+   </script>
+
 
     
 </body>
