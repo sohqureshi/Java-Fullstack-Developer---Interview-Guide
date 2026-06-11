@@ -69,6 +69,8 @@
                 gtag('js', new Date());
                 gtag('config', 'G-X5Z3Q8P49G');
         </script>
+        <!-- Font Awesome (icons) -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         * {
             margin: 0;
@@ -732,12 +734,19 @@
             .nav-buttons { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 6px; }
             .question-body { font-size: 0.94em; }
             .answer-section p, .answer-section ul { font-size: 0.92em; line-height: 1.4; }
-            /* Mobile: hide full toolbar labels, show more menu */
-            .toolbar-actions { display: none; }
-            .more-btn { display: inline-flex; align-items:center; }
+            /* Mobile: show compact toolbar as icon-only buttons and keep more menu */
+            .toolbar-actions { display: flex; gap: 6px; align-items: center; }
+            .toolbar-actions .label { display: none; }
+            .toolbar-actions .icon { margin-right: 0; display: inline-flex; width: 1.2em; justify-content: center; }
+            .toolbar-actions button { padding: 8px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
+            /* Hide the overflow menu button when toolbar icons are visible to avoid duplication */
+            .more-btn { display: none; }
             .more-menu { right: 12px; top: 110px; }
             .study-toolbar { position: relative; }
-            .search-box { width: calc(100% - 48px); }
+            .search-box { width: calc(100% - 96px); }
+            /* Restore wrapping grid for topic buttons on small screens */
+            .nav-buttons { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; }
+            .nav-buttons button { min-width: 0; white-space: normal; }
         }
     </style>
 </head>
@@ -755,11 +764,11 @@
             <div class="study-toolbar">
                 <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search topics or questions...">
                 <div class="toolbar-actions" role="toolbar" aria-label="Study actions">
-                    <button id="allTopicsBtn"><span class="icon">📚</span><span class="label">All Topics</span></button>
-                    <button id="expandAllBtn"><span class="icon">🔼</span><span class="label">Expand All</span></button>
-                    <button id="collapseAllBtn"><span class="icon">🔽</span><span class="label">Collapse All</span></button>
+                    <button id="allTopicsBtn"><span class="icon"><i class="fas fa-book"></i></span><span class="label">All Topics</span></button>
+                    <button id="expandAllBtn"><span class="icon"><i class="fas fa-chevron-up"></i></span><span class="label">Expand All</span></button>
+                    <button id="collapseAllBtn"><span class="icon"><i class="fas fa-chevron-down"></i></span><span class="label">Collapse All</span></button>
                 </div>
-                <button id="moreActionsBtn" class="more-btn" aria-haspopup="true" aria-expanded="false">⋯</button>
+                <button id="moreActionsBtn" class="more-btn" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
                 <div id="moreActionsMenu" class="more-menu" role="menu" aria-hidden="true">
                     <button role="menuitem" data-action="all">All Topics</button>
                     <button role="menuitem" data-action="expand">Expand All</button>
@@ -778,7 +787,7 @@
     <script>
         const topicsData = {
             "Core Java & OOP": {
-                icon: "☕",
+                icon: "<i class=\"fas fa-coffee\"></i>",
                 questions: [
                     {
                         q: "Explain the four pillars of OOP with real-world Java examples",
@@ -1228,7 +1237,7 @@ public void increment(String key) {
                 ]
             },
             "Java 8+ Features": {
-                icon: "⚡",
+                icon: "<i class=\"fas fa-bolt\"></i>",
                 questions: [
                     {
                         q: "What are lambda expressions and functional interfaces?",
@@ -1536,7 +1545,7 @@ String formatted = meeting.format(DateTimeFormatter.ISO_ZONED_DATE_TIME);</code>
                 ]
             },
             "Java 21 LTS": {
-                icon: "21",
+                icon: "<i class=\"fas fa-code\"></i>",
                 questions: [
                     {
                         q: "What are the most important Java 21 features for interviews?",
@@ -1943,7 +1952,7 @@ void main() {
                 ]
             },
             "Spring Boot & Microservices": {
-                icon: "🚀",
+                icon: "<i class=\"fas fa-rocket\"></i>",
                 questions: [
                     {
                         q: "How does Spring Boot auto-configuration work?",
@@ -2212,7 +2221,7 @@ class TransferService {
                 ]
             },
             "Database & SQL": {
-                icon: "🗄️",
+                icon: "<i class=\"fas fa-database\"></i>",
                 questions: [
                     {
                         q: "Explain database indexing and when NOT to index",
@@ -2395,7 +2404,7 @@ ORDER BY order_count DESC;</code></div>
                 ]
             },
             "System Design": {
-                icon: "🏗️",
+                icon: "<i class=\"fas fa-project-diagram\"></i>",
                 questions: [
                     {
                         q: "Design a scalable URL shortener. Walk through your decisions.",
@@ -2629,7 +2638,7 @@ COMMIT;
                 ]
             },
             "Leadership & Behavioural": {
-                icon: "🎯",
+                icon: "<i class=\"fas fa-bullseye\"></i>",
                 questions: [
                     {
                         q: "How do you mentor junior developers with tight deadlines?",
@@ -2770,7 +2779,7 @@ Good: "Add contract test for payment timeout response by Friday, owner: Sohail"<
 
         // Add Angular topic dynamically to keep object literal simple
         topicsData["Angular"] = {
-            icon: "🅰️",
+            icon: "<i class=\"fab fa-angular\"></i>",
             questions: [
                 {
                     q: "Explain Angular architecture: modules, components, services, and dependency injection",
@@ -2954,7 +2963,7 @@ export class CartStore {
 
         // Add Design Patterns topic
         topicsData["Design Patterns"] = {
-            icon: "📐",
+            icon: "<i class=\"fas fa-cogs\"></i>",
             questions: [
                 {
                     q: "Explain the Factory, Singleton, and Prototype patterns with Java examples",
@@ -3090,7 +3099,7 @@ class CachedPriceService implements PriceService {
 
         // Add MongoDB topic (detailed)
         topicsData["MongoDB"] = {
-            icon: "🍃",
+            icon: "<i class=\"fas fa-leaf\"></i>",
             questions: [
                 {
                     q: "When is MongoDB a good choice (pros and cons)?",
@@ -3364,7 +3373,7 @@ mongotop --host localhost:27017</code></div>
             const navButtons = document.getElementById('navButtons');
             for (const topic in topicsData) {
                 const btn = document.createElement('button');
-                btn.textContent = `${topicsData[topic].icon} ${topic}`;
+                btn.innerHTML = `${topicsData[topic].icon} ${topic}`;
                 btn.dataset.topic = topic;
                 btn.className = topic === Object.keys(topicsData)[0] ? 'active' : '';
                 btn.addEventListener('click', () => selectTopic(topic, btn));
@@ -3399,7 +3408,7 @@ mongotop --host localhost:27017</code></div>
                             </div>
                                 <div class="question-line" onclick="toggleQuestion(this.closest('.question'))">
                                 <span class="question-text"><span class="q-badge">Q${idx + 1}</span>${q.q}</span>
-                                <span class="toggle" onclick="toggleQuestion(this.closest('.question'))">▼</span>
+                                <span class="toggle" onclick="toggleQuestion(this.closest('.question'))"><i class="fas fa-chevron-down"></i></span>
                             </div>
                         </h3>
                         <div class="question-body">${q.a}</div>
@@ -3550,7 +3559,7 @@ mongotop --host localhost:27017</code></div>
                                     </div>
                                             <div class="question-line" onclick="toggleQuestion(this.closest('.question'))">
                                                 <span class="question-text"><span class="q-badge">${total}</span>${escapeHtml(qItem.q)}</span>
-                                                <span class="toggle" onclick="toggleQuestion(this.closest('.question'))">▼</span>
+                                                <span class="toggle" onclick="toggleQuestion(this.closest('.question'))"><i class="fas fa-chevron-down"></i></span>
                                             </div>
                                 </h3>
                                 <div class="question-body">${qItem.a}</div>
@@ -3597,7 +3606,7 @@ mongotop --host localhost:27017</code></div>
                                 </div>
                                     <div class="question-line" onclick="toggleQuestion(this.closest('.question'))">
                                     <span class="question-text"><span class="q-badge">Q${idx + 1}</span>${q.q}</span>
-                                    <span class="toggle" onclick="toggleQuestion(this.closest('.question'))">▼</span>
+                                    <span class="toggle" onclick="toggleQuestion(this.closest('.question'))"><i class="fas fa-chevron-down"></i></span>
                                 </div>
                             </h3>
                             <div class="question-body">${q.a}</div>
