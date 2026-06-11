@@ -1,5 +1,5 @@
-# Java Full-Stack Developer Interview-Guide
-Java Full-Stack Developer - Interview Guide
+# Java Full-Stack Developer Interview Guide
+Java Full Stack Interview Prep — in-depth guide for senior Java developers covering Core Java, Spring Boot, Microservices, System Design, Angular, MongoDB, and Design Patterns.
 
 ## Demo
 Live demo: https://sohqureshi.github.io/Java-Fullstack-Developer---Interview-Guide/
