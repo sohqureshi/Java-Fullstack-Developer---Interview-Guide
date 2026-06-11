@@ -213,6 +213,39 @@
             text-align: center;
         }
 
+        .toolbar-actions button .icon { display:inline-block; margin-right:8px; }
+        .toolbar-actions button .label { display:inline-block; }
+
+        .more-btn {
+            display: none;
+            background: #f8fafc;
+            border: 1px solid rgba(102,126,234,0.14);
+            padding: 8px 10px;
+            border-radius: 8px;
+            margin-left: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .more-menu {
+            display: none;
+            position: absolute;
+            right: 24px;
+            top: 84px;
+            background: white;
+            border: 1px solid rgba(2,6,23,0.06);
+            box-shadow: 0 8px 24px rgba(2,6,23,0.08);
+            border-radius: 8px;
+            padding: 6px;
+            z-index: 80;
+            min-width: 160px;
+        }
+
+        .more-menu button { display:block; width:100%; text-align:left; padding:8px 10px; border:none; background:transparent; cursor:pointer; }
+        .more-menu button:hover { background: rgba(102,126,234,0.04); }
+
+        .hidden { display: none !important; }
+
         .toolbar-actions button:hover {
             box-shadow: 0 8px 20px rgba(15,23,42,0.08);
         }
@@ -286,6 +319,38 @@
             box-shadow: 0 6px 18px rgba(15,23,42,0.04);
         }
 
+        .read-label {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 8px;
+        }
+
+        .read-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(102,126,234,0.12);
+            background: #f8fafc;
+            color: #334155;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.85em;
+            margin-right: 10px;
+        }
+
+        .read-toggle.read {
+            background: linear-gradient(90deg,#dfe7ff,#e9dfff);
+            color: #374151;
+            border-color: rgba(102,126,234,0.28);
+        }
+
+        .question.read {
+            opacity: 0.85;
+            filter: grayscale(6%);
+        }
+
         .question:hover,
         .question:focus {
             transform: translateY(-3px);
@@ -302,12 +367,58 @@
             color: #0f1724;
             margin-bottom: 6px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
+            flex-direction: column;
+            gap: 6px;
             font-size: clamp(0.95rem, 3vw, 1.02em);
             font-weight: 600;
         }
+
+        .question-top {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: 100%;
+        }
+
+        .question-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            gap: 8px;
+        }
+
+        .question-text {
+            display: inline-block;
+            flex: 1 1 auto;
+        }
+
+        .q-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: linear-gradient(90deg,#667eea,#764ba2);
+            color: white;
+            font-weight: 700;
+            margin-right: 10px;
+            font-size: 0.85em;
+            box-shadow: 0 6px 18px rgba(102,77,204,0.12);
+        }
+
+        .question-line .question-text { display:flex; align-items:center; gap:8px; }
+
+        .toggle {
+            color: #667eea;
+            font-size: 1.15em;
+            font-weight: 800;
+            transition: transform 0.18s ease, color 0.18s ease;
+        }
+
+        .question:hover .read-toggle { transform: translateY(-2px); }
+        .read-toggle { transition: background 0.18s ease, transform 0.12s ease; }
 
         .question .toggle {
             color: #667eea;
@@ -604,21 +715,29 @@
         }
 
         @media (max-width: 420px) {
-            body { font-size: 14px; }
-            header { padding: 18px 14px; }
-            header h1 { font-size: 1.2rem; }
-            header p { font-size: 0.95em; }
-            .search-box { padding: 8px 10px; font-size: 0.95em; }
-            .toolbar-actions button { padding: 8px 10px; font-size: 0.9em; }
-            .content { padding: 14px; }
-            .question { padding: 12px; }
-            .code-block { font-size: 0.82em; padding: 10px 12px; }
-            button { font-size: 0.9em; }
-            .topic h2 { font-size: 1.1rem; }
-            .container { padding: 12px; }
-            .nav-buttons { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; }
-            .question-body { font-size: 0.95em; }
-            .answer-section p, .answer-section ul { font-size: 0.95em; line-height: 1.5; }
+            body { font-size: 13.5px; }
+            header { padding: 16px 12px; }
+            header h1 { font-size: 1.05rem; }
+            header p { font-size: 0.92em; }
+            .search-box { padding: 8px 10px; font-size: 0.92em; }
+            .toolbar-actions button { padding: 7px 10px; font-size: 0.85em; }
+            .content { padding: 12px; }
+            .question { padding: 10px; }
+            .question h3 { font-size: 0.95rem; gap: 8px; align-items: center; flex-wrap: wrap; }
+            .read-toggle { font-size: 0.78rem; padding: 5px 8px; margin-right: 6px; white-space: nowrap; }
+            .code-block { font-size: 0.78em; padding: 8px 10px; }
+            button { font-size: 0.88em; }
+            .topic h2 { font-size: 1.02rem; }
+            .container { padding: 10px; }
+            .nav-buttons { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 6px; }
+            .question-body { font-size: 0.94em; }
+            .answer-section p, .answer-section ul { font-size: 0.92em; line-height: 1.4; }
+            /* Mobile: hide full toolbar labels, show more menu */
+            .toolbar-actions { display: none; }
+            .more-btn { display: inline-flex; align-items:center; }
+            .more-menu { right: 12px; top: 110px; }
+            .study-toolbar { position: relative; }
+            .search-box { width: calc(100% - 48px); }
         }
     </style>
 </head>
@@ -635,10 +754,16 @@
         <div class="nav-section">
             <div class="study-toolbar">
                 <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search topics or questions...">
-                <div class="toolbar-actions">
-                    <button id="allTopicsBtn">All Topics</button>
-                    <button id="expandAllBtn">Expand All</button>
-                    <button id="collapseAllBtn">Collapse All</button>
+                <div class="toolbar-actions" role="toolbar" aria-label="Study actions">
+                    <button id="allTopicsBtn"><span class="icon">📚</span><span class="label">All Topics</span></button>
+                    <button id="expandAllBtn"><span class="icon">🔼</span><span class="label">Expand All</span></button>
+                    <button id="collapseAllBtn"><span class="icon">🔽</span><span class="label">Collapse All</span></button>
+                </div>
+                <button id="moreActionsBtn" class="more-btn" aria-haspopup="true" aria-expanded="false">⋯</button>
+                <div id="moreActionsMenu" class="more-menu" role="menu" aria-hidden="true">
+                    <button role="menuitem" data-action="all">All Topics</button>
+                    <button role="menuitem" data-action="expand">Expand All</button>
+                    <button role="menuitem" data-action="collapse">Collapse All</button>
                 </div>
             </div>
             <div class="search-feedback" id="searchFeedback"></div>
@@ -3181,6 +3306,59 @@ mongotop --host localhost:27017</code></div>
             ]
         };
 
+        // Helpers: ID sanitization and localStorage for read questions
+        function sanitizeId(str) {
+            return String(str).replace(/\s+/g, '_').replace(/[^\w\-]/g, '').toLowerCase();
+        }
+
+        function getReadSet() {
+            try {
+                const raw = localStorage.getItem('readQuestions');
+                const arr = raw ? JSON.parse(raw) : [];
+                return new Set(arr);
+            } catch (e) {
+                return new Set();
+            }
+        }
+
+        function saveReadSet(set) {
+            try {
+                const arr = Array.from(set);
+                localStorage.setItem('readQuestions', JSON.stringify(arr));
+            } catch (e) {
+                console.warn('Could not save read set', e);
+            }
+        }
+
+        function onReadToggleClick(e) {
+            // Prevent the parent question click from toggling
+            e.stopPropagation();
+            const btn = e.currentTarget || e.target;
+            const qid = btn.dataset.id;
+            if (!qid) return;
+            const readSet = getReadSet();
+            const willBeRead = !readSet.has(qid);
+            if (willBeRead) readSet.add(qid); else readSet.delete(qid);
+            saveReadSet(readSet);
+            // Update UI
+            btn.classList.toggle('read', willBeRead);
+            btn.setAttribute('aria-pressed', willBeRead ? 'true' : 'false');
+            btn.textContent = willBeRead ? 'Read ✓' : 'Mark as read';
+            const questionEl = btn.closest('.question');
+            if (questionEl) questionEl.classList.toggle('read', willBeRead);
+        }
+
+        function markQuestionReadById(qid, checked) {
+            const btn = document.querySelector(`.read-toggle[data-id="${qid}"]`);
+            if (btn) {
+                btn.classList.toggle('read', !!checked);
+                btn.setAttribute('aria-pressed', !!checked);
+                btn.textContent = !!checked ? 'Read ✓' : 'Mark as read';
+                const questionEl = btn.closest('.question');
+                if (questionEl) questionEl.classList.toggle('read', !!checked);
+            }
+        }
+
         // Initialize UI
         function initializeUI() {
             const navButtons = document.getElementById('navButtons');
@@ -3206,13 +3384,23 @@ mongotop --host localhost:27017</code></div>
             const contentArea = document.getElementById('contentArea');
             const topicData = topicsData[topic];
 
+            const readSet = getReadSet();
             let html = `<h2>${topicData.icon} ${topic}</h2>`;
             topicData.questions.forEach((q, idx) => {
+                const qid = `${sanitizeId(topic)}-${idx}`;
+                const isRead = readSet.has(qid);
+                const readClass = isRead ? ' read' : '';
+                const checkedAttr = isRead ? 'checked' : '';
                 html += `
-                    <div class="question" onclick="toggleQuestion(this)">
+                    <div class="question${readClass}" data-qid="${qid}">
                         <h3>
-                            Q${idx + 1}. ${q.q}
-                            <span class="toggle">▼</span>
+                            <div class="question-top">
+                                <button type="button" class="read-toggle ${isRead ? 'read' : ''}" data-id="${qid}" aria-pressed="${isRead ? 'true' : 'false'}" onclick="onReadToggleClick(event)">${isRead ? 'Read ✓' : 'Mark as read'}</button>
+                            </div>
+                                <div class="question-line" onclick="toggleQuestion(this.closest('.question'))">
+                                <span class="question-text"><span class="q-badge">Q${idx + 1}</span>${q.q}</span>
+                                <span class="toggle" onclick="toggleQuestion(this.closest('.question'))">▼</span>
+                            </div>
                         </h3>
                         <div class="question-body">${q.a}</div>
                     </div>
@@ -3222,10 +3410,12 @@ mongotop --host localhost:27017</code></div>
             contentArea.innerHTML = html;
             // highlight code after rendering
             highlightAllCodeBlocks();
+            updateExpandCollapseButtons();
         }
 
         function toggleQuestion(el) {
             el.classList.toggle('open');
+            updateExpandCollapseButtons();
         }
 
         // Lightweight tokenizer-based highlighter for code blocks (Java-like)
@@ -3332,6 +3522,7 @@ mongotop --host localhost:27017</code></div>
             // Clear active nav state while showing search results
             document.querySelectorAll('.nav-buttons button').forEach(b => b.classList.remove('active'));
 
+            const readSet = getReadSet();
             let html = '';
             let total = 0;
             let topicCount = 0;
@@ -3346,11 +3537,21 @@ mongotop --host localhost:27017</code></div>
                     html += `<h2>${topicsData[topic].icon} ${topic}</h2>`;
                     matches.forEach((qItem) => {
                         total++;
+                        const idxInTopic = topicsData[topic].questions.indexOf(qItem);
+                        const qid = `${sanitizeId(topic)}-${idxInTopic}`;
+                        const isRead = readSet.has(qid);
+                        const readClass = isRead ? ' read' : '';
+                        const checkedAttr = isRead ? 'checked' : '';
                         html += `
-                            <div class="question" onclick="toggleQuestion(this)">
+                            <div class="question${readClass}" data-qid="${qid}">
                                 <h3>
-                                    ${total}. ${escapeHtml(qItem.q)}
-                                    <span class="toggle">▼</span>
+                                    <div class="question-top">
+                                        <button type="button" class="read-toggle ${isRead ? 'read' : ''}" data-id="${qid}" aria-pressed="${isRead ? 'true' : 'false'}" onclick="onReadToggleClick(event)">${isRead ? 'Read ✓' : 'Mark as read'}</button>
+                                    </div>
+                                            <div class="question-line" onclick="toggleQuestion(this.closest('.question'))">
+                                                <span class="question-text"><span class="q-badge">${total}</span>${escapeHtml(qItem.q)}</span>
+                                                <span class="toggle" onclick="toggleQuestion(this.closest('.question'))">▼</span>
+                                            </div>
                                 </h3>
                                 <div class="question-body">${qItem.a}</div>
                             </div>
@@ -3367,8 +3568,8 @@ mongotop --host localhost:27017</code></div>
 
             // Highlight code blocks and add line numbers
             highlightAllCodeBlocks();
-
             feedback.textContent = `${total} result${total !== 1 ? 's' : ''} across ${topicCount} topic${topicCount !== 1 ? 's' : ''}`;
+            updateExpandCollapseButtons();
         }
 
         document.getElementById('searchBox').addEventListener('input', function (e) {
@@ -3378,16 +3579,26 @@ mongotop --host localhost:27017</code></div>
         function renderAllTopics() {
             document.querySelectorAll('.nav-buttons button').forEach(b => b.classList.remove('active'));
             const contentArea = document.getElementById('contentArea');
+            const readSet = getReadSet();
             let html = '';
             for (const topic in topicsData) {
                 const topicData = topicsData[topic];
                 html += `<h2>${topicData.icon} ${topic}</h2>`;
                 topicData.questions.forEach((q, idx) => {
+                    const qid = `${sanitizeId(topic)}-${idx}`;
+                    const isRead = readSet.has(qid);
+                    const readClass = isRead ? ' read' : '';
+                    const checkedAttr = isRead ? 'checked' : '';
                     html += `
-                        <div class="question" onclick="toggleQuestion(this)">
+                        <div class="question${readClass}" data-qid="${qid}">
                             <h3>
-                                Q${idx + 1}. ${q.q}
-                                <span class="toggle">▼</span>
+                                <div class="question-top">
+                                    <button type="button" class="read-toggle ${isRead ? 'read' : ''}" data-id="${qid}" aria-pressed="${isRead ? 'true' : 'false'}" onclick="onReadToggleClick(event)">${isRead ? 'Read ✓' : 'Mark as read'}</button>
+                                </div>
+                                    <div class="question-line" onclick="toggleQuestion(this.closest('.question'))">
+                                    <span class="question-text"><span class="q-badge">Q${idx + 1}</span>${q.q}</span>
+                                    <span class="toggle" onclick="toggleQuestion(this.closest('.question'))">▼</span>
+                                </div>
                             </h3>
                             <div class="question-body">${q.a}</div>
                         </div>
@@ -3397,21 +3608,71 @@ mongotop --host localhost:27017</code></div>
             contentArea.innerHTML = html;
             // Highlight code blocks and add line numbers
             highlightAllCodeBlocks();
+            updateExpandCollapseButtons();
             document.getElementById('searchFeedback').textContent = '';
         }
 
         function expandAllQuestions() {
             document.querySelectorAll('.question').forEach(q => q.classList.add('open'));
+            updateExpandCollapseButtons();
         }
 
         function collapseAllQuestions() {
             document.querySelectorAll('.question').forEach(q => q.classList.remove('open'));
+            updateExpandCollapseButtons();
+        }
+
+        function updateExpandCollapseButtons() {
+            const anyOpen = document.querySelectorAll('.question.open').length > 0;
+            const expandBtn = document.getElementById('expandAllBtn');
+            const collapseBtn = document.getElementById('collapseAllBtn');
+            if (expandBtn && collapseBtn) {
+                if (anyOpen) {
+                    expandBtn.classList.add('hidden');
+                    collapseBtn.classList.remove('hidden');
+                } else {
+                    expandBtn.classList.remove('hidden');
+                    collapseBtn.classList.add('hidden');
+                }
+            }
         }
 
         // Wire toolbar buttons
         document.getElementById('allTopicsBtn').addEventListener('click', renderAllTopics);
         document.getElementById('expandAllBtn').addEventListener('click', expandAllQuestions);
         document.getElementById('collapseAllBtn').addEventListener('click', collapseAllQuestions);
+
+        // More menu (mobile)
+        const moreBtn = document.getElementById('moreActionsBtn');
+        const moreMenu = document.getElementById('moreActionsMenu');
+        if (moreBtn && moreMenu) {
+            moreBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                const open = moreMenu.style.display === 'block';
+                moreMenu.style.display = open ? 'none' : 'block';
+                moreBtn.setAttribute('aria-expanded', String(!open));
+                moreMenu.setAttribute('aria-hidden', String(open));
+            });
+
+            moreMenu.addEventListener('click', function (e) {
+                const btn = e.target.closest('button[data-action]');
+                if (!btn) return;
+                const action = btn.dataset.action;
+                if (action === 'all') renderAllTopics();
+                if (action === 'expand') expandAllQuestions();
+                if (action === 'collapse') collapseAllQuestions();
+                moreMenu.style.display = 'none';
+                moreBtn.setAttribute('aria-expanded', 'false');
+                moreMenu.setAttribute('aria-hidden', 'true');
+            });
+
+            // close on outside click
+            document.addEventListener('click', function () {
+                moreMenu.style.display = 'none';
+                moreBtn.setAttribute('aria-expanded', 'false');
+                moreMenu.setAttribute('aria-hidden', 'true');
+            });
+        }
 
         // Back to top button
         window.addEventListener('scroll', function () {
