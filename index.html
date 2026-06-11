@@ -76,14 +76,27 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace;
+            --base-size: 15px;
+            --muted-color: #64748b;
+            --heading-weight: 600;
+            --body-weight: 400;
+            --emphasis-weight: 700;
+            --radius: 10px;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: var(--font-sans);
             background: linear-gradient(135deg, #6b7ff0 0%, #6a4aa8 100%);
             color: #111827;
-            line-height: 1.6;
+            line-height: 1.55;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             padding: 30px 0;
+            font-size: var(--base-size);
+            font-weight: var(--body-weight);
         }
 
         .container {
@@ -104,15 +117,18 @@
 
         header h1 {
             color: #4c51bf;
-            font-size: 2.1rem;
+            font-size: clamp(1.25rem, 4vw, 2.0rem);
             margin-bottom: 6px;
-            letter-spacing: -0.5px;
-            font-weight: 700;
+            letter-spacing: -0.4px;
+            font-weight: var(--heading-weight);
+            line-height: 1.05;
         }
 
         header p {
             color: #666;
-            font-size: 1.1em;
+            font-size: clamp(0.92rem, 2.1vw, 1.02rem);
+            font-weight: 500;
+            opacity: 0.95;
         }
 
         .nav-section {
@@ -145,6 +161,7 @@
             color: white;
             box-shadow: 0 6px 14px rgba(83, 67, 217, 0.12);
             text-align: left;
+            font-family: var(--font-sans);
         }
 
         button:hover {
@@ -166,6 +183,44 @@
             background: #fff;
             outline: none;
             box-shadow: 0 6px 18px rgba(15,23,42,0.04) inset;
+        }
+
+        .study-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .study-stats {
+            color: #475569;
+            font-size: 0.92em;
+            font-weight: 600;
+        }
+
+        .toolbar-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-actions button {
+            background: #f8fafc;
+            color: #334155;
+            border: 1px solid rgba(102,126,234,0.18);
+            box-shadow: none;
+            text-align: center;
+        }
+
+        .toolbar-actions button:hover {
+            box-shadow: 0 8px 20px rgba(15,23,42,0.08);
+        }
+
+        .search-feedback {
+            color: #64748b;
+            font-size: 0.92em;
+            min-height: 1.4em;
         }
 
         .content {
@@ -202,6 +257,22 @@
             margin-bottom: 20px;
             border-bottom: 3px solid #667eea;
             padding-bottom: 10px;
+            font-size: clamp(1.1rem, 3vw, 1.6rem);
+        }
+
+        .topic-summary {
+            color: #64748b;
+            margin: -10px 0 18px;
+            font-weight: 600;
+        }
+
+        .empty-state {
+            color: #64748b;
+            background: #f8fafc;
+            border: 1px dashed rgba(102,126,234,0.28);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
         }
 
         .question {
@@ -215,9 +286,16 @@
             box-shadow: 0 6px 18px rgba(15,23,42,0.04);
         }
 
-        .question:hover {
+        .question:hover,
+        .question:focus {
             transform: translateY(-3px);
             box-shadow: 0 18px 34px rgba(15,23,42,0.06);
+            outline: none;
+        }
+
+        .question:focus {
+            border-left-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.18), 0 18px 34px rgba(15,23,42,0.06);
         }
 
         .question h3 {
@@ -227,8 +305,8 @@
             justify-content: space-between;
             align-items: center;
             gap: 12px;
-            font-size: 1.02em;
-            font-weight: 700;
+            font-size: clamp(0.95rem, 3vw, 1.02em);
+            font-weight: 600;
         }
 
         .question .toggle {
@@ -240,11 +318,12 @@
             transform-origin: center;
         }
 
-        .question-body {
+            .question-body {
             display: none;
             margin-top: 12px;
             padding-top: 12px;
             border-top: 1px dashed rgba(15,23,42,0.04);
+            font-size: 0.98em;
         }
 
         .question.open .question-body {
@@ -275,14 +354,16 @@
         .answer-section h4 {
             color: #764ba2;
             margin: 10px 0 8px 0;
-            font-size: 1.1em;
+            font-size: 1.02em;
+            font-weight: 600;
         }
 
-        .answer-section p,
+            .answer-section p,
         .answer-section ul {
             color: #555;
-            line-height: 1.8;
+            line-height: 1.6;
             margin-bottom: 10px;
+            font-size: 0.98em;
         }
 
         .answer-section ul {
@@ -300,12 +381,25 @@
             border-radius: 8px;
             overflow-x: auto;
             margin: 10px 0;
-            font-family: 'Courier New', monospace;
-            font-size: 0.95em;
+            font-family: var(--font-mono);
+            font-size: 0.9em;
             line-height: 1.5;
             box-shadow: 0 8px 24px rgba(2,6,23,0.35) inset;
             border: 1px solid rgba(255,255,255,0.02);
         }
+
+        /* Editor-like gutter and token colors */
+        .code-editor { display:flex; font-family:var(--font-mono); font-size:0.9em; }
+        .code-editor .gutter { background: rgba(0,0,0,0.12); padding: 10px 8px; text-align: right; user-select: none; border-radius: 6px 0 0 6px; color: rgba(255,255,255,0.5); }
+        .code-editor .gutter .ln { display:block; padding:0 6px; height:1.45em; }
+        .code-editor .code-content { padding: 10px 12px; overflow:auto; background: transparent; border-radius: 0 6px 6px 0; flex:1; }
+        .code-line { white-space: pre; min-height:1.45em; }
+        .token.comment { color: #6a9955; opacity:0.95; }
+        .token.keyword { color: #c586c0; font-weight:600; }
+        .token.string { color: #ce9178; }
+        .token.number { color: #b5cea8; }
+        .token.type { color: #4fc1ff; }
+
 
         /* Ensure code preserves whitespace, indentation and wraps sensibly */
         .code-block code {
@@ -482,9 +576,49 @@
                 grid-template-columns: 1fr;
             }
 
-            header h1 {
-                font-size: 1.8em;
+            .study-toolbar {
+                align-items: stretch;
             }
+
+            .toolbar-actions,
+            .toolbar-actions button {
+                width: 100%;
+            }
+
+            header h1 {
+                font-size: 1.4rem;
+            }
+
+            .search-box {
+                padding: 10px 12px;
+                font-size: 0.95em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .question {
+                padding: 14px 14px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            body { font-size: 14px; }
+            header { padding: 18px 14px; }
+            header h1 { font-size: 1.2rem; }
+            header p { font-size: 0.95em; }
+            .search-box { padding: 8px 10px; font-size: 0.95em; }
+            .toolbar-actions button { padding: 8px 10px; font-size: 0.9em; }
+            .content { padding: 14px; }
+            .question { padding: 12px; }
+            .code-block { font-size: 0.82em; padding: 10px 12px; }
+            button { font-size: 0.9em; }
+            .topic h2 { font-size: 1.1rem; }
+            .container { padding: 12px; }
+            .nav-buttons { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; }
+            .question-body { font-size: 0.95em; }
+            .answer-section p, .answer-section ul { font-size: 0.95em; line-height: 1.5; }
         }
     </style>
 </head>
@@ -499,7 +633,15 @@
         </header>
 
         <div class="nav-section">
-            <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search topics or questions...">
+            <div class="study-toolbar">
+                <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search topics or questions...">
+                <div class="toolbar-actions">
+                    <button id="allTopicsBtn">All Topics</button>
+                    <button id="expandAllBtn">Expand All</button>
+                    <button id="collapseAllBtn">Collapse All</button>
+                </div>
+            </div>
+            <div class="search-feedback" id="searchFeedback"></div>
             <div class="nav-buttons" id="navButtons"></div>
         </div>
 
@@ -3078,28 +3220,198 @@ mongotop --host localhost:27017</code></div>
             });
 
             contentArea.innerHTML = html;
+            // highlight code after rendering
+            highlightAllCodeBlocks();
         }
 
         function toggleQuestion(el) {
             el.classList.toggle('open');
         }
 
-        // Search functionality
-        document.getElementById('searchBox').addEventListener('keyup', function (e) {
-            const query = e.target.value.toLowerCase();
-            let found = false;
+        // Lightweight tokenizer-based highlighter for code blocks (Java-like)
+        function escapeHtml(str) {
+            return String(str).replace(/[&<>"']/g, function (m) {
+                return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"})[m];
+            });
+        }
+
+        function highlightCode(raw) {
+            const keywords = new Set(["public","private","protected","class","interface","extends","implements","new","return","if","else","for","while","switch","case","break","continue","try","catch","finally","void","int","long","double","float","boolean","char","static","final","import","package","this","super","throws","throw","enum","record","var","const"]);
+            let i = 0, len = raw.length, out = '';
+            while (i < len) {
+                const ch = raw[i];
+                // multiline comment
+                if (raw.startsWith('/*', i)) {
+                    const end = raw.indexOf('*/', i+2);
+                    const j = end === -1 ? len : end+2;
+                    out += '<span class="token comment">' + escapeHtml(raw.slice(i, j)) + '</span>';
+                    i = j; continue;
+                }
+                // line comment
+                if (raw.startsWith('//', i)) {
+                    const end = raw.indexOf('\n', i+2);
+                    const j = end === -1 ? len : end;
+                    out += '<span class="token comment">' + escapeHtml(raw.slice(i, j)) + '</span>';
+                    i = j; continue;
+                }
+                // string
+                if (ch === '"' || ch === "'") {
+                    const quote = ch;
+                    let j = i+1;
+                    while (j < len) {
+                        if (raw[j] === '\\') { j += 2; continue; }
+                        if (raw[j] === quote) { j++; break; }
+                        j++;
+                    }
+                    out += '<span class="token string">' + escapeHtml(raw.slice(i, j)) + '</span>';
+                    i = j; continue;
+                }
+                // number
+                const numMatch = raw.slice(i).match(/^\d+(?:\.\d+)?/);
+                if (numMatch) {
+                    out += '<span class="token number">' + escapeHtml(numMatch[0]) + '</span>';
+                    i += numMatch[0].length; continue;
+                }
+                // identifier/keyword
+                const idMatch = raw.slice(i).match(/^[_$A-Za-z][_\w$]*/);
+                if (idMatch) {
+                    const id = idMatch[0];
+                    if (keywords.has(id)) {
+                        out += '<span class="token keyword">' + escapeHtml(id) + '</span>';
+                    } else if (/^[A-Z][A-Za-z0-9_]*$/.test(id)) {
+                        out += '<span class="token type">' + escapeHtml(id) + '</span>';
+                    } else {
+                        out += escapeHtml(id);
+                    }
+                    i += id.length; continue;
+                }
+                // default: escape char
+                out += escapeHtml(ch);
+                i++;
+            }
+            return out;
+        }
+
+        function highlightAllCodeBlocks() {
+            document.querySelectorAll('.code-block code').forEach(codeEl => {
+                const raw = codeEl.textContent || '';
+                const highlighted = highlightCode(raw);
+                const lines = highlighted.split('\n');
+                const gutterHtml = lines.map((_, idx) => `<span class="ln">${idx+1}</span>`).join('');
+                const codeHtml = lines.map(line => `<div class="code-line">${line || ' '}</div>`).join('');
+                const editorHtml = `<div class="code-editor"><div class="gutter">${gutterHtml}</div><div class="code-content"><pre>${codeHtml}</pre></div></div>`;
+                // Replace the parent .code-block innerHTML with editorHtml
+                const parent = codeEl.closest('.code-block');
+                if (parent) parent.innerHTML = editorHtml;
+            });
+        }
+
+        // Search functionality and toolbar actions
+        function escapeHtml(str) {
+            return String(str).replace(/[&<>"']/g, function (m) {
+                return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"})[m];
+            });
+        }
+
+        function renderFilteredResults(query) {
+            const q = String(query || '').trim().toLowerCase();
+            const contentArea = document.getElementById('contentArea');
+            const feedback = document.getElementById('searchFeedback');
+
+            if (!q) {
+                const activeBtn = document.querySelector('.nav-buttons button.active');
+                if (activeBtn) {
+                    selectTopic(activeBtn.dataset.topic, activeBtn);
+                } else {
+                    selectTopic(Object.keys(topicsData)[0], document.querySelector('.nav-buttons button'));
+                }
+                feedback.textContent = '';
+                return;
+            }
+
+            // Clear active nav state while showing search results
+            document.querySelectorAll('.nav-buttons button').forEach(b => b.classList.remove('active'));
+
+            let html = '';
+            let total = 0;
+            let topicCount = 0;
 
             for (const topic in topicsData) {
+                const matches = topicsData[topic].questions.filter(qItem => {
+                    return qItem.q.toLowerCase().includes(q) || (qItem.a && qItem.a.toLowerCase().includes(q));
+                });
+
+                if (matches.length) {
+                    topicCount++;
+                    html += `<h2>${topicsData[topic].icon} ${topic}</h2>`;
+                    matches.forEach((qItem) => {
+                        total++;
+                        html += `
+                            <div class="question" onclick="toggleQuestion(this)">
+                                <h3>
+                                    ${total}. ${escapeHtml(qItem.q)}
+                                    <span class="toggle">▼</span>
+                                </h3>
+                                <div class="question-body">${qItem.a}</div>
+                            </div>
+                        `;
+                    });
+                }
+            }
+
+            if (total === 0) {
+                contentArea.innerHTML = `<div class="empty-state">No results for "${escapeHtml(query)}"</div>`;
+            } else {
+                contentArea.innerHTML = html;
+            }
+
+            // Highlight code blocks and add line numbers
+            highlightAllCodeBlocks();
+
+            feedback.textContent = `${total} result${total !== 1 ? 's' : ''} across ${topicCount} topic${topicCount !== 1 ? 's' : ''}`;
+        }
+
+        document.getElementById('searchBox').addEventListener('input', function (e) {
+            renderFilteredResults(e.target.value);
+        });
+
+        function renderAllTopics() {
+            document.querySelectorAll('.nav-buttons button').forEach(b => b.classList.remove('active'));
+            const contentArea = document.getElementById('contentArea');
+            let html = '';
+            for (const topic in topicsData) {
                 const topicData = topicsData[topic];
+                html += `<h2>${topicData.icon} ${topic}</h2>`;
                 topicData.questions.forEach((q, idx) => {
-                    if (q.q.toLowerCase().includes(query)) {
-                        // Automatically select and expand matching question
-                        document.querySelector(`button[data-topic="${topic}"]`).click();
-                        found = true;
-                    }
+                    html += `
+                        <div class="question" onclick="toggleQuestion(this)">
+                            <h3>
+                                Q${idx + 1}. ${q.q}
+                                <span class="toggle">▼</span>
+                            </h3>
+                            <div class="question-body">${q.a}</div>
+                        </div>
+                    `;
                 });
             }
-        });
+            contentArea.innerHTML = html;
+            // Highlight code blocks and add line numbers
+            highlightAllCodeBlocks();
+            document.getElementById('searchFeedback').textContent = '';
+        }
+
+        function expandAllQuestions() {
+            document.querySelectorAll('.question').forEach(q => q.classList.add('open'));
+        }
+
+        function collapseAllQuestions() {
+            document.querySelectorAll('.question').forEach(q => q.classList.remove('open'));
+        }
+
+        // Wire toolbar buttons
+        document.getElementById('allTopicsBtn').addEventListener('click', renderAllTopics);
+        document.getElementById('expandAllBtn').addEventListener('click', expandAllQuestions);
+        document.getElementById('collapseAllBtn').addEventListener('click', collapseAllQuestions);
 
         // Back to top button
         window.addEventListener('scroll', function () {
