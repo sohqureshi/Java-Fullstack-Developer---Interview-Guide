@@ -71,6 +71,7 @@
         </script>
         <!-- Font Awesome (icons) -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        <link rel="import" href="dev-snippet.html">
     <style>
         * {
             margin: 0;
@@ -3729,6 +3730,15 @@ mongotop --host localhost:27017</code></div>
         // Initialize on load
         initializeUI();
     </script>
+
+<div id="dev-snippet-container"></div>
+<script>
+  fetch('dev-snippet.html')
+    .then(r => r.text())
+    .then(html => {
+      document.getElementById('dev-snippet-container').innerHTML = html;
+    });
+</script>
 
     
 </body>
