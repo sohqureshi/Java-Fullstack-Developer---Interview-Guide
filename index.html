@@ -4,35 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Java Full Stack Interview - Detailed Guide</title>
+        <title>Java Full Stack Interview Questions and Answers | Senior Developer Prep Guide</title>
 
         <!-- SEO: comprehensive meta tags, Open Graph, Twitter cards, canonical, and structured data -->
-        <meta name="description" content="Java Full Stack Interview Prep — in-depth guide for senior Java developers covering Core Java, Spring Boot, Microservices, System Design, Angular, MongoDB, and Design Patterns.">
-        <meta name="keywords" content="Java,Full Stack,Interview,Spring Boot,Microservices,System Design,Angular,MongoDB,Design Patterns,Java 8">
+        <meta name="description" content="Prepare for Java full stack developer interviews with detailed questions and answers on Core Java, Java 8, Java 21, Spring Boot, Microservices, SQL, System Design, Angular, MongoDB, design patterns, and senior developer scenarios.">
+        <meta name="keywords" content="Java interview questions,Java full stack interview preparation,Java developer interview questions and answers,senior Java developer interview,Core Java interview questions,Java 8 interview questions,Java 21 interview questions,Spring Boot interview questions,Microservices interview questions,System Design interview preparation,SQL interview questions,Angular interview questions,MongoDB interview questions,Design Patterns interview questions,Full Stack Developer interview guide">
         <meta name="author" content="Sohail Qureshi">
         <meta name="robots" content="index, follow">
-        <link rel="canonical" href="https://github.com/sohqureshi/Java-Fullstack-Developer---Interview-Guide">
+        <meta name="application-name" content="Java Full Stack Interview Prep">
+        <meta name="subject" content="Java full stack developer interview preparation questions and answers">
+        <meta name="audience" content="Java developers, full stack developers, senior software engineers, interview candidates">
+        <meta name="classification" content="Education, Interview Preparation, Software Engineering">
+        <link rel="canonical" href="https://sohqureshi.github.io/Java-Fullstack-Developer---Interview-Guide/">
 
         <!-- Open Graph / Facebook -->
         <meta property="og:locale" content="en_US">
         <meta property="og:type" content="website">
-        <meta property="og:title" content="Java Full Stack Interview Prep — Detailed Guide">
-        <meta property="og:description" content="In-depth interview guide and cheat-sheet for senior Java Full Stack developers.">
-        <meta property="og:url" content="https://github.com/sohqureshi/Java-Fullstack-Developer---Interview-Guide">
+        <meta property="og:title" content="Java Full Stack Interview Questions and Answers">
+        <meta property="og:description" content="Detailed Java full stack interview preparation guide covering Core Java, Java 21, Spring Boot, Microservices, SQL, System Design, Angular, MongoDB, design patterns, and leadership questions.">
+        <meta property="og:url" content="https://sohqureshi.github.io/Java-Fullstack-Developer---Interview-Guide/">
         <meta property="og:site_name" content="Java Full Stack Interview Prep">
         <meta property="og:image" content="https://raw.githubusercontent.com/sohqureshi/Java-Fullstack-Developer---Interview-Guide/main/preview.png">
 
         <!-- Twitter -->
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:site" content="@sohqureshi">
-        <meta name="twitter:title" content="Java Full Stack Interview Prep — Detailed Guide">
-        <meta name="twitter:description" content="In-depth interview guide for senior Java Full Stack developers covering Java, Spring, System Design and more.">
+        <meta name="twitter:title" content="Java Full Stack Interview Questions and Answers">
+        <meta name="twitter:description" content="Prepare for senior Java full stack interviews with detailed Q&A on Java, Spring Boot, Microservices, SQL, System Design, Angular, MongoDB, and Java 21.">
         <meta name="twitter:image" content="https://raw.githubusercontent.com/sohqureshi/Java-Fullstack-Developer---Interview-Guide/main/preview.png">
 
         <!-- Misc / mobile -->
         <meta name="theme-color" content="#6b7ff0">
         <meta name="mobile-web-app-capable" content="yes">
-        <link rel="alternate" hreflang="en" href="https://github.com/sohqureshi/Java-Fullstack-Developer---Interview-Guide">
+        <link rel="alternate" hreflang="en" href="https://sohqureshi.github.io/Java-Fullstack-Developer---Interview-Guide/">
         <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 
         <!-- Structured data (JSON-LD) for WebSite and Organization -->
@@ -42,10 +46,10 @@
             "@graph": [
                 {
                     "@type": "WebSite",
-                    "@id": "https://github.com/sohqureshi/Java-Fullstack-Developer---Interview-Guide#website",
-                    "url": "https://github.com/sohqureshi/Java-Fullstack-Developer---Interview-Guide",
-                    "name": "Java Full Stack Interview Prep",
-                    "description": "A detailed interview guide for senior Java Full Stack developers covering Core Java, Spring Boot, Microservices, System Design, Angular, MongoDB and more."
+                    "@id": "https://sohqureshi.github.io/Java-Fullstack-Developer---Interview-Guide/#website",
+                    "url": "https://sohqureshi.github.io/Java-Fullstack-Developer---Interview-Guide/",
+                    "name": "Java Full Stack Interview Questions and Answers",
+                    "description": "A detailed interview preparation guide for Java full stack developers covering Core Java, Java 8, Java 21, Spring Boot, Microservices, SQL, System Design, Angular, MongoDB, design patterns, and leadership questions."
                 },
                 {
                     "@type": "Organization",
@@ -838,6 +842,119 @@ public class Person {
                                 <div class="tip">Prefer immutable fields for equals/hashCode and use <code>Objects.equals</code>/<code>Objects.hash</code> or generator tools. Consider <code>record</code> for concise, correct implementations (Java 16+).</div>
                             </div>
                         `
+                    },
+                    {
+                        q: "Explain Java concurrency basics: synchronized, volatile, locks, and thread pools",
+                        a: `
+                            <div class="answer-section">
+                                <h4>Why Concurrency Matters</h4>
+                                <p>Java applications often handle many requests at the same time. Concurrency bugs are difficult because they may appear only under load. Interviewers expect you to understand visibility, atomicity, ordering, and safe shared-state design.</p>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>synchronized vs volatile</h4>
+                                <table>
+                                    <tr>
+                                        <th>Keyword</th>
+                                        <th>Guarantees</th>
+                                        <th>Use Case</th>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>synchronized</strong></td>
+                                        <td>Mutual exclusion + visibility</td>
+                                        <td>Protect compound operations on shared mutable state</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>volatile</strong></td>
+                                        <td>Visibility + ordering, not atomicity</td>
+                                        <td>Flags, published references, simple state signals</td>
+                                    </tr>
+                                </table>
+                                <div class="code-block"><code>class ShutdownSignal {
+    private volatile boolean shutdown;
+
+    void stop() {
+        shutdown = true;
+    }
+
+    void runLoop() {
+        while (!shutdown) {
+            doWork();
+        }
+    }
+}</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Thread Pools</h4>
+                                <p>Thread pools reuse a bounded number of platform threads. They protect the system from creating unlimited threads and allow queueing, rejection policies, and lifecycle management.</p>
+                                <div class="code-block"><code>ExecutorService executor = Executors.newFixedThreadPool(10);
+try {
+    Future&lt;String&gt; result = executor.submit(() -> callExternalService());
+    System.out.println(result.get());
+} finally {
+    executor.shutdown();
+}</code></div>
+                            </div>
+
+                            <div class="important">Avoid sharing mutable state where possible. Prefer immutable objects, concurrent collections, message queues, and clear ownership of data.</div>
+                        `
+                    },
+                    {
+                        q: "How do Java Collections differ: ArrayList, LinkedList, HashMap, LinkedHashMap, TreeMap, and ConcurrentHashMap?",
+                        a: `
+                            <div class="answer-section">
+                                <h4>Collection Selection Matters</h4>
+                                <p>A senior Java developer should choose collections based on access pattern, ordering, sorting, concurrency, and memory cost.</p>
+                                <table>
+                                    <tr>
+                                        <th>Collection</th>
+                                        <th>Best For</th>
+                                        <th>Important Detail</th>
+                                    </tr>
+                                    <tr>
+                                        <td>ArrayList</td>
+                                        <td>Fast random access and iteration</td>
+                                        <td>Middle insert/delete can be expensive</td>
+                                    </tr>
+                                    <tr>
+                                        <td>LinkedList</td>
+                                        <td>Deque operations</td>
+                                        <td>Poor cache locality; rarely better than ArrayList</td>
+                                    </tr>
+                                    <tr>
+                                        <td>HashMap</td>
+                                        <td>Fast key lookup</td>
+                                        <td>No stable iteration order</td>
+                                    </tr>
+                                    <tr>
+                                        <td>LinkedHashMap</td>
+                                        <td>Predictable insertion/access order</td>
+                                        <td>Useful for LRU cache patterns</td>
+                                    </tr>
+                                    <tr>
+                                        <td>TreeMap</td>
+                                        <td>Sorted keys and range queries</td>
+                                        <td>O(log n) operations</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ConcurrentHashMap</td>
+                                        <td>Concurrent reads/writes</td>
+                                        <td>Use atomic methods like computeIfAbsent</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>ConcurrentHashMap Example</h4>
+                                <div class="code-block"><code>ConcurrentMap&lt;String, LongAdder&gt; counters = new ConcurrentHashMap&lt;&gt;();
+
+public void increment(String key) {
+    counters.computeIfAbsent(key, k -> new LongAdder()).increment();
+}</code></div>
+                                <div class="tip">Do not wrap a HashMap with manual synchronization unless you really need one lock around a larger invariant. Prefer concurrent collections for simple concurrent access.</div>
+                            </div>
+                        `
                     }
                 ]
             },
@@ -1049,6 +1166,510 @@ class Foo { Optional<String> name; }</code></div>
                                 <div class="tip">Prefer clear method names (find/get) and provide convenience methods like <code>orElse</code>, <code>orElseGet</code>, and <code>ifPresent</code> to consumer code.</div>
                             </div>
                         `
+                    },
+                    {
+                        q: "How does CompletableFuture work and how is it different from Future?",
+                        a: `
+                            <div class="answer-section">
+                                <h4>Future vs CompletableFuture</h4>
+                                <p><code>Future</code> represents a result that will be available later, but it is limited: you usually block with <code>get()</code>. <code>CompletableFuture</code> supports non-blocking composition, chaining, combining, exception handling, and manual completion.</p>
+                                <table>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>Future</th>
+                                        <th>CompletableFuture</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Chaining</td>
+                                        <td>No</td>
+                                        <td>thenApply, thenCompose, thenAccept</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Combining tasks</td>
+                                        <td>Manual</td>
+                                        <td>thenCombine, allOf, anyOf</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Error handling</td>
+                                        <td>try/catch around get</td>
+                                        <td>exceptionally, handle, whenComplete</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Real Example</h4>
+                                <div class="code-block"><code>CompletableFuture&lt;User&gt; userFuture =
+    CompletableFuture.supplyAsync(() -> userClient.getUser(userId));
+
+CompletableFuture&lt;List&lt;Order&gt;&gt; ordersFuture =
+    CompletableFuture.supplyAsync(() -> orderClient.getOrders(userId));
+
+CompletableFuture&lt;Dashboard&gt; dashboardFuture = userFuture.thenCombine(
+    ordersFuture,
+    (user, orders) -> new Dashboard(user, orders)
+).exceptionally(ex -> new Dashboard(null, List.of()));
+
+Dashboard dashboard = dashboardFuture.join();</code></div>
+                            </div>
+
+                            <div class="tip">Use <code>thenCompose</code> to flatten dependent async calls and <code>thenCombine</code> for independent calls that can run in parallel.</div>
+                        `
+                    },
+                    {
+                        q: "Why is the Java 8 Date and Time API better than Date and Calendar?",
+                        a: `
+                            <div class="answer-section">
+                                <h4>Problems with Old Date/Calendar</h4>
+                                <ul>
+                                    <li><code>Date</code> is mutable and confusingly named because it stores a timestamp, not just a date.</li>
+                                    <li><code>Calendar</code> is verbose and also mutable.</li>
+                                    <li>Time zone handling was error-prone and hard to read.</li>
+                                </ul>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Modern API Types</h4>
+                                <table>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Use Case</th>
+                                    </tr>
+                                    <tr>
+                                        <td>LocalDate</td>
+                                        <td>Date without time zone, such as birth date</td>
+                                    </tr>
+                                    <tr>
+                                        <td>LocalDateTime</td>
+                                        <td>Date and time without time zone</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ZonedDateTime</td>
+                                        <td>Date/time with region time zone, such as Asia/Kolkata</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Instant</td>
+                                        <td>Machine timestamp, ideal for persistence and events</td>
+                                    </tr>
+                                </table>
+                                <div class="code-block"><code>Instant createdAt = Instant.now();
+LocalDate invoiceDate = LocalDate.now();
+ZonedDateTime meeting = ZonedDateTime.of(
+    2026, 6, 11, 10, 30, 0, 0, ZoneId.of("Asia/Kolkata")
+);
+
+String formatted = meeting.format(DateTimeFormatter.ISO_ZONED_DATE_TIME);</code></div>
+                            </div>
+
+                            <div class="important">For backend systems, store timestamps as <code>Instant</code> or UTC in the database, and convert to user time zones at the edges.</div>
+                        `
+                    }
+                ]
+            },
+            "Java 21 LTS": {
+                icon: "21",
+                questions: [
+                    {
+                        q: "What are the most important Java 21 features for interviews?",
+                        a: `
+                            <div class="answer-section">
+                                <h4>Java 21 as an LTS Release</h4>
+                                <p>Java 21 is a Long-Term Support release. In interviews, focus on features that change day-to-day coding, concurrency, API design, and migration from Java 8/11/17.</p>
+                                <table>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>Status in Java 21</th>
+                                        <th>Why it matters</th>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Virtual Threads</strong></td>
+                                        <td>Final</td>
+                                        <td>High-throughput blocking I/O with simpler thread-per-request code</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Pattern Matching for switch</strong></td>
+                                        <td>Final</td>
+                                        <td>Cleaner conditional logic based on object type and value</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Record Patterns</strong></td>
+                                        <td>Final</td>
+                                        <td>Destructure records directly in pattern matching</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Sequenced Collections</strong></td>
+                                        <td>Final</td>
+                                        <td>Consistent first/last/reversed APIs across ordered collections</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Structured Concurrency</strong></td>
+                                        <td>Preview</td>
+                                        <td>Manage related concurrent tasks as one unit</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Scoped Values</strong></td>
+                                        <td>Preview</td>
+                                        <td>Safer alternative to ThreadLocal for request context</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>String Templates</strong></td>
+                                        <td>Preview</td>
+                                        <td>Readable string interpolation with processors</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Interview Summary</h4>
+                                <p>The strongest answer is not just listing features. Explain that Java 21 improves developer productivity through language expressiveness and improves scalability through Project Loom virtual threads.</p>
+                                <div class="important">Mention that preview features require <code>--enable-preview</code> and should be used carefully in production teams because syntax or behavior can still change.</div>
+                            </div>
+                        `
+                    },
+                    {
+                        q: "Explain virtual threads in Java 21. How are they different from platform threads?",
+                        a: `
+                            <div class="answer-section">
+                                <h4>What are Virtual Threads?</h4>
+                                <p>Virtual threads are lightweight threads managed by the JVM instead of being mapped one-to-one to operating system threads. They are designed for applications that spend a lot of time waiting on blocking I/O, such as REST calls, database calls, file I/O, or message broker operations.</p>
+                                <div class="code-block"><code>try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+    for (int i = 0; i < 10_000; i++) {
+        executor.submit(() -> {
+            var response = callRemoteService();
+            saveResult(response);
+            return response;
+        });
+    }
+}</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Platform Threads vs Virtual Threads</h4>
+                                <table>
+                                    <tr>
+                                        <th>Point</th>
+                                        <th>Platform Thread</th>
+                                        <th>Virtual Thread</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Managed by</td>
+                                        <td>Operating system</td>
+                                        <td>JVM scheduler</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cost</td>
+                                        <td>Expensive, limited count</td>
+                                        <td>Cheap, millions possible in suitable workloads</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Best for</td>
+                                        <td>CPU-heavy work</td>
+                                        <td>I/O-heavy blocking work</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Programming style</td>
+                                        <td>Often needs pools/reactive style at scale</td>
+                                        <td>Simple thread-per-task style</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Important Caveats</h4>
+                                <ul>
+                                    <li>Virtual threads do not make CPU-bound code faster. CPU-bound tasks still need a sensible limit based on available cores.</li>
+                                    <li>Avoid pooling virtual threads. They are cheap; create them per task.</li>
+                                    <li>Watch for thread pinning when synchronized blocks or native calls block the carrier thread.</li>
+                                    <li>Use normal blocking APIs when the libraries are Loom-friendly; this can simplify code compared with reactive chains.</li>
+                                </ul>
+                                <div class="tip">Interview line: virtual threads improve scalability by reducing the cost of blocked waiting, not by increasing CPU speed.</div>
+                            </div>
+                        `
+                    },
+                    {
+                        q: "How would you use Java 21 virtual threads in Spring Boot?",
+                        a: `
+                            <div class="answer-section">
+                                <h4>Spring Boot Use Case</h4>
+                                <p>For servlet-based Spring Boot services, virtual threads are useful when each request performs blocking I/O such as JDBC, blocking REST calls, Redis, Kafka admin calls, or file operations. The goal is to keep simple blocking code while handling more concurrent requests.</p>
+                                <div class="code-block"><code>// Spring Boot 3.2+ application.properties
+spring.threads.virtual.enabled=true</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Controller Example</h4>
+                                <div class="code-block"><code>@RestController
+class OrderController {
+    private final OrderService orderService;
+
+    @GetMapping("/orders/{id}")
+    OrderDto getOrder(@PathVariable long id) {
+        return orderService.findOrder(id); // blocking JDBC call is okay
+    }
+}</code></div>
+                                <p>With virtual threads enabled, the request can block while waiting for I/O without occupying an expensive platform thread for the entire wait time.</p>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Production Checklist</h4>
+                                <ul>
+                                    <li>Load test with real database and downstream latency.</li>
+                                    <li>Keep database connection pools sized correctly. Virtual threads do not remove DB limits.</li>
+                                    <li>Review synchronized bottlenecks in hot request paths.</li>
+                                    <li>Monitor latency, thread pinning, connection pool wait time, and downstream saturation.</li>
+                                </ul>
+                                <div class="important">Virtual threads can increase concurrent pressure on databases and external services. Bulkheads, rate limits, and connection pool limits still matter.</div>
+                            </div>
+                        `
+                    },
+                    {
+                        q: "What is pattern matching for switch in Java 21?",
+                        a: `
+                            <div class="answer-section">
+                                <h4>Problem It Solves</h4>
+                                <p>Before modern pattern matching, code often used long <code>if-else</code> chains with <code>instanceof</code> and manual casts. Java 21 allows <code>switch</code> to match types directly and bind variables safely.</p>
+                                <div class="code-block"><code>static String format(Object value) {
+    return switch (value) {
+        case null -> "missing";
+        case Integer i -> "int: " + i;
+        case Long l -> "long: " + l;
+        case String s when s.isBlank() -> "blank string";
+        case String s -> "text: " + s;
+        default -> "unknown: " + value;
+    };
+}</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Why Interviewers Ask This</h4>
+                                <ul>
+                                    <li>It checks whether you know newer Java syntax beyond Java 8 streams.</li>
+                                    <li>It tests your understanding of type-safe branching and exhaustiveness.</li>
+                                    <li>It connects well with sealed classes for domain modeling.</li>
+                                </ul>
+                                <div class="tip">Use guarded patterns with <code>when</code> for additional conditions after the type matches.</div>
+                            </div>
+                        `
+                    },
+                    {
+                        q: "Explain records, record patterns, and sealed classes together",
+                        a: `
+                            <div class="answer-section">
+                                <h4>Records for Data Carriers</h4>
+                                <p>A record is a concise immutable data carrier. Java generates the constructor, accessors, <code>equals</code>, <code>hashCode</code>, and <code>toString</code>.</p>
+                                <div class="code-block"><code>record Money(String currency, BigDecimal amount) {}
+record CardPayment(String cardToken, Money total) implements Payment {}
+record UpiPayment(String vpa, Money total) implements Payment {}
+
+sealed interface Payment permits CardPayment, UpiPayment {}</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Record Patterns</h4>
+                                <p>Record patterns let you destructure a record while matching it. Combined with sealed types, the compiler can help ensure all known cases are handled.</p>
+                                <div class="code-block"><code>static String describe(Payment payment) {
+    return switch (payment) {
+        case CardPayment(String token, Money(String currency, BigDecimal amount)) ->
+            "Card payment " + currency + " " + amount;
+        case UpiPayment(String vpa, Money(String currency, BigDecimal amount)) ->
+            "UPI payment " + currency + " " + amount + " from " + vpa;
+    };
+}</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>When to Use Each</h4>
+                                <ul>
+                                    <li><strong>Record:</strong> immutable request/response DTOs, value objects, query projections.</li>
+                                    <li><strong>Sealed class/interface:</strong> fixed set of domain variants, such as payment type or workflow state.</li>
+                                    <li><strong>Record pattern:</strong> readable extraction of nested immutable data.</li>
+                                </ul>
+                                <div class="important">Records are shallowly immutable. If a component is a mutable list or map, protect it with defensive copies.</div>
+                            </div>
+                        `
+                    },
+                    {
+                        q: "What are Sequenced Collections in Java 21?",
+                        a: `
+                            <div class="answer-section">
+                                <h4>Consistent Ordered Collection APIs</h4>
+                                <p>Java 21 adds <code>SequencedCollection</code>, <code>SequencedSet</code>, and <code>SequencedMap</code>. They standardize operations for collections with a defined encounter order.</p>
+                                <div class="code-block"><code>SequencedCollection&lt;String&gt; names = new ArrayList&lt;&gt;();
+names.addFirst("Ayesha");
+names.addLast("Sohail");
+
+String first = names.getFirst();
+String last = names.getLast();
+SequencedCollection&lt;String&gt; reversed = names.reversed();</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Why It Was Needed</h4>
+                                <p>Before Java 21, getting the first or last element differed across <code>List</code>, <code>Deque</code>, <code>LinkedHashSet</code>, and ordered maps. Sequenced collections give a common vocabulary.</p>
+                                <table>
+                                    <tr>
+                                        <th>Interface</th>
+                                        <th>Examples</th>
+                                        <th>Useful methods</th>
+                                    </tr>
+                                    <tr>
+                                        <td>SequencedCollection</td>
+                                        <td>List, Deque</td>
+                                        <td>getFirst, getLast, addFirst, addLast, reversed</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SequencedSet</td>
+                                        <td>LinkedHashSet</td>
+                                        <td>first/last access while preserving uniqueness</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SequencedMap</td>
+                                        <td>LinkedHashMap</td>
+                                        <td>firstEntry, lastEntry, pollFirstEntry, reversed</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        `
+                    },
+                    {
+                        q: "What are Structured Concurrency and Scoped Values in Java 21?",
+                        a: `
+                            <div class="answer-section">
+                                <h4>Structured Concurrency</h4>
+                                <p>Structured concurrency treats related concurrent tasks as a single unit of work. If one subtask fails, the parent can cancel the others and handle the result consistently.</p>
+                                <div class="code-block"><code>// Preview feature: compile/run with --enable-preview
+try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
+    Subtask&lt;User&gt; user = scope.fork(() -> userClient.fetchUser(id));
+    Subtask&lt;Orders&gt; orders = scope.fork(() -> orderClient.fetchOrders(id));
+
+    scope.join();
+    scope.throwIfFailed();
+
+    return new Dashboard(user.get(), orders.get());
+}</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Scoped Values</h4>
+                                <p>Scoped values provide an immutable value for a bounded execution scope. They are useful for request IDs, tenant IDs, security context, or tracing context, especially with virtual threads.</p>
+                                <div class="code-block"><code>// Preview feature: compile/run with --enable-preview
+static final ScopedValue&lt;String&gt; TENANT_ID = ScopedValue.newInstance();
+
+ScopedValue.where(TENANT_ID, "tenant-42").run(() -> {
+    service.processRequest(); // service can read TENANT_ID.get()
+});</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>ThreadLocal vs ScopedValue</h4>
+                                <ul>
+                                    <li><code>ThreadLocal</code> is mutable and can leak values if not cleared carefully.</li>
+                                    <li><code>ScopedValue</code> is immutable during the scope and automatically disappears after the scope exits.</li>
+                                    <li>Scoped values fit better with virtual threads and structured task lifetimes.</li>
+                                </ul>
+                                <div class="important">Both features are preview in Java 21, so they are excellent interview topics but require careful adoption policies in real projects.</div>
+                            </div>
+                        `
+                    },
+                    {
+                        q: "What are String Templates and unnamed patterns/classes in Java 21?",
+                        a: `
+                            <div class="answer-section">
+                                <h4>String Templates</h4>
+                                <p>String templates are a preview feature for readable interpolation. They combine literal text with embedded expressions and a template processor.</p>
+                                <div class="code-block"><code>// Preview feature
+String name = "Sohail";
+int score = 95;
+String message = STR."Candidate \\{name} scored \\{score}%";</code></div>
+                                <p>The larger goal is safer and more structured string construction, especially when custom processors validate SQL, JSON, or HTML output.</p>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Unnamed Patterns and Variables</h4>
+                                <p>Unnamed patterns use <code>_</code> when a value must be matched but does not need a name. This reduces noise and communicates intent.</p>
+                                <div class="code-block"><code>if (obj instanceof Point(int x, int _)) {
+    System.out.println("x = " + x);
+}</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Unnamed Classes and Instance Main Methods</h4>
+                                <p>This preview feature simplifies small programs and learning examples by reducing boilerplate.</p>
+                                <div class="code-block"><code>// Preview feature
+void main() {
+    System.out.println("Hello Java 21");
+}</code></div>
+                                <div class="tip">For enterprise applications, this is less important than virtual threads, switch pattern matching, records, and sequenced collections.</div>
+                            </div>
+                        `
+                    },
+                    {
+                        q: "How would you migrate a Java 8 or Java 11 application to Java 21?",
+                        a: `
+                            <div class="answer-section">
+                                <h4>Migration Strategy</h4>
+                                <ol>
+                                    <li>Upgrade build tools first: Maven/Gradle, compiler plugin, Surefire/Failsafe, Jacoco, Checkstyle, and Docker base images.</li>
+                                    <li>Run the complete test suite on the current code using JDK 21 before changing language features.</li>
+                                    <li>Upgrade frameworks that officially support Java 21, especially Spring Boot, Hibernate, Lombok, Mockito, Byte Buddy, and database drivers.</li>
+                                    <li>Fix illegal reflective access, removed APIs, JAXB/JAX-WS dependencies, and old JVM flags.</li>
+                                    <li>Only then introduce Java 21 features in small, reviewable changes.</li>
+                                </ol>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Common Issues</h4>
+                                <table>
+                                    <tr>
+                                        <th>Issue</th>
+                                        <th>Example</th>
+                                        <th>Fix</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Removed Java EE modules</td>
+                                        <td>JAXB classes missing</td>
+                                        <td>Add explicit Jakarta/JAXB dependencies</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Old reflection hacks</td>
+                                        <td>Illegal reflective access</td>
+                                        <td>Upgrade library or use supported API</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Old GC flags</td>
+                                        <td>PermGen flags</td>
+                                        <td>Remove or replace with modern JVM options</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Framework mismatch</td>
+                                        <td>Old Spring Boot version</td>
+                                        <td>Move to a Java 21 compatible framework version</td>
+                                    </tr>
+                                </table>
+                                <div class="tip">Interview answer: migrate runtime first, then refactor. Do not mix platform migration with large feature rewrites.</div>
+                            </div>
+                        `
+                    },
+                    {
+                        q: "What Java 21 questions are commonly asked in senior interviews?",
+                        a: `
+                            <div class="answer-section">
+                                <h4>High-Value Questions and Short Answer Direction</h4>
+                                <ul>
+                                    <li><strong>When should you use virtual threads?</strong> Use them for high-concurrency blocking I/O, not CPU-heavy computation.</li>
+                                    <li><strong>Do virtual threads replace reactive programming?</strong> They reduce the need for reactive style in many blocking I/O services, but reactive remains useful for streaming, backpressure-heavy systems, and existing reactive stacks.</li>
+                                    <li><strong>What is carrier thread pinning?</strong> A virtual thread can temporarily block its carrier platform thread during some synchronized/native blocking operations.</li>
+                                    <li><strong>Why are sealed classes useful?</strong> They model a fixed set of subtypes and help the compiler check exhaustive switch logic.</li>
+                                    <li><strong>Why use records over Lombok DTOs?</strong> Records are language-level immutable data carriers with generated methods and transparent semantics.</li>
+                                    <li><strong>What is the risk of preview features?</strong> They require explicit flags and can change in later Java versions.</li>
+                                </ul>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Strong Closing Answer</h4>
+                                <p>Java 21 is not just "new syntax." Its biggest practical impact is that teams can write simpler blocking code with virtual threads while also using cleaner domain modeling through records, sealed types, pattern matching, and sequenced collection APIs.</p>
+                            </div>
+                        `
                     }
                 ]
             },
@@ -1240,6 +1861,84 @@ spring:
                                 <div class="tip">Prefer externalized config (environment variables, vault, or cloud secrets). Use <code>@Profile</code> and <code>spring.profiles.active</code> to select active profile.</div>
                             </div>
                         `
+                    },
+                    {
+                        q: "How does Spring Security authentication and authorization work?",
+                        a: `
+                            <div class="answer-section">
+                                <h4>Authentication vs Authorization</h4>
+                                <p><strong>Authentication</strong> verifies who the user is. <strong>Authorization</strong> decides what that authenticated user can access. Spring Security implements this through a filter chain before the request reaches your controller.</p>
+                                <table>
+                                    <tr>
+                                        <th>Concept</th>
+                                        <th>Purpose</th>
+                                    </tr>
+                                    <tr>
+                                        <td>SecurityFilterChain</td>
+                                        <td>Defines HTTP security rules and filters</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AuthenticationManager</td>
+                                        <td>Validates credentials or token</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SecurityContext</td>
+                                        <td>Stores authenticated principal for current request</td>
+                                    </tr>
+                                    <tr>
+                                        <td>GrantedAuthority</td>
+                                        <td>Represents roles or permissions</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>JWT Resource Server Example</h4>
+                                <div class="code-block"><code>@Bean
+SecurityFilterChain security(HttpSecurity http) throws Exception {
+    return http
+        .csrf(csrf -> csrf.disable())
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/actuator/health").permitAll()
+            .requestMatchers("/admin/**").hasRole("ADMIN")
+            .anyRequest().authenticated()
+        )
+        .oauth2ResourceServer(oauth2 -> oauth2.jwt())
+        .build();
+}</code></div>
+                            </div>
+
+                            <div class="important">For senior interviews, mention password hashing with BCrypt/Argon2, least-privilege roles, method-level security, token expiry, refresh token rotation, and audit logging.</div>
+                        `
+                    },
+                    {
+                        q: "Explain @Transactional in Spring and common pitfalls",
+                        a: `
+                            <div class="answer-section">
+                                <h4>What @Transactional Does</h4>
+                                <p><code>@Transactional</code> opens a transaction around a method, commits when it succeeds, and rolls back when an unchecked exception is thrown. It is implemented through Spring AOP proxies.</p>
+                                <div class="code-block"><code>@Service
+class TransferService {
+    @Transactional
+    public void transfer(long fromId, long toId, BigDecimal amount) {
+        accountRepository.debit(fromId, amount);
+        accountRepository.credit(toId, amount);
+        auditRepository.save(new AuditEntry(fromId, toId, amount));
+    }
+}</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Common Pitfalls</h4>
+                                <ul>
+                                    <li><strong>Self-invocation:</strong> calling a transactional method from another method in the same class bypasses the proxy.</li>
+                                    <li><strong>Checked exceptions:</strong> they do not roll back by default unless configured with <code>rollbackFor</code>.</li>
+                                    <li><strong>Long transactions:</strong> holding DB locks while calling external APIs hurts scalability.</li>
+                                    <li><strong>Wrong propagation:</strong> understand <code>REQUIRED</code>, <code>REQUIRES_NEW</code>, and <code>MANDATORY</code>.</li>
+                                </ul>
+                                <div class="tip">Keep transactions short and only around database work. Publish events after commit when external side effects are involved.</div>
+                            </div>
+                        `
                     }
                 ]
             },
@@ -1358,6 +2057,69 @@ SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
 UPDATE accounts SET balance = balance - 100 WHERE id = 1;
 COMMIT;</code></div>
                                 <div class="tip">Use the weakest isolation that meets correctness needs. SERIALIZABLE is safest but can reduce concurrency. Understand phantom reads and non-repeatable reads per level.</div>
+                            </div>
+                        `
+                    },
+                    {
+                        q: "Explain SQL joins, normalization, denormalization, and query optimization",
+                        a: `
+                            <div class="answer-section">
+                                <h4>SQL Joins</h4>
+                                <table>
+                                    <tr>
+                                        <th>Join</th>
+                                        <th>Meaning</th>
+                                        <th>Use Case</th>
+                                    </tr>
+                                    <tr>
+                                        <td>INNER JOIN</td>
+                                        <td>Rows matching in both tables</td>
+                                        <td>Orders with valid customers</td>
+                                    </tr>
+                                    <tr>
+                                        <td>LEFT JOIN</td>
+                                        <td>All left rows plus matching right rows</td>
+                                        <td>Users even if they have no orders</td>
+                                    </tr>
+                                    <tr>
+                                        <td>RIGHT JOIN</td>
+                                        <td>All right rows plus matching left rows</td>
+                                        <td>Less common; often rewrite as LEFT JOIN</td>
+                                    </tr>
+                                    <tr>
+                                        <td>FULL OUTER JOIN</td>
+                                        <td>All rows from both tables</td>
+                                        <td>Data reconciliation</td>
+                                    </tr>
+                                </table>
+                                <div class="code-block"><code>SELECT c.id, c.name, COUNT(o.id) AS order_count
+FROM customers c
+LEFT JOIN orders o ON o.customer_id = c.id
+GROUP BY c.id, c.name
+HAVING COUNT(o.id) > 0
+ORDER BY order_count DESC;</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Normalization vs Denormalization</h4>
+                                <p><strong>Normalization</strong> reduces duplication and improves consistency by splitting data into related tables. <strong>Denormalization</strong> intentionally duplicates data to speed up reads or simplify reporting.</p>
+                                <ul>
+                                    <li>Use normalization for transactional systems where correctness matters.</li>
+                                    <li>Use denormalization for read-heavy dashboards, search views, and analytics.</li>
+                                    <li>Keep denormalized data updated with events, jobs, or database triggers.</li>
+                                </ul>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Query Optimization Checklist</h4>
+                                <ul>
+                                    <li>Use <code>EXPLAIN ANALYZE</code> to inspect actual plan and row counts.</li>
+                                    <li>Index columns used in filters, joins, and sorting.</li>
+                                    <li>Avoid <code>SELECT *</code> in high-traffic endpoints.</li>
+                                    <li>Paginate large result sets with keyset pagination when possible.</li>
+                                    <li>Watch for N+1 queries from ORMs.</li>
+                                </ul>
+                                <div class="tip">A good database answer always ties schema design, indexes, query plan, and application access pattern together.</div>
                             </div>
                         `
                     }
@@ -1543,6 +2305,57 @@ if value > limit then reject</code></div>
                                 <div class="tip">Avoid cache stampedes with request coalescing or short randomized TTLs, and prefer event-driven invalidation for correctness.</div>
                             </div>
                         `
+                    },
+                    {
+                        q: "How do you design for reliability, observability, and eventual consistency?",
+                        a: `
+                            <div class="answer-section">
+                                <h4>Reliability Building Blocks</h4>
+                                <ul>
+                                    <li><strong>Timeouts:</strong> never wait forever on network calls.</li>
+                                    <li><strong>Retries with backoff:</strong> retry transient failures without overwhelming downstream systems.</li>
+                                    <li><strong>Circuit breakers:</strong> fail fast when a dependency is unhealthy.</li>
+                                    <li><strong>Bulkheads:</strong> isolate resources so one failing dependency does not consume every thread or connection.</li>
+                                    <li><strong>Idempotency:</strong> safely retry create/update operations using an idempotency key.</li>
+                                </ul>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Eventual Consistency</h4>
+                                <p>Distributed systems often cannot update every service atomically. Instead, one service commits its local transaction and publishes an event. Other services consume the event and update their own state.</p>
+                                <div class="code-block"><code>// Outbox pattern idea
+BEGIN;
+INSERT INTO orders(id, status) VALUES (?, 'CREATED');
+INSERT INTO outbox(event_type, payload) VALUES ('OrderCreated', ?);
+COMMIT;
+
+// Background publisher reads outbox and sends to Kafka/RabbitMQ</code></div>
+                                <p>The outbox pattern prevents the common bug where the database commit succeeds but event publishing fails.</p>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Observability</h4>
+                                <table>
+                                    <tr>
+                                        <th>Signal</th>
+                                        <th>What It Answers</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Logs</td>
+                                        <td>What happened for a specific request?</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Metrics</td>
+                                        <td>Is the system healthy over time?</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Traces</td>
+                                        <td>Where is latency or failure across services?</td>
+                                    </tr>
+                                </table>
+                                <div class="important">In interviews, mention correlation IDs, SLIs/SLOs, dashboards, alerts, and runbooks. A design is incomplete if nobody can operate it in production.</div>
+                            </div>
+                        `
                     }
                 ]
             },
@@ -1645,6 +2458,40 @@ Use JWT tokens with short expiry (15 min) + refresh tokens (7 days).
                                     <li>Refactor safely with tests and incremental changes</li>
                                 </ul>
                                 <div class="tip">Don't let debt accumulate untracked. Small frequent paydowns are better than large, risky rewrites.</div>
+                            </div>
+                        `
+                    },
+                    {
+                        q: "Tell me about handling conflict, production incidents, and stakeholder pressure",
+                        a: `
+                            <div class="answer-section">
+                                <h4>Conflict Handling Framework</h4>
+                                <p>Strong senior engineers do not avoid conflict; they make it productive. Start by separating people from the problem, gather facts, identify shared goals, and propose a decision path.</p>
+                                <ul>
+                                    <li>Listen first and restate the other person's concern accurately.</li>
+                                    <li>Bring data: logs, customer impact, delivery risk, cost, or performance numbers.</li>
+                                    <li>Offer options with trade-offs instead of arguing for only one answer.</li>
+                                    <li>Document the decision and revisit it if assumptions change.</li>
+                                </ul>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Production Incident Response</h4>
+                                <ol>
+                                    <li>Stabilize customer impact first: rollback, disable feature flag, scale service, or route traffic away.</li>
+                                    <li>Assign roles: incident lead, comms owner, investigator, and implementer.</li>
+                                    <li>Communicate status clearly with timelines and known impact.</li>
+                                    <li>After recovery, run a blameless postmortem with root cause, contributing factors, and action items.</li>
+                                </ol>
+                                <div class="code-block"><code>Postmortem action item quality:
+Bad: "Be more careful"
+Good: "Add contract test for payment timeout response by Friday, owner: Sohail"</code></div>
+                            </div>
+
+                            <div class="answer-section">
+                                <h4>Stakeholder Pressure</h4>
+                                <p>When business wants a date and engineering sees risk, be transparent. Break the work into must-have and nice-to-have scope, explain technical risk in business terms, and offer phased delivery.</p>
+                                <div class="tip">Interview answer: show calm ownership. You can be empathetic to business urgency while still protecting reliability and team sustainability.</div>
                             </div>
                         `
                     }
@@ -1792,6 +2639,46 @@ this.form = new FormGroup({
 
                         <div class="example">Choose reactive forms for complex scenarios and template-driven for simple, quick forms.</div>
                     `
+                },
+                {
+                    q: "How do Angular routing, guards, lazy loading, and state management work together?",
+                    a: `
+                        <div class="answer-section">
+                            <h4>Routing and Lazy Loading</h4>
+                            <p>Angular Router maps URLs to components. Lazy loading keeps the initial bundle small by loading feature routes only when the user navigates to them.</p>
+                            <div class="code-block"><code>const routes: Routes = [
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.routes').then(m => m.ADMIN_ROUTES),
+    canActivate: [authGuard]
+  }
+];</code></div>
+                        </div>
+
+                        <div class="answer-section">
+                            <h4>Guards and Resolvers</h4>
+                            <ul>
+                                <li><strong>canActivate:</strong> checks whether a route can be opened.</li>
+                                <li><strong>canDeactivate:</strong> prevents losing unsaved changes.</li>
+                                <li><strong>resolve:</strong> loads required data before activating the route.</li>
+                            </ul>
+                        </div>
+
+                        <div class="answer-section">
+                            <h4>State Management</h4>
+                            <p>Use component state for local UI, services with RxJS for shared feature state, and NgRx/Signal Store for complex global state with many events and derived views.</p>
+                            <div class="code-block"><code>@Injectable({ providedIn: 'root' })
+export class CartStore {
+  private readonly itemsSubject = new BehaviorSubject&lt;CartItem[]&gt;([]);
+  readonly items$ = this.itemsSubject.asObservable();
+
+  add(item: CartItem) {
+    this.itemsSubject.next([...this.itemsSubject.value, item]);
+  }
+}</code></div>
+                            <div class="tip">A strong Angular answer connects route structure, bundle size, authorization, data loading, and state ownership.</div>
+                        </div>
+                    `
                 }
             ]
         };
@@ -1865,6 +2752,67 @@ public abstract class DataProcessor {
                     a: `
                         <div class="answer-section">
                             <p>DI makes dependencies explicit and testable; Service Locator hides wiring behind a lookup API which can make testing harder. Prefer DI for clarity and testability.</p>
+                        </div>
+                    `
+                },
+                {
+                    q: "How do you choose between Builder, Adapter, Facade, Observer, and Decorator patterns?",
+                    a: `
+                        <div class="answer-section">
+                            <h4>Pattern Selection Guide</h4>
+                            <table>
+                                <tr>
+                                    <th>Pattern</th>
+                                    <th>Use When</th>
+                                    <th>Example</th>
+                                </tr>
+                                <tr>
+                                    <td>Builder</td>
+                                    <td>Object has many optional fields or validation rules</td>
+                                    <td>Creating immutable request objects</td>
+                                </tr>
+                                <tr>
+                                    <td>Adapter</td>
+                                    <td>Existing API does not match the interface you need</td>
+                                    <td>Wrapping third-party payment gateway</td>
+                                </tr>
+                                <tr>
+                                    <td>Facade</td>
+                                    <td>Hide multiple subsystem calls behind one simple API</td>
+                                    <td>CheckoutService calls inventory, payment, shipping</td>
+                                </tr>
+                                <tr>
+                                    <td>Observer</td>
+                                    <td>Many listeners react to one state change</td>
+                                    <td>Domain events, UI events, application listeners</td>
+                                </tr>
+                                <tr>
+                                    <td>Decorator</td>
+                                    <td>Add behavior without changing the original object</td>
+                                    <td>Logging, caching, metrics around a service</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="answer-section">
+                            <h4>Decorator Example</h4>
+                            <div class="code-block"><code>interface PriceService {
+    BigDecimal price(String sku);
+}
+
+class CachedPriceService implements PriceService {
+    private final PriceService delegate;
+    private final Map&lt;String, BigDecimal&gt; cache = new ConcurrentHashMap&lt;&gt;();
+
+    CachedPriceService(PriceService delegate) {
+        this.delegate = delegate;
+    }
+
+    public BigDecimal price(String sku) {
+        return cache.computeIfAbsent(sku, delegate::price);
+    }
+}</code></div>
+                            <div class="tip">Senior answer: do not force patterns. Name the problem first, then choose the smallest pattern that makes the design clearer.</div>
                         </div>
                     `
                 }
@@ -2039,6 +2987,52 @@ mongotop --host localhost:27017</code></div>
                             <div class="tip">Profile slow queries, add appropriate indexes, and avoid large unbounded collection scans. Use connection pooling in application drivers.</div>
                         </div>
                     `
+                },
+                {
+                    q: "How do you design MongoDB schemas for production performance and correctness?",
+                    a: `
+                        <div class="answer-section">
+                            <h4>Start from Query Patterns</h4>
+                            <p>MongoDB schema design starts with how the application reads and writes data. Unlike relational modeling, you do not normalize first by default. You model documents to serve the most important queries efficiently.</p>
+                            <ul>
+                                <li>Embed bounded data that is read together.</li>
+                                <li>Reference unbounded or independently updated data.</li>
+                                <li>Keep document size below the 16MB document limit.</li>
+                                <li>Avoid unbounded arrays that grow forever.</li>
+                            </ul>
+                        </div>
+
+                        <div class="answer-section">
+                            <h4>Good vs Risky Modeling</h4>
+                            <div class="code-block"><code>// Good: bounded recent events embedded
+{
+  "_id": "customer-1",
+  "name": "Alice",
+  "recentOrders": [
+    { "orderId": "o1", "total": 120, "createdAt": ISODate("2026-06-11") }
+  ]
+}
+
+// Risky: unbounded array can grow forever
+{
+  "_id": "product-1",
+  "allPageViews": [ /* millions of entries */ ]
+}</code></div>
+                            <p>For unbounded data, create a separate collection and index by the parent ID plus time or status.</p>
+                        </div>
+
+                        <div class="answer-section">
+                            <h4>Production Checklist</h4>
+                            <ul>
+                                <li>Create compound indexes that match filters and sort order.</li>
+                                <li>Use schema validation to protect important fields.</li>
+                                <li>Use optimistic locking or version fields for concurrent updates.</li>
+                                <li>Design shard keys with high cardinality and even write distribution.</li>
+                                <li>Monitor slow queries, index usage, replication lag, and working set size.</li>
+                            </ul>
+                            <div class="important">MongoDB is flexible, but production systems still need schema discipline. Flexible schema does not mean no schema.</div>
+                        </div>
+                    `
                 }
             ]
         };
@@ -2123,3 +3117,4 @@ mongotop --host localhost:27017</code></div>
 </body>
 
 </html>
+
