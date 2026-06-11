@@ -176,6 +176,40 @@
             box-shadow: 0 12px 34px rgba(102, 77, 204, 0.18);
         }
 
+        .topic-btn-label {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 100%;
+        }
+
+        .topic-btn-label .name {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .topic-progress {
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .topic-progress-bar {
+            height: 100%;
+            background: rgba(255,255,255,0.8);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .topic-coverage-pct {
+            font-size: 0.72em;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
         .search-box {
             width: 100%;
             padding: 12px 14px;
@@ -3357,6 +3391,8 @@ mongotop --host localhost:27017</code></div>
             btn.textContent = willBeRead ? 'Read ✓' : 'Mark as read';
             const questionEl = btn.closest('.question');
             if (questionEl) questionEl.classList.toggle('read', willBeRead);
+            // Update topic progress bars
+            updateTopicProgressBars();
         }
 
         function markQuestionReadById(qid, checked) {
@@ -3367,7 +3403,32 @@ mongotop --host localhost:27017</code></div>
                 btn.textContent = !!checked ? 'Read ✓' : 'Mark as read';
                 const questionEl = btn.closest('.question');
                 if (questionEl) questionEl.classList.toggle('read', !!checked);
+                // Update topic progress bars
+                updateTopicProgressBars();
             }
+        }
+
+        function getTopicCoverage(topic) {
+            const readSet = getReadSet();
+            const questions = topicsData[topic]?.questions || [];
+            let readCount = 0;
+            questions.forEach((q, idx) => {
+                const qid = `${sanitizeId(topic)}-${idx}`;
+                if (readSet.has(qid)) readCount++;
+            });
+            const total = questions.length;
+            return { readCount, total, percentage: total > 0 ? Math.round((readCount / total) * 100) : 0 };
+        }
+
+        function updateTopicProgressBars() {
+            document.querySelectorAll('[data-topic]').forEach(btn => {
+                const topic = btn.dataset.topic;
+                const { percentage } = getTopicCoverage(topic);
+                const progressBar = btn.querySelector('.topic-progress-bar');
+                const pctSpan = btn.querySelector('.topic-coverage-pct');
+                if (progressBar) progressBar.style.width = percentage + '%';
+                if (pctSpan) pctSpan.textContent = `${percentage}%`;
+            });
         }
 
         // Initialize UI
@@ -3375,7 +3436,16 @@ mongotop --host localhost:27017</code></div>
             const navButtons = document.getElementById('navButtons');
             for (const topic in topicsData) {
                 const btn = document.createElement('button');
-                btn.innerHTML = `${topicsData[topic].icon} ${topic}`;
+                const { percentage } = getTopicCoverage(topic);
+                btn.innerHTML = `
+                    <div class="topic-btn-label">
+                        <span class="name">${topicsData[topic].icon} ${topic}</span>
+                        <div class="topic-progress">
+                            <div class="topic-progress-bar" style="width: ${percentage}%"></div>
+                        </div>
+                        <span class="topic-coverage-pct">${percentage}%</span>
+                    </div>
+                `;
                 btn.dataset.topic = topic;
                 btn.className = topic === Object.keys(topicsData)[0] ? 'active' : '';
                 btn.addEventListener('click', () => selectTopic(topic, btn));
