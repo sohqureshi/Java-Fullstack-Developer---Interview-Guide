@@ -3406,9 +3406,9 @@ mongotop --host localhost:27017</code></div>
                             <div class="question-top">
                                 <button type="button" class="read-toggle ${isRead ? 'read' : ''}" data-id="${qid}" aria-pressed="${isRead ? 'true' : 'false'}" onclick="onReadToggleClick(event)">${isRead ? 'Read ✓' : 'Mark as read'}</button>
                             </div>
-                                <div class="question-line" onclick="toggleQuestion(this.closest('.question'))">
+                                <div class="question-line">
                                 <span class="question-text"><span class="q-badge">Q${idx + 1}</span>${q.q}</span>
-                                <span class="toggle" onclick="toggleQuestion(this.closest('.question'))"><i class="fas fa-chevron-down"></i></span>
+                                <span class="toggle"><i class="fas fa-chevron-down"></i></span>
                             </div>
                         </h3>
                         <div class="question-body">${q.a}</div>
@@ -3557,9 +3557,9 @@ mongotop --host localhost:27017</code></div>
                                     <div class="question-top">
                                         <button type="button" class="read-toggle ${isRead ? 'read' : ''}" data-id="${qid}" aria-pressed="${isRead ? 'true' : 'false'}" onclick="onReadToggleClick(event)">${isRead ? 'Read ✓' : 'Mark as read'}</button>
                                     </div>
-                                            <div class="question-line" onclick="toggleQuestion(this.closest('.question'))">
+                                            <div class="question-line">
                                                 <span class="question-text"><span class="q-badge">${total}</span>${escapeHtml(qItem.q)}</span>
-                                                <span class="toggle" onclick="toggleQuestion(this.closest('.question'))"><i class="fas fa-chevron-down"></i></span>
+                                                <span class="toggle"><i class="fas fa-chevron-down"></i></span>
                                             </div>
                                 </h3>
                                 <div class="question-body">${qItem.a}</div>
@@ -3604,9 +3604,9 @@ mongotop --host localhost:27017</code></div>
                                 <div class="question-top">
                                     <button type="button" class="read-toggle ${isRead ? 'read' : ''}" data-id="${qid}" aria-pressed="${isRead ? 'true' : 'false'}" onclick="onReadToggleClick(event)">${isRead ? 'Read ✓' : 'Mark as read'}</button>
                                 </div>
-                                    <div class="question-line" onclick="toggleQuestion(this.closest('.question'))">
+                                    <div class="question-line">
                                     <span class="question-text"><span class="q-badge">Q${idx + 1}</span>${q.q}</span>
-                                    <span class="toggle" onclick="toggleQuestion(this.closest('.question'))"><i class="fas fa-chevron-down"></i></span>
+                                    <span class="toggle"><i class="fas fa-chevron-down"></i></span>
                                 </div>
                             </h3>
                             <div class="question-body">${q.a}</div>
@@ -3650,6 +3650,16 @@ mongotop --host localhost:27017</code></div>
         document.getElementById('allTopicsBtn').addEventListener('click', renderAllTopics);
         document.getElementById('expandAllBtn').addEventListener('click', expandAllQuestions);
         document.getElementById('collapseAllBtn').addEventListener('click', collapseAllQuestions);
+
+        // Delegated handler for toggling individual questions (reliable for dynamic content)
+        document.addEventListener('click', function (e) {
+            const toggleHit = e.target.closest('.question-line, .toggle');
+            if (!toggleHit) return;
+            // Prevent toggling when clicking the read-toggle button
+            if (e.target.closest('.read-toggle')) return;
+            const question = toggleHit.closest('.question');
+            if (question) toggleQuestion(question);
+        });
 
         // More menu (mobile)
         const moreBtn = document.getElementById('moreActionsBtn');
