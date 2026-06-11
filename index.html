@@ -135,13 +135,13 @@
 
         .nav-section {
             background: rgba(255,255,255,0.95);
-            padding: 16px;
+            padding: 18px;
             border-radius: 10px;
             margin-bottom: 20px;
             box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 16px;
         }
 
         .nav-buttons {
@@ -164,6 +164,9 @@
             box-shadow: 0 6px 14px rgba(83, 67, 217, 0.12);
             text-align: left;
             font-family: var(--font-sans);
+            min-height: 40px;
+            display: inline-flex;
+            align-items: center;
         }
 
         button:hover {
@@ -725,62 +728,95 @@
 
             .study-toolbar {
                 align-items: stretch;
+                flex-direction: column;
+                gap: 14px;
             }
 
             .toolbar-actions,
             .toolbar-actions button {
                 width: 100%;
+                min-height: 44px;
             }
 
             header h1 {
-                font-size: 1.4rem;
+                font-size: 1.3rem;
+                margin-bottom: 8px;
+            }
+
+            header p {
+                display: none;
             }
 
             .search-box {
-                padding: 10px 12px;
-                font-size: 0.95em;
+                padding: 12px 14px;
+                font-size: 16px;
+                min-height: 44px;
             }
 
             .content {
-                padding: 20px;
+                padding: 16px;
             }
 
             .question {
-                padding: 14px 14px;
+                padding: 14px 12px;
+                margin-bottom: 12px;
+                border-radius: 10px;
+            }
+
+            .question h3 {
+                gap: 12px;
+                margin-bottom: 8px;
+            }
+
+            .nav-section {
+                padding: 14px;
+                gap: 16px;
             }
         }
 
         @media (max-width: 420px) {
-            body { font-size: 13.5px; }
-            header { padding: 16px 12px; }
-            header h1 { font-size: 1.05rem; }
-            header p { font-size: 0.92em; }
-            .search-box { padding: 8px 10px; font-size: 0.92em; }
-            .toolbar-actions button { padding: 7px 10px; font-size: 0.85em; }
-            .content { padding: 12px; }
-            .question { padding: 10px; }
-            .question h3 { font-size: 0.95rem; gap: 8px; align-items: center; flex-wrap: wrap; }
-            .read-toggle { font-size: 0.78rem; padding: 5px 8px; margin-right: 6px; white-space: nowrap; }
-            .code-block { font-size: 0.78em; padding: 8px 10px; }
-            button { font-size: 0.88em; }
-            .topic h2 { font-size: 1.02rem; }
-            .container { padding: 10px; }
-            .nav-buttons { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 6px; }
-            .question-body { font-size: 0.94em; }
-            .answer-section p, .answer-section ul { font-size: 0.92em; line-height: 1.4; }
-            /* Mobile: show compact toolbar as icon-only buttons and keep more menu */
-            .toolbar-actions { display: flex; gap: 6px; align-items: center; }
-            .toolbar-actions .label { display: none; }
-            .toolbar-actions .icon { margin-right: 0; display: inline-flex; width: 1.2em; justify-content: center; }
-            .toolbar-actions button { padding: 8px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
-            /* Hide the overflow menu button when toolbar icons are visible to avoid duplication */
+            body { font-size: 14px; line-height: 1.6; }
+            header { padding: 18px 14px; }
+            header h1 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0; }
+            header p { display: none; }
+            .nav-section { padding: 14px; gap: 14px; }
+            .search-box { padding: 12px 14px; font-size: 16px; min-height: 44px; margin-bottom: 4px; }
+            .search-feedback { padding: 0 14px; font-size: 0.9em; margin: 6px 0; }
+            .toolbar-actions { flex-direction: column; gap: 10px; }
+            .toolbar-actions button { padding: 12px 14px; font-size: 0.9em; min-height: 44px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+            .toolbar-actions .label { display: inline; }
+            .toolbar-actions .icon { margin-right: 4px; }
+            .content { padding: 14px; }
+            .question { padding: 12px; margin-bottom: 14px; border-radius: 10px; }
+            .question h3 { font-size: 0.96rem; gap: 12px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 8px; }
+            .question-top { margin-bottom: 8px; }
+            .read-toggle { font-size: 0.8rem; padding: 8px 10px; min-height: 36px; display: flex; align-items: center; white-space: nowrap; }
+            .toggle { font-size: 1.1rem; }
+            .code-block { font-size: 0.8em; padding: 10px 12px; margin: 12px 0; overflow-x: auto; }
+            button { font-size: 0.9em; }
+            .topic h2 { font-size: 1.05rem; margin: 16px 0 12px 0; }
+            .container { padding: 0; }
+            .nav-buttons { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; padding: 0 14px 14px 14px; }
+            .nav-buttons button { padding: 10px; min-height: 48px; font-size: 0.88em; }
+            .topic-btn-label { gap: 6px; }
+            .topic-progress { height: 3px; }
+            .topic-coverage-pct { font-size: 0.7em; }
+            .question-body { font-size: 0.95em; margin-top: 10px; line-height: 1.5; }
+            .answer-section { margin: 12px 0; }
+            .answer-section p, .answer-section ul { font-size: 0.94em; line-height: 1.5; }
+            .answer-section h4 { font-size: 0.95em; margin: 8px 0 6px 0; font-weight: 600; }
+            table { font-size: 0.9em; }
+            .code-line { padding: 2px 0; }
+            .back-to-top { width: 44px; height: 44px; bottom: 16px; right: 16px; font-size: 1.2rem; }
+            /* Mobile toolbar styling */
+            .toolbar-actions { display: flex; gap: 10px; align-items: center; flex-direction: column; }
+            .toolbar-actions .label { display: inline; }
+            .toolbar-actions .icon { margin-right: 4px; display: inline-flex; width: 1.2em; justify-content: center; }
+            .toolbar-actions button { padding: 12px 14px; min-width: auto; min-height: 44px; display: flex; align-items: center; justify-content: center; }
             .more-btn { display: none; }
-            .more-menu { right: 12px; top: 110px; }
-            .study-toolbar { position: relative; }
-            .search-box { width: calc(100% - 96px); }
-            /* Restore wrapping grid for topic buttons on small screens */
-            .nav-buttons { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; }
-            .nav-buttons button { min-width: 0; white-space: normal; }
+            .more-menu { right: 14px; top: 140px; }
+            .study-toolbar { position: relative; flex-direction: column; align-items: stretch; }
+            .search-box { width: 100%; }
         }
     </style>
 </head>
