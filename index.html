@@ -766,12 +766,14 @@
                 <div class="toolbar-actions" role="toolbar" aria-label="Study actions">
                     <button id="allTopicsBtn"><span class="icon"><i class="fas fa-book"></i></span><span class="label">All Topics</span></button>
                     <button id="expandAllBtn"><span class="icon"><i class="fas fa-chevron-up"></i></span><span class="label">Expand All</span></button>
+                    <button id="getMarkedReadBtn"><span class="icon"><i class="fas fa-bookmark"></i></span><span class="label">Get Marked Read</span></button>
                     <button id="collapseAllBtn"><span class="icon"><i class="fas fa-chevron-down"></i></span><span class="label">Collapse All</span></button>
                 </div>
                 <button id="moreActionsBtn" class="more-btn" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
                 <div id="moreActionsMenu" class="more-menu" role="menu" aria-hidden="true">
                     <button role="menuitem" data-action="all">All Topics</button>
                     <button role="menuitem" data-action="expand">Expand All</button>
+                    <button role="menuitem" data-action="getmarked">Get Marked Read</button>
                     <button role="menuitem" data-action="collapse">Collapse All</button>
                 </div>
             </div>
@@ -3585,6 +3587,57 @@ mongotop --host localhost:27017</code></div>
             renderFilteredResults(e.target.value);
         });
 
+        function getMarkedReadQuestions() {
+            document.querySelectorAll('.nav-buttons button').forEach(b => b.classList.remove('active'));
+            const contentArea = document.getElementById('contentArea');
+            const readSet = getReadSet();
+            let html = '';
+            let count = 0;
+
+            if (readSet.size === 0) {
+                contentArea.innerHTML = '<div class="empty-state">No questions marked as read yet</div>';
+                document.getElementById('searchFeedback').textContent = '';
+                return;
+            }
+
+            for (const topic in topicsData) {
+                const topicData = topicsData[topic];
+                let topicHasRead = false;
+                let topicHtml = '';
+
+                topicData.questions.forEach((q, idx) => {
+                    const qid = `${sanitizeId(topic)}-${idx}`;
+                    if (!readSet.has(qid)) return;
+                    topicHasRead = true;
+                    count++;
+
+                    topicHtml += `
+                        <div class="question read" data-qid="${qid}">
+                            <h3>
+                                <div class="question-top">
+                                    <button type="button" class="read-toggle read" data-id="${qid}" aria-pressed="true" onclick="onReadToggleClick(event)">Read ✓</button>
+                                </div>
+                                <div class="question-line">
+                                    <span class="question-text"><span class="q-badge">Q${idx + 1}</span>${q.q}</span>
+                                    <span class="toggle"><i class="fas fa-chevron-down"></i></span>
+                                </div>
+                            </h3>
+                            <div class="question-body">${q.a}</div>
+                        </div>
+                    `;
+                });
+
+                if (topicHasRead) {
+                    html += `<h2>${topicData.icon} ${topic}</h2>${topicHtml}`;
+                }
+            }
+
+            contentArea.innerHTML = html;
+            highlightAllCodeBlocks();
+            updateExpandCollapseButtons();
+            document.getElementById('searchFeedback').textContent = `${count} question${count !== 1 ? 's' : ''} marked as read`;
+        }
+
         function renderAllTopics() {
             document.querySelectorAll('.nav-buttons button').forEach(b => b.classList.remove('active'));
             const contentArea = document.getElementById('contentArea');
@@ -3649,6 +3702,7 @@ mongotop --host localhost:27017</code></div>
         // Wire toolbar buttons
         document.getElementById('allTopicsBtn').addEventListener('click', renderAllTopics);
         document.getElementById('expandAllBtn').addEventListener('click', expandAllQuestions);
+        document.getElementById('getMarkedReadBtn').addEventListener('click', getMarkedReadQuestions);
         document.getElementById('collapseAllBtn').addEventListener('click', collapseAllQuestions);
 
         // Delegated handler for toggling individual questions (reliable for dynamic content)
@@ -3679,6 +3733,7 @@ mongotop --host localhost:27017</code></div>
                 const action = btn.dataset.action;
                 if (action === 'all') renderAllTopics();
                 if (action === 'expand') expandAllQuestions();
+                if (action === 'getmarked') getMarkedReadQuestions();
                 if (action === 'collapse') collapseAllQuestions();
                 moreMenu.style.display = 'none';
                 moreBtn.setAttribute('aria-expanded', 'false');
