@@ -6,74 +6,133 @@
 <title>Advanced Budget Calculator</title>
 
 <style>
-body{
-    font-family:Arial, sans-serif;
-    background:#f4f6f9;
-    margin:0;
-    padding:20px;
-}
-.container{
-    max-width:850px;
-    margin:auto;
-    background:#fff;
-    padding:20px;
-    border-radius:12px;
-    box-shadow:0 5px 15px rgba(0,0,0,.15);
-}
-h2{
-    text-align:center;
-    color:#1f4e79;
-}
-.section{
-    margin-top:25px;
-}
-.item{
-    display:grid;
-    grid-template-columns:2fr 1fr auto;
-    gap:10px;
-    margin-bottom:10px;
-}
-input{
-    padding:10px;
-    font-size:15px;
-}
-button{
-    padding:10px 15px;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
-}
-.addBtn{
-    background:#28a745;
-    color:white;
-}
-.removeBtn{
-    background:#dc3545;
-    color:white;
-}
-.summary{
-    margin-top:30px;
-    padding:20px;
-    border-radius:10px;
-    background:#eef4ff;
-}
-.summary h3{
-    margin-top:0;
-}
-.total{
-    font-size:18px;
-    margin:8px 0;
-}
-.balance{
-    font-size:22px;
-    font-weight:bold;
-}
-.positive{
-    color:green;
-}
-.negative{
-    color:red;
-}
+    body{
+        font-family: Arial, sans-serif;
+        background: #f4f6f9;
+        margin: 0;
+        padding: 15px;
+        line-height: 1.5;
+    }
+
+    .container{
+        max-width: 900px;
+        margin: auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0,0,0,.15);
+    }
+
+    h2{
+        text-align: center;
+        color: #1f4e79;
+        margin-top: 0;
+    }
+
+    .section{
+        margin-top: 25px;
+    }
+
+    .item{
+        display: grid;
+        grid-template-columns: 2fr 1fr auto;
+        gap: 10px;
+        margin-bottom: 12px;
+        align-items: center;
+    }
+
+    input{
+        padding: 10px;
+        font-size: 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+    }
+
+    button{
+        padding: 10px 15px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
+    .addBtn{
+        background: #28a745;
+        color: white;
+    }
+
+    .removeBtn{
+        background: #dc3545;
+        color: white;
+        padding: 10px 12px;
+    }
+
+    .summary{
+        margin-top: 30px;
+        padding: 20px;
+        border-radius: 10px;
+        background: #eef4ff;
+    }
+
+    .summary h3{
+        margin-top: 0;
+    }
+
+    .total{
+        font-size: 18px;
+        margin: 10px 0;
+    }
+
+    .balance{
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .positive{
+        color: green;
+    }
+
+    .negative{
+        color: red;
+    }
+
+    /* Responsive Improvements */
+    @media (max-width: 768px) {
+        .container {
+            padding: 15px;
+        }
+        
+        body {
+            padding: 10px;
+        }
+        
+        .item {
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+        
+        button {
+            padding: 12px;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+        }
+        
+        .summary {
+            padding: 15px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .item input {
+            font-size: 14px;
+        }
+        
+        .total, .balance {
+            font-size: 1.1rem;
+        }
+    }
 </style>
 
 </head>
@@ -105,15 +164,12 @@ button{
 <div class="summary">
 <h3>Summary</h3>
 
-<div class="total">Total Income:
-₹<span id="incomeTotal">0</span></div>
+<div class="total">Total Income: ₹<span id="incomeTotal">0</span></div>
 
-<div class="total">Total Expenses:
-₹<span id="expenseTotal">0</span></div>
+<div class="total">Total Expenses: ₹<span id="expenseTotal">0</span></div>
 
 <div class="balance">
-Remaining Balance:
-₹<span id="balance">0</span>
+Remaining Balance: ₹<span id="balance">0</span>
 </div>
 
 </div>
@@ -122,22 +178,22 @@ Remaining Balance:
 
 <script>
 
-function createRow(containerId,name="",amount=0){
+function createRow(containerId, name="", amount=0){
 
-    const row=document.createElement("div");
-    row.className="item";
+    const row = document.createElement("div");
+    row.className = "item";
 
-    row.innerHTML=`
+    row.innerHTML = `
         <input type="text" placeholder="Description" value="${name}">
         <input type="number" placeholder="Amount" value="${amount}">
         <button class="removeBtn">❌</button>
     `;
 
-    row.querySelectorAll("input").forEach(i=>{
-        i.addEventListener("input",calculate);
+    row.querySelectorAll("input").forEach(i => {
+        i.addEventListener("input", calculate);
     });
 
-    row.querySelector("button").onclick=function(){
+    row.querySelector("button").onclick = function(){
         row.remove();
         calculate();
     };
@@ -156,10 +212,10 @@ function addDebit(){
 
 function sum(containerId){
 
-    let total=0;
+    let total = 0;
 
-    document.querySelectorAll("#"+containerId+" .item").forEach(row=>{
-        total+=Number(row.children[1].value)||0;
+    document.querySelectorAll("#"+containerId+" .item").forEach(row => {
+        total += Number(row.children[1].value) || 0;
     });
 
     return total;
@@ -168,21 +224,21 @@ function sum(containerId){
 
 function calculate(){
 
-    let income=sum("incomeList");
-    let expense=sum("debitList");
-    let balance=income-expense;
+    let income = sum("incomeList");
+    let expense = sum("debitList");
+    let balance = income - expense;
 
-    document.getElementById("incomeTotal").innerHTML=income.toLocaleString();
-    document.getElementById("expenseTotal").innerHTML=expense.toLocaleString();
+    document.getElementById("incomeTotal").innerHTML = income.toLocaleString('en-IN');
+    document.getElementById("expenseTotal").innerHTML = expense.toLocaleString('en-IN');
 
-    let bal=document.getElementById("balance");
+    let bal = document.getElementById("balance");
 
-    bal.innerHTML=balance.toLocaleString();
+    bal.innerHTML = balance.toLocaleString('en-IN');
 
-    if(balance>=0){
-        bal.className="positive";
-    }else{
-        bal.className="negative";
+    if(balance >= 0){
+        bal.className = "positive";
+    } else {
+        bal.className = "negative";
     }
 
 }
