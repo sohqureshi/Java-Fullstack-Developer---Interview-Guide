@@ -3,87 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Monthly Budget Calculator</title>
+<title>Advanced Budget Calculator</title>
 
 <style>
-    body{
-        font-family: Arial, sans-serif;
-        background:#f4f6f9;
-        margin:0;
-        padding:30px;
-    }
-
-    .container{
-        max-width:700px;
-        margin:auto;
-        background:white;
-        padding:25px;
-        border-radius:12px;
-        box-shadow:0 5px 15px rgba(0,0,0,.15);
-    }
-
-    h2{
-        text-align:center;
-        color:#1f4e79;
-    }
-
-    table{
-        width:100%;
-        border-collapse:collapse;
-        margin-top:20px;
-    }
-
-    th{
-        background:#1f4e79;
-        color:white;
-        padding:10px;
-    }
-
-    td{
-        padding:10px;
-        border-bottom:1px solid #ddd;
-    }
-
-    input{
-        width:100%;
-        padding:8px;
-        font-size:15px;
-        box-sizing:border-box;
-    }
-
-    .result{
-        margin-top:25px;
-        padding:15px;
-        border-radius:10px;
-        font-size:18px;
-        font-weight:bold;
-    }
-
-    .positive{
-        background:#d4edda;
-        color:#155724;
-    }
-
-    .negative{
-        background:#f8d7da;
-        color:#721c24;
-    }
-
-    button{
-        width:100%;
-        padding:12px;
-        margin-top:20px;
-        background:#1f4e79;
-        color:white;
-        border:none;
-        border-radius:8px;
-        font-size:17px;
-        cursor:pointer;
-    }
-
-    button:hover{
-        background:#163b5c;
-    }
+body{
+    font-family:Arial, sans-serif;
+    background:#f4f6f9;
+    margin:0;
+    padding:20px;
+}
+.container{
+    max-width:850px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+h2{
+    text-align:center;
+    color:#1f4e79;
+}
+.section{
+    margin-top:25px;
+}
+.item{
+    display:grid;
+    grid-template-columns:2fr 1fr auto;
+    gap:10px;
+    margin-bottom:10px;
+}
+input{
+    padding:10px;
+    font-size:15px;
+}
+button{
+    padding:10px 15px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+.addBtn{
+    background:#28a745;
+    color:white;
+}
+.removeBtn{
+    background:#dc3545;
+    color:white;
+}
+.summary{
+    margin-top:30px;
+    padding:20px;
+    border-radius:10px;
+    background:#eef4ff;
+}
+.summary h3{
+    margin-top:0;
+}
+.total{
+    font-size:18px;
+    margin:8px 0;
+}
+.balance{
+    font-size:22px;
+    font-weight:bold;
+}
+.positive{
+    color:green;
+}
+.negative{
+    color:red;
+}
 </style>
 
 </head>
@@ -92,108 +82,124 @@
 
 <div class="container">
 
-<h2>💰 Monthly Budget Calculator</h2>
+<h2>💰 Advanced Monthly Budget Calculator</h2>
 
-<table>
+<div class="section">
+<h3>Income</h3>
 
-<tr>
-<th colspan="2">Credit</th>
-</tr>
+<div id="incomeList"></div>
 
-<tr>
-<td>Salary</td>
-<td><input type="number" id="salary" placeholder="Enter Salary"></td>
-</tr>
+<button class="addBtn" onclick="addIncome()">+ Add Income</button>
 
-<tr>
-<th colspan="2">Debits</th>
-</tr>
+</div>
 
-<tr>
-<td>Home Loan</td>
-<td><input type="number" id="homeLoan" value="30000"></td>
-</tr>
+<div class="section">
+<h3>Debits</h3>
 
-<tr>
-<td>Car Loan</td>
-<td><input type="number" id="carLoan" value="12400"></td>
-</tr>
+<div id="debitList"></div>
 
-<tr>
-<td>Loan from Family</td>
-<td><input type="number" id="familyLoan" value="12000"></td>
-</tr>
+<button class="addBtn" onclick="addDebit()">+ Add Debit</button>
 
-<tr>
-<td>Grocery & Maintenance</td>
-<td><input type="number" id="grocery" value="10000"></td>
-</tr>
+</div>
 
-<tr>
-<td>Electricity Bill</td>
-<td><input type="number" id="electricity" value="10000"></td>
-</tr>
+<div class="summary">
+<h3>Summary</h3>
 
-<tr>
-<td>Medical Expenses</td>
-<td><input type="number" id="medical" value="10000"></td>
-</tr>
+<div class="total">Total Income:
+₹<span id="incomeTotal">0</span></div>
 
-<tr>
-<td>Miscellaneous</td>
-<td><input type="number" id="misc" value="10000"></td>
-</tr>
+<div class="total">Total Expenses:
+₹<span id="expenseTotal">0</span></div>
 
-</table>
+<div class="balance">
+Remaining Balance:
+₹<span id="balance">0</span>
+</div>
 
-<button onclick="calculateBudget()">Calculate</button>
-
-<div id="output"></div>
+</div>
 
 </div>
 
 <script>
 
-function getValue(id){
-    return Number(document.getElementById(id).value) || 0;
+function createRow(containerId,name="",amount=0){
+
+    const row=document.createElement("div");
+    row.className="item";
+
+    row.innerHTML=`
+        <input type="text" placeholder="Description" value="${name}">
+        <input type="number" placeholder="Amount" value="${amount}">
+        <button class="removeBtn">❌</button>
+    `;
+
+    row.querySelectorAll("input").forEach(i=>{
+        i.addEventListener("input",calculate);
+    });
+
+    row.querySelector("button").onclick=function(){
+        row.remove();
+        calculate();
+    };
+
+    document.getElementById(containerId).appendChild(row);
+
 }
 
-function calculateBudget(){
+function addIncome(){
+    createRow("incomeList","",0);
+}
 
-    let salary = getValue("salary");
+function addDebit(){
+    createRow("debitList","",0);
+}
 
-    let totalDebit =
-        getValue("homeLoan") +
-        getValue("carLoan") +
-        getValue("familyLoan") +
-        getValue("grocery") +
-        getValue("electricity") +
-        getValue("medical") +
-        getValue("misc");
+function sum(containerId){
 
-    let remaining = salary - totalDebit;
+    let total=0;
 
-    let output = document.getElementById("output");
+    document.querySelectorAll("#"+containerId+" .item").forEach(row=>{
+        total+=Number(row.children[1].value)||0;
+    });
 
-    if(remaining >= 0){
+    return total;
 
-        output.innerHTML =
-        `<div class="result positive">
-            Total Debit : ₹${totalDebit.toLocaleString()}<br><br>
-            Remaining Balance : ₹${remaining.toLocaleString()}
-        </div>`;
+}
 
+function calculate(){
+
+    let income=sum("incomeList");
+    let expense=sum("debitList");
+    let balance=income-expense;
+
+    document.getElementById("incomeTotal").innerHTML=income.toLocaleString();
+    document.getElementById("expenseTotal").innerHTML=expense.toLocaleString();
+
+    let bal=document.getElementById("balance");
+
+    bal.innerHTML=balance.toLocaleString();
+
+    if(balance>=0){
+        bal.className="positive";
     }else{
-
-        output.innerHTML =
-        `<div class="result negative">
-            Total Debit : ₹${totalDebit.toLocaleString()}<br><br>
-            Deficit : ₹${Math.abs(remaining).toLocaleString()}
-        </div>`;
-
+        bal.className="negative";
     }
 
 }
+
+// Default Income
+createRow("incomeList","Salary",0);
+
+// Default Debits
+createRow("debitList","Home Loan",30000);
+createRow("debitList","Car Loan",12400);
+createRow("debitList","Loan from Family",12000);
+createRow("debitList","Grocery & Maintenance",10000);
+createRow("debitList","Electricity Bill",10000);
+createRow("debitList","Medical Expenses",10000);
+createRow("debitList","Miscellaneous",10000);
+
+calculate();
 
 </script>
 
