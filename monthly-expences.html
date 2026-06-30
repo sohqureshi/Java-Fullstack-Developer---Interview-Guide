@@ -85,7 +85,13 @@
         border: 1.5px solid #e0e0e0;
         border-radius: 10px;
         flex: 1;
-        min-width: 0; /* Important for flex shrinking */
+        min-width: 0;
+    }
+
+    input:focus {
+        border-color: var(--accent);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(74,158,255,0.1);
     }
 
     .removeBtn {
@@ -133,20 +139,11 @@
     .positive { color: #2ed573; }
     .negative { color: var(--danger); }
 
-    /* Responsive Fixes */
+    .item.swiping { transition: none; }
+
     @media (max-width: 768px) {
         .main-content { padding: 20px; }
-        .item-inputs {
-            flex-direction: column;
-            align-items: stretch;
-        }
-        input {
-            font-size: 16px;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .balance { font-size: 1.8rem; }
+        .item-inputs { flex-direction: column; align-items: stretch; }
     }
 </style>
 </head>
@@ -234,8 +231,7 @@ function createRow(containerId, name="", amount=0){
         <button class="removeBtn" title="Remove">×</button>
     `;
 
-    const inputs = row.querySelectorAll("input");
-    inputs.forEach(input => {
+    row.querySelectorAll("input").forEach(input => {
         input.addEventListener("input", () => { calculate(); saveData(); });
     });
 
@@ -279,6 +275,15 @@ function removeRow(row) {
     setTimeout(() => { row.remove(); calculate(); saveData(); }, 280);
 }
 
+// Add functions
+function addIncome() {
+    createRow("incomeList", "", 0);
+}
+
+function addDebit() {
+    createRow("debitList", "", 0);
+}
+
 function sum(containerId){
     let total = 0;
     document.querySelectorAll("#"+containerId+" input[type='number']").forEach(i => total += parseFloat(i.value) || 0);
@@ -300,7 +305,7 @@ function calculate(){
     bal.className = balance >= 0 ? "positive" : "negative";
 }
 
-// Initialize with your data
+// Initialize
 if (!loadData()) {
     createRow("incomeList", "Salary", 100000);
 
