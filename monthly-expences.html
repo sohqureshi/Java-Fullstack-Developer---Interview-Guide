@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monthly Budget Calculator</title>
+
+<style>
+    body{
+        font-family: Arial, sans-serif;
+        background:#f4f6f9;
+        margin:0;
+        padding:30px;
+    }
+
+    .container{
+        max-width:700px;
+        margin:auto;
+        background:white;
+        padding:25px;
+        border-radius:12px;
+        box-shadow:0 5px 15px rgba(0,0,0,.15);
+    }
+
+    h2{
+        text-align:center;
+        color:#1f4e79;
+    }
+
+    table{
+        width:100%;
+        border-collapse:collapse;
+        margin-top:20px;
+    }
+
+    th{
+        background:#1f4e79;
+        color:white;
+        padding:10px;
+    }
+
+    td{
+        padding:10px;
+        border-bottom:1px solid #ddd;
+    }
+
+    input{
+        width:100%;
+        padding:8px;
+        font-size:15px;
+        box-sizing:border-box;
+    }
+
+    .result{
+        margin-top:25px;
+        padding:15px;
+        border-radius:10px;
+        font-size:18px;
+        font-weight:bold;
+    }
+
+    .positive{
+        background:#d4edda;
+        color:#155724;
+    }
+
+    .negative{
+        background:#f8d7da;
+        color:#721c24;
+    }
+
+    button{
+        width:100%;
+        padding:12px;
+        margin-top:20px;
+        background:#1f4e79;
+        color:white;
+        border:none;
+        border-radius:8px;
+        font-size:17px;
+        cursor:pointer;
+    }
+
+    button:hover{
+        background:#163b5c;
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>💰 Monthly Budget Calculator</h2>
+
+<table>
+
+<tr>
+<th colspan="2">Credit</th>
+</tr>
+
+<tr>
+<td>Salary</td>
+<td><input type="number" id="salary" placeholder="Enter Salary"></td>
+</tr>
+
+<tr>
+<th colspan="2">Debits</th>
+</tr>
+
+<tr>
+<td>Home Loan</td>
+<td><input type="number" id="homeLoan" value="30000"></td>
+</tr>
+
+<tr>
+<td>Car Loan</td>
+<td><input type="number" id="carLoan" value="12400"></td>
+</tr>
+
+<tr>
+<td>Loan from Family</td>
+<td><input type="number" id="familyLoan" value="12000"></td>
+</tr>
+
+<tr>
+<td>Grocery & Maintenance</td>
+<td><input type="number" id="grocery" value="10000"></td>
+</tr>
+
+<tr>
+<td>Electricity Bill</td>
+<td><input type="number" id="electricity" value="10000"></td>
+</tr>
+
+<tr>
+<td>Medical Expenses</td>
+<td><input type="number" id="medical" value="10000"></td>
+</tr>
+
+<tr>
+<td>Miscellaneous</td>
+<td><input type="number" id="misc" value="10000"></td>
+</tr>
+
+</table>
+
+<button onclick="calculateBudget()">Calculate</button>
+
+<div id="output"></div>
+
+</div>
+
+<script>
+
+function getValue(id){
+    return Number(document.getElementById(id).value) || 0;
+}
+
+function calculateBudget(){
+
+    let salary = getValue("salary");
+
+    let totalDebit =
+        getValue("homeLoan") +
+        getValue("carLoan") +
+        getValue("familyLoan") +
+        getValue("grocery") +
+        getValue("electricity") +
+        getValue("medical") +
+        getValue("misc");
+
+    let remaining = salary - totalDebit;
+
+    let output = document.getElementById("output");
+
+    if(remaining >= 0){
+
+        output.innerHTML =
+        `<div class="result positive">
+            Total Debit : ₹${totalDebit.toLocaleString()}<br><br>
+            Remaining Balance : ₹${remaining.toLocaleString()}
+        </div>`;
+
+    }else{
+
+        output.innerHTML =
+        `<div class="result negative">
+            Total Debit : ₹${totalDebit.toLocaleString()}<br><br>
+            Deficit : ₹${Math.abs(remaining).toLocaleString()}
+        </div>`;
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
