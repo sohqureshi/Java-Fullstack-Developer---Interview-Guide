@@ -56,16 +56,14 @@
     .section-total { font-weight: 700; color: var(--accent); font-size: 1.15rem; }
 
     .item {
-        display: grid;
-        grid-template-columns: 2fr 1fr 48px;
+        display: flex;
+        align-items: center;
         gap: 12px;
         margin-bottom: 12px;
         padding: 14px 16px;
         border: 1px solid #f0f0f0;
         border-radius: 14px;
         background: #fafcff;
-        align-items: center;
-        position: relative;
         transition: all 0.25s ease;
     }
 
@@ -74,15 +72,249 @@
         box-shadow: 0 6px 16px rgba(74,158,255,0.12);
     }
 
+    .item-inputs {
+        display: flex;
+        flex: 1;
+        gap: 12px;
+        align-items: center;
+    }
+
     input {
         padding: 14px 16px;
         font-size: 16px;
         border: 1.5px solid #e0e0e0;
         border-radius: 10px;
-        width: 100%;
+        flex: 1;
+        min-width: 0; /* Important for flex shrinking */
     }
 
-    input:focus {
-        border-color: var(--accent);
-        outline: none;
-        box-shadow: 0 0 0 3px rgba(74,
+    .removeBtn {
+        background: var(--danger);
+        color: white;
+        border: none;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .addBtn {
+        background: var(--success);
+        color: white;
+        padding: 16px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 16.5px;
+        font-weight: 600;
+        width: 100%;
+        margin-top: 12px;
+    }
+
+    .summary {
+        background: #f8fbff;
+        padding: 28px;
+        border-radius: 18px;
+        border: 2px solid #e0eeff;
+        text-align: center;
+    }
+
+    .balance {
+        font-size: 2.1rem;
+        font-weight: 700;
+        margin: 18px 0 8px;
+    }
+
+    .positive { color: #2ed573; }
+    .negative { color: var(--danger); }
+
+    /* Responsive Fixes */
+    @media (max-width: 768px) {
+        .main-content { padding: 20px; }
+        .item-inputs {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        input {
+            font-size: 16px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .balance { font-size: 1.8rem; }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <header>
+        <h1>💰 Monthly Budget Planner</h1>
+        <p class="subtitle">Smart • Simple • Persistent</p>
+    </header>
+
+    <div class="main-content">
+
+        <div class="section">
+            <div class="section-header">
+                <h3>Income</h3>
+                <span id="incomeSectionTotal" class="section-total">₹0</span>
+            </div>
+            <div id="incomeList"></div>
+            <button class="addBtn" onclick="addIncome()">+ Add Income</button>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h3>Expenses</h3>
+                <span id="expenseSectionTotal" class="section-total">₹0</span>
+            </div>
+            <div id="debitList"></div>
+            <button class="addBtn" onclick="addDebit()">+ Add Expense</button>
+        </div>
+
+        <div class="summary">
+            <h3>Overall Summary</h3>
+            <div style="margin:24px 0 16px;">
+                <div style="font-size:1.15rem;margin:10px 0;">Total Income: <span id="incomeTotal">₹0</span></div>
+                <div style="font-size:1.15rem;margin:10px 0;">Total Expenses: <span id="expenseTotal">₹0</span></div>
+            </div>
+            <div class="balance" id="balanceContainer">
+                Remaining Balance: <span id="balance">₹0</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+const storageKey = "monthlyBudgetData_v2";
+
+function saveData() {
+    const data = { income: [], expenses: [] };
+    document.querySelectorAll("#incomeList .item").forEach(item => {
+        const [desc, amt] = item.querySelectorAll("input");
+        data.income.push({desc: desc.value, amount: parseFloat(amt.value)||0});
+    });
+    document.querySelectorAll("#debitList .item").forEach(item => {
+        const [desc, amt] = item.querySelectorAll("input");
+        data.expenses.push({desc: desc.value, amount: parseFloat(amt.value)||0});
+    });
+    localStorage.setItem(storageKey, JSON.stringify(data));
+}
+
+function loadData() {
+    const saved = localStorage.getItem(storageKey);
+    if (!saved) return false;
+    try {
+        const data = JSON.parse(saved);
+        document.getElementById("incomeList").innerHTML = "";
+        document.getElementById("debitList").innerHTML = "";
+        data.income.forEach(i => createRow("incomeList", i.desc, i.amount));
+        data.expenses.forEach(e => createRow("debitList", e.desc, e.amount));
+        return true;
+    } catch(e) { return false; }
+}
+
+function createRow(containerId, name="", amount=0){
+    const row = document.createElement("div");
+    row.className = "item";
+
+    row.innerHTML = `
+        <div class="item-inputs">
+            <input type="text" placeholder="Description" value="${name}">
+            <input type="number" placeholder="₹ Amount" value="${amount}" min="0" step="1">
+        </div>
+        <button class="removeBtn" title="Remove">×</button>
+    `;
+
+    const inputs = row.querySelectorAll("input");
+    inputs.forEach(input => {
+        input.addEventListener("input", () => { calculate(); saveData(); });
+    });
+
+    // Swipe to delete
+    let startX = 0, currentX = 0, isSwiping = false;
+    const threshold = 85;
+
+    row.addEventListener('touchstart', e => { 
+        startX = currentX = e.touches[0].clientX; 
+        isSwiping = true; 
+        row.classList.add('swiping'); 
+    }, { passive: true });
+
+    row.addEventListener('touchmove', e => {
+        if (!isSwiping) return;
+        currentX = e.touches[0].clientX;
+        const diff = Math.min(0, currentX - startX);
+        row.style.transform = `translateX(${diff}px)`;
+    }, { passive: true });
+
+    row.addEventListener('touchend', () => {
+        if (!isSwiping) return;
+        isSwiping = false;
+        row.classList.remove('swiping');
+        if (currentX - startX < -threshold) removeRow(row);
+        else { 
+            row.style.transition = 'transform 0.35s ease'; 
+            row.style.transform = 'translateX(0)'; 
+        }
+    });
+
+    row.querySelector(".removeBtn").onclick = () => removeRow(row);
+
+    document.getElementById(containerId).appendChild(row);
+}
+
+function removeRow(row) {
+    row.style.transition = "all 0.3s ease";
+    row.style.opacity = "0";
+    row.style.transform = "translateX(-40px)";
+    setTimeout(() => { row.remove(); calculate(); saveData(); }, 280);
+}
+
+function sum(containerId){
+    let total = 0;
+    document.querySelectorAll("#"+containerId+" input[type='number']").forEach(i => total += parseFloat(i.value) || 0);
+    return total;
+}
+
+function calculate(){
+    const income = sum("incomeList");
+    const expense = sum("debitList");
+    const balance = income - expense;
+
+    document.getElementById("incomeTotal").textContent = "₹" + income.toLocaleString('en-IN');
+    document.getElementById("expenseTotal").textContent = "₹" + expense.toLocaleString('en-IN');
+    document.getElementById("incomeSectionTotal").textContent = "₹" + income.toLocaleString('en-IN');
+    document.getElementById("expenseSectionTotal").textContent = "₹" + expense.toLocaleString('en-IN');
+
+    const bal = document.getElementById("balance");
+    bal.textContent = "₹" + balance.toLocaleString('en-IN');
+    bal.className = balance >= 0 ? "positive" : "negative";
+}
+
+// Initialize with your data
+if (!loadData()) {
+    createRow("incomeList", "Salary", 100000);
+
+    createRow("debitList", "Home Loan", 30000);
+    createRow("debitList", "Car Loan", 12400);
+    createRow("debitList", "Loan from family", 12000);
+    createRow("debitList", "Grocery and Maintenance", 10000);
+    createRow("debitList", "Electricity bill", 10000);
+    createRow("debitList", "Medical expenses", 10000);
+    createRow("debitList", "Miscellaneous", 10000);
+}
+
+calculate();
+</script>
+
+</body>
+</html>
