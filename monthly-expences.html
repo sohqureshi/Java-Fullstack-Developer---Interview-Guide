@@ -1011,14 +1011,16 @@ function createRow(containerId, name = "", amount = 0) {
         </label>
         <label class="field">
             <span>Amount</span>
-            <input class="amount-input" type="text" placeholder="0" value="" inputmode="numeric" autocomplete="off">
+            <input class="amount-input" type="text" placeholder="Enter amount" value="" inputmode="numeric" autocomplete="off">
         </label>
         <button class="remove-btn" type="button" title="Remove row" aria-label="Remove row">&times;</button>
     `;
 
     row.querySelector(".description-input").value = name;
     const amountInput = row.querySelector(".amount-input");
-    amountInput.value = formatAmountValue(amount);
+    if (amount > 0) {
+        amountInput.value = formatAmountValue(amount);
+    }
 
     row.querySelectorAll("input").forEach(input => {
         input.addEventListener("input", () => {
