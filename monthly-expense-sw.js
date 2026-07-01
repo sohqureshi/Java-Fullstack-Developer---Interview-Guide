@@ -1,4 +1,4 @@
-const CACHE_NAME = "monthly-expense-planner-v1";
+const CACHE_NAME = "monthly-expense-planner-v2";
 const APP_SHELL = [
   "./",
   "./monthly-expences.html",

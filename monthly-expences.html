@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Monthly Expense Planner</title>
-<meta name="theme-color" content="#2457c5">
+<meta name="theme-color" content="#2f5d62">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Expense Planner">
@@ -13,20 +13,21 @@
 
 <style>
     :root {
-        --page: #f5f7fb;
+        --page: #f4f7f3;
         --surface: #ffffff;
-        --surface-soft: #f8fafc;
-        --ink: #172033;
-        --muted: #667085;
-        --line: #dfe5ee;
-        --primary: #2457c5;
-        --primary-dark: #163e94;
-        --income: #15803d;
-        --income-soft: #eaf8ef;
-        --expense: #c2410c;
-        --expense-soft: #fff1e8;
+        --surface-soft: #f8faf5;
+        --ink: #18252a;
+        --muted: #66746f;
+        --line: #dce5de;
+        --primary: #2f5d62;
+        --primary-dark: #244a52;
+        --primary-soft: #e8f1ed;
+        --income: #167a55;
+        --income-soft: #e8f6ef;
+        --expense: #b45309;
+        --expense-soft: #fff4e8;
         --danger: #c93535;
-        --shadow: 0 18px 44px rgba(25, 35, 60, 0.10);
+        --shadow: 0 16px 36px rgba(35, 54, 49, 0.10);
     }
 
     * {
@@ -64,18 +65,19 @@
     .app-header {
         display: grid;
         grid-template-columns: minmax(0, 1fr) auto;
-        gap: 20px;
+        gap: 16px;
         align-items: end;
-        padding: 28px;
-        color: #fff;
-        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        padding: 22px;
+        color: var(--ink);
+        background: linear-gradient(135deg, #ffffff, #edf5ef);
+        border: 1px solid #dbe7df;
         border-radius: 8px;
         box-shadow: var(--shadow);
     }
 
     .eyebrow {
         margin: 0 0 8px;
-        color: rgba(255, 255, 255, 0.76);
+        color: var(--primary);
         font-size: 0.78rem;
         font-weight: 700;
         letter-spacing: 0.08em;
@@ -84,8 +86,8 @@
 
     h1 {
         margin: 0;
-        font-size: clamp(2rem, 5vw, 3.7rem);
-        line-height: 1;
+        font-size: clamp(1.55rem, 3.6vw, 2.35rem);
+        line-height: 1.08;
         font-weight: 800;
         letter-spacing: 0;
     }
@@ -94,29 +96,40 @@
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
-        margin-top: 18px;
+        margin-top: 14px;
     }
 
     .status-pill {
         display: inline-flex;
         align-items: center;
         min-height: 34px;
-        padding: 7px 11px;
-        border: 1px solid rgba(255, 255, 255, 0.24);
+        padding: 6px 10px;
+        border: 1px solid #d5e1da;
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.13);
-        color: rgba(255, 255, 255, 0.92);
-        font-size: 0.9rem;
+        background: rgba(255, 255, 255, 0.76);
+        color: #40514b;
+        font-size: 0.84rem;
         white-space: nowrap;
     }
 
+    .total-remaining-pill {
+        background: var(--primary-soft);
+        border-color: #c8dcd2;
+        color: var(--primary-dark);
+        font-weight: 850;
+    }
+
+    .total-remaining-pill.negative {
+        color: var(--danger);
+    }
+
     .install-button {
-        border-color: rgba(255, 255, 255, 0.34);
+        border-color: #c8dcd2;
         cursor: pointer;
     }
 
     .install-button:hover {
-        background: rgba(255, 255, 255, 0.22);
+        background: #ddebe4;
     }
 
     .hidden {
@@ -129,21 +142,21 @@
         gap: 8px;
         padding: 8px;
         border-radius: 8px;
-        background: rgba(255, 255, 255, 0.14);
+        background: #e4eee8;
     }
 
     .month-trigger {
         display: grid;
         gap: 2px;
-        min-width: 190px;
-        height: 48px;
+        min-width: 178px;
+        height: 44px;
         border: 0;
         border-radius: 8px;
-        padding: 6px 14px;
+        padding: 5px 12px;
         color: var(--ink);
         background: #fff;
         text-align: left;
-        box-shadow: 0 8px 20px rgba(12, 21, 40, 0.12);
+        box-shadow: 0 8px 18px rgba(35, 54, 49, 0.08);
     }
 
     .month-trigger span:first-child {
@@ -155,23 +168,23 @@
     }
 
     .month-trigger span:last-child {
-        font-size: 1rem;
+        font-size: 0.95rem;
         font-weight: 800;
     }
 
     .icon-button {
         width: 40px;
         height: 40px;
-        border: 1px solid rgba(255, 255, 255, 0.28);
+        border: 1px solid #c8dcd2;
         border-radius: 8px;
-        background: rgba(255, 255, 255, 0.14);
-        color: #fff;
+        background: #fff;
+        color: var(--primary-dark);
         font-size: 1.35rem;
         line-height: 1;
     }
 
     .icon-button:hover {
-        background: rgba(255, 255, 255, 0.24);
+        background: #edf6f1;
     }
 
     .summary-strip {
@@ -187,7 +200,7 @@
         border: 1px solid var(--line);
         border-radius: 8px;
         background: var(--surface);
-        box-shadow: 0 8px 22px rgba(25, 35, 60, 0.06);
+        box-shadow: 0 8px 22px rgba(35, 54, 49, 0.06);
     }
 
     .metric-label {
@@ -236,7 +249,7 @@
         border: 1px solid var(--line);
         border-radius: 8px;
         background: var(--surface);
-        box-shadow: 0 12px 26px rgba(25, 35, 60, 0.07);
+        box-shadow: 0 12px 26px rgba(35, 54, 49, 0.07);
         overflow: hidden;
     }
 
@@ -282,8 +295,8 @@
     }
 
     .item:hover {
-        border-color: #b8c7df;
-        box-shadow: 0 10px 20px rgba(36, 87, 197, 0.09);
+        border-color: #b9cec4;
+        box-shadow: 0 10px 20px rgba(47, 93, 98, 0.10);
     }
 
     .field {
@@ -304,7 +317,7 @@
     select {
         width: 100%;
         min-width: 0;
-        border: 1px solid #cfd8e5;
+        border: 1px solid #cfdcd4;
         border-radius: 8px;
         background: #fff;
         color: var(--ink);
@@ -318,7 +331,7 @@
     input:focus,
     select:focus {
         border-color: var(--primary);
-        outline: 3px solid rgba(36, 87, 197, 0.14);
+        outline: 3px solid rgba(47, 93, 98, 0.16);
     }
 
     .amount-input {
@@ -393,7 +406,7 @@
         height: 14px;
         overflow: hidden;
         border-radius: 999px;
-        background: #e8edf5;
+        background: #e8eee9;
     }
 
     .progress-fill {
@@ -579,6 +592,25 @@
             padding: 16px;
         }
 
+        .eyebrow {
+            font-size: 0.7rem;
+            margin-bottom: 6px;
+        }
+
+        h1 {
+            font-size: 1.45rem;
+        }
+
+        .header-meta {
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .status-pill {
+            min-height: 30px;
+            font-size: 0.78rem;
+        }
+
         .summary-strip {
             grid-template-columns: 1fr;
             gap: 10px;
@@ -592,7 +624,7 @@
         .month-trigger {
             min-width: 0;
             flex: 1;
-            height: 52px;
+            height: 46px;
         }
 
         .item {
@@ -633,6 +665,7 @@
             <p class="eyebrow">Monthly Expense Planner</p>
             <h1 id="activeMonth">This Month</h1>
             <div class="header-meta">
+                <span class="status-pill total-remaining-pill" id="allMonthsRemaining">Total remaining: Rs. 0</span>
                 <span class="status-pill" id="saveStatus">Saved automatically</span>
                 <span class="status-pill" id="rowCount">0 entries</span>
                 <button class="status-pill install-button hidden" type="button" id="installAppButton">Install app</button>
@@ -1018,6 +1051,36 @@ function sum(containerId) {
     return total;
 }
 
+function sumItems(items = []) {
+    const safeItems = Array.isArray(items) ? items : [];
+    return safeItems.reduce((total, item) => total + (parseFloat(item.amount) || 0), 0);
+}
+
+function getSavedBudgetData() {
+    try {
+        const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
+        return saved && typeof saved === "object" && !Array.isArray(saved) ? saved : {};
+    } catch (error) {
+        return {};
+    }
+}
+
+function updateAllMonthsRemaining(currentBalance) {
+    const savedData = getSavedBudgetData();
+    let totalRemaining = currentBalance;
+
+    Object.entries(savedData).forEach(([monthKey, monthData]) => {
+        if (monthKey === currentMonthKey) return;
+        const income = sumItems(monthData.income);
+        const expense = sumItems(monthData.expenses);
+        totalRemaining += income - expense;
+    });
+
+    const totalEl = document.getElementById("allMonthsRemaining");
+    totalEl.textContent = `Total remaining: ${formatCurrency(totalRemaining)}`;
+    totalEl.classList.toggle("negative", totalRemaining < 0);
+}
+
 function filledRowCount(containerId) {
     return Array.from(document.querySelectorAll(`#${containerId} .item`)).filter(item => {
         const description = item.querySelector(".description-input").value.trim();
@@ -1055,6 +1118,7 @@ function calculate() {
     const progressFill = document.getElementById("progressFill");
     progressFill.style.width = `${progressPercent}%`;
     progressFill.classList.toggle("over", spentPercent > 100);
+    updateAllMonthsRemaining(balance);
 }
 
 let deferredInstallPrompt = null;
