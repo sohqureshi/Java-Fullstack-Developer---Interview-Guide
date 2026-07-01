@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Monthly Expense Planner</title>
+<meta name="theme-color" content="#2457c5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Expense Planner">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/monthly-expense-192.png">
 
 <style>
     :root {
@@ -102,6 +108,19 @@
         color: rgba(255, 255, 255, 0.92);
         font-size: 0.9rem;
         white-space: nowrap;
+    }
+
+    .install-button {
+        border-color: rgba(255, 255, 255, 0.34);
+        cursor: pointer;
+    }
+
+    .install-button:hover {
+        background: rgba(255, 255, 255, 0.22);
+    }
+
+    .hidden {
+        display: none !important;
     }
 
     .month-controls {
@@ -616,6 +635,7 @@
             <div class="header-meta">
                 <span class="status-pill" id="saveStatus">Saved automatically</span>
                 <span class="status-pill" id="rowCount">0 entries</span>
+                <button class="status-pill install-button hidden" type="button" id="installAppButton">Install app</button>
             </div>
         </div>
 
@@ -1036,6 +1056,46 @@ function calculate() {
     progressFill.style.width = `${progressPercent}%`;
     progressFill.classList.toggle("over", spentPercent > 100);
 }
+
+let deferredInstallPrompt = null;
+const installButton = document.getElementById("installAppButton");
+
+function isStandaloneApp() {
+    return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+}
+
+function updateInstallButton() {
+    installButton.classList.toggle("hidden", !deferredInstallPrompt || isStandaloneApp());
+}
+
+const canRegisterServiceWorker = "serviceWorker" in navigator && ["http:", "https:"].includes(window.location.protocol);
+
+if (canRegisterServiceWorker) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./monthly-expense-sw.js").catch(error => {
+            console.warn("Service worker registration failed", error);
+        });
+    });
+}
+
+window.addEventListener("beforeinstallprompt", event => {
+    event.preventDefault();
+    deferredInstallPrompt = event;
+    updateInstallButton();
+});
+
+window.addEventListener("appinstalled", () => {
+    deferredInstallPrompt = null;
+    updateInstallButton();
+});
+
+installButton.addEventListener("click", async () => {
+    if (!deferredInstallPrompt) return;
+    deferredInstallPrompt.prompt();
+    await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt = null;
+    updateInstallButton();
+});
 
 document.getElementById("addIncomeBtn").addEventListener("click", addIncome);
 document.getElementById("addDebitBtn").addEventListener("click", addDebit);
