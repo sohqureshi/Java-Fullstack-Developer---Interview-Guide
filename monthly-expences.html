@@ -146,8 +146,9 @@
     }
 
     .month-trigger {
-        display: grid;
-        gap: 2px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
         min-width: 178px;
         height: 44px;
         border: 0;
@@ -159,7 +160,31 @@
         box-shadow: 0 8px 18px rgba(35, 54, 49, 0.08);
     }
 
-    .month-trigger span:first-child {
+    .month-trigger-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        color: var(--primary);
+    }
+
+    .month-trigger-icon svg {
+        width: 18px;
+        height: 18px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .month-trigger-text {
+        display: grid;
+        gap: 2px;
+    }
+
+    .month-trigger-text span:first-child {
         color: var(--muted);
         font-size: 0.7rem;
         font-weight: 800;
@@ -167,20 +192,32 @@
         text-transform: uppercase;
     }
 
-    .month-trigger span:last-child {
+    .month-trigger-text span:last-child {
         font-size: 0.95rem;
         font-weight: 800;
     }
 
     .icon-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         width: 40px;
         height: 40px;
         border: 1px solid #c8dcd2;
         border-radius: 8px;
         background: #fff;
         color: var(--primary-dark);
-        font-size: 1.35rem;
-        line-height: 1;
+        padding: 0;
+    }
+
+    .icon-button svg {
+        width: 18px;
+        height: 18px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
     }
 
     .icon-button:hover {
@@ -673,12 +710,21 @@
         </div>
 
         <div class="month-controls" aria-label="Month controls">
-            <button class="icon-button" type="button" id="prevMonth" aria-label="Previous month" title="Previous month">&lsaquo;</button>
-            <button class="month-trigger" type="button" id="monthPickerButton" aria-haspopup="dialog" aria-expanded="false">
-                <span>Month</span>
-                <span id="monthPickerLabel">This Month</span>
+            <button class="icon-button" type="button" id="prevMonth" aria-label="Previous month" title="Previous month">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18L9 12l6-6"></path></svg>
             </button>
-            <button class="icon-button" type="button" id="nextMonth" aria-label="Next month" title="Next month">&rsaquo;</button>
+            <button class="month-trigger" type="button" id="monthPickerButton" aria-haspopup="dialog" aria-expanded="false">
+                <span class="month-trigger-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"></rect><path d="M3 9h18"></path><path d="M8 2v4"></path><path d="M16 2v4"></path></svg>
+                </span>
+                <span class="month-trigger-text">
+                    <span>Month</span>
+                    <span id="monthPickerLabel">This Month</span>
+                </span>
+            </button>
+            <button class="icon-button" type="button" id="nextMonth" aria-label="Next month" title="Next month">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg>
+            </button>
         </div>
     </header>
 
@@ -789,6 +835,17 @@ function formatCurrency(value) {
     return `Rs. ${currencyFormatter.format(value || 0)}`;
 }
 
+function parseAmountValue(value) {
+    const numericValue = String(value ?? "").replace(/,/g, "").replace(/[^\d.-]/g, "");
+    return Number(numericValue) || 0;
+}
+
+function formatAmountValue(value) {
+    const numericValue = parseAmountValue(value);
+    if (!numericValue && numericValue !== 0) return "";
+    return new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 }).format(numericValue);
+}
+
 function getMonthLabel(monthKey) {
     const [year, month] = monthKey.split("-");
     return new Date(Number(year), Number(month) - 1).toLocaleDateString("en-IN", {
@@ -872,12 +929,12 @@ function saveData() {
     document.querySelectorAll("#incomeList .item").forEach(item => {
         const desc = item.querySelector(".description-input");
         const amount = item.querySelector(".amount-input");
-        data.income.push({ desc: desc.value, amount: parseFloat(amount.value) || 0 });
+        data.income.push({ desc: desc.value, amount: parseAmountValue(amount.value) });
     });
     document.querySelectorAll("#debitList .item").forEach(item => {
         const desc = item.querySelector(".description-input");
         const amount = item.querySelector(".amount-input");
-        data.expenses.push({ desc: desc.value, amount: parseFloat(amount.value) || 0 });
+        data.expenses.push({ desc: desc.value, amount: parseAmountValue(amount.value) });
     });
 
     try {
@@ -954,16 +1011,20 @@ function createRow(containerId, name = "", amount = 0) {
         </label>
         <label class="field">
             <span>Amount</span>
-            <input class="amount-input" type="number" placeholder="0" value="" min="0" step="1" inputmode="numeric">
+            <input class="amount-input" type="text" placeholder="0" value="" inputmode="numeric" autocomplete="off">
         </label>
         <button class="remove-btn" type="button" title="Remove row" aria-label="Remove row">&times;</button>
     `;
 
     row.querySelector(".description-input").value = name;
-    row.querySelector(".amount-input").value = amount || "";
+    const amountInput = row.querySelector(".amount-input");
+    amountInput.value = formatAmountValue(amount);
 
     row.querySelectorAll("input").forEach(input => {
         input.addEventListener("input", () => {
+            if (input.classList.contains("amount-input")) {
+                input.value = formatAmountValue(input.value);
+            }
             calculate();
             saveData();
         });
@@ -1046,14 +1107,14 @@ function focusLastRow(containerId) {
 function sum(containerId) {
     let total = 0;
     document.querySelectorAll(`#${containerId} .amount-input`).forEach(input => {
-        total += parseFloat(input.value) || 0;
+        total += parseAmountValue(input.value);
     });
     return total;
 }
 
 function sumItems(items = []) {
     const safeItems = Array.isArray(items) ? items : [];
-    return safeItems.reduce((total, item) => total + (parseFloat(item.amount) || 0), 0);
+    return safeItems.reduce((total, item) => total + parseAmountValue(item.amount), 0);
 }
 
 function getSavedBudgetData() {
@@ -1084,7 +1145,7 @@ function updateAllMonthsRemaining(currentBalance) {
 function filledRowCount(containerId) {
     return Array.from(document.querySelectorAll(`#${containerId} .item`)).filter(item => {
         const description = item.querySelector(".description-input").value.trim();
-        const amount = parseFloat(item.querySelector(".amount-input").value) || 0;
+        const amount = parseAmountValue(item.querySelector(".amount-input").value);
         return description || amount > 0;
     }).length;
 }
