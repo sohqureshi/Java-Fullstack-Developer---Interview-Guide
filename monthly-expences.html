@@ -36,6 +36,10 @@
         line-height: 1.45;
     }
 
+    body.calendar-open {
+        overflow: hidden;
+    }
+
     button,
     input,
     select {
@@ -109,6 +113,33 @@
         background: rgba(255, 255, 255, 0.14);
     }
 
+    .month-trigger {
+        display: grid;
+        gap: 2px;
+        min-width: 190px;
+        height: 48px;
+        border: 0;
+        border-radius: 8px;
+        padding: 6px 14px;
+        color: var(--ink);
+        background: #fff;
+        text-align: left;
+        box-shadow: 0 8px 20px rgba(12, 21, 40, 0.12);
+    }
+
+    .month-trigger span:first-child {
+        color: var(--muted);
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .month-trigger span:last-child {
+        font-size: 1rem;
+        font-weight: 800;
+    }
+
     .icon-button {
         width: 40px;
         height: 40px;
@@ -122,18 +153,6 @@
 
     .icon-button:hover {
         background: rgba(255, 255, 255, 0.24);
-    }
-
-    .month-select {
-        min-width: 176px;
-        height: 40px;
-        border: 0;
-        border-radius: 8px;
-        padding: 0 12px;
-        color: var(--ink);
-        background: #fff;
-        font-weight: 700;
-        outline: none;
     }
 
     .summary-strip {
@@ -386,6 +405,134 @@
         transition: none;
     }
 
+    .calendar-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        display: none;
+        align-items: end;
+        justify-content: center;
+        padding: 18px;
+        background: rgba(15, 23, 42, 0.42);
+    }
+
+    .calendar-backdrop.open {
+        display: flex;
+    }
+
+    .calendar-sheet {
+        width: min(440px, 100%);
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        background: var(--surface);
+        box-shadow: 0 28px 70px rgba(15, 23, 42, 0.28);
+        overflow: hidden;
+    }
+
+    .calendar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 16px;
+        border-bottom: 1px solid var(--line);
+        background: var(--surface-soft);
+    }
+
+    .calendar-title {
+        display: grid;
+        gap: 2px;
+    }
+
+    .calendar-title span:first-child {
+        color: var(--muted);
+        font-size: 0.73rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .calendar-title span:last-child {
+        font-size: 1.25rem;
+        font-weight: 850;
+    }
+
+    .calendar-actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .calendar-icon {
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        color: var(--ink);
+        font-size: 1.25rem;
+        line-height: 1;
+    }
+
+    .calendar-body {
+        padding: 16px;
+    }
+
+    .month-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .month-option {
+        min-height: 56px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        color: var(--ink);
+        font-weight: 800;
+    }
+
+    .month-option:hover {
+        border-color: #b8c7df;
+        background: #f8fbff;
+    }
+
+    .month-option.current {
+        border-color: var(--income);
+        background: var(--income-soft);
+        color: var(--income);
+    }
+
+    .month-option.selected {
+        border-color: var(--primary);
+        background: var(--primary);
+        color: #fff;
+    }
+
+    .calendar-footer {
+        display: flex;
+        gap: 10px;
+        justify-content: space-between;
+        padding: 0 16px 16px;
+    }
+
+    .calendar-link {
+        min-height: 42px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        color: var(--ink);
+        padding: 0 14px;
+        font-weight: 800;
+    }
+
+    .calendar-link.primary {
+        border-color: var(--primary);
+        background: var(--primary);
+        color: #fff;
+    }
+
     @media (max-width: 920px) {
         .app-header {
             grid-template-columns: 1fr;
@@ -423,9 +570,10 @@
             justify-content: space-between;
         }
 
-        .month-select {
+        .month-trigger {
             min-width: 0;
             flex: 1;
+            height: 52px;
         }
 
         .item {
@@ -434,6 +582,26 @@
 
         .item .field:first-child {
             grid-column: 1 / -1;
+        }
+
+        .calendar-backdrop {
+            padding: 0;
+        }
+
+        .calendar-sheet {
+            width: 100%;
+            border-right: 0;
+            border-bottom: 0;
+            border-left: 0;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .month-grid {
+            gap: 8px;
+        }
+
+        .month-option {
+            min-height: 54px;
         }
     }
 </style>
@@ -453,8 +621,10 @@
 
         <div class="month-controls" aria-label="Month controls">
             <button class="icon-button" type="button" id="prevMonth" aria-label="Previous month" title="Previous month">&lsaquo;</button>
-            <label class="sr-only" for="monthSelect">Month</label>
-            <select class="month-select" id="monthSelect"></select>
+            <button class="month-trigger" type="button" id="monthPickerButton" aria-haspopup="dialog" aria-expanded="false">
+                <span>Month</span>
+                <span id="monthPickerLabel">This Month</span>
+            </button>
             <button class="icon-button" type="button" id="nextMonth" aria-label="Next month" title="Next month">&rsaquo;</button>
         </div>
     </header>
@@ -520,13 +690,40 @@
     </section>
 </main>
 
+<div class="calendar-backdrop" id="calendarBackdrop" aria-hidden="true">
+    <section class="calendar-sheet" role="dialog" aria-modal="true" aria-labelledby="calendarTitle">
+        <div class="calendar-header">
+            <div class="calendar-title">
+                <span>Select month</span>
+                <span id="calendarTitle">Calendar</span>
+            </div>
+            <div class="calendar-actions">
+                <button class="calendar-icon" type="button" id="calendarPrevYear" aria-label="Previous year" title="Previous year">&lsaquo;</button>
+                <button class="calendar-icon" type="button" id="calendarNextYear" aria-label="Next year" title="Next year">&rsaquo;</button>
+            </div>
+        </div>
+        <div class="calendar-body">
+            <div class="month-grid" id="monthGrid"></div>
+        </div>
+        <div class="calendar-footer">
+            <button class="calendar-link" type="button" id="calendarToday">Today</button>
+            <button class="calendar-link primary" type="button" id="calendarClose">Done</button>
+        </div>
+    </section>
+</div>
+
 <script>
 const storageKey = "monthlyBudgetData_v2";
 const defaultMonthKey = getCurrentMonthKey();
 let currentMonthKey = defaultMonthKey;
+let pickerYear = Number(defaultMonthKey.split("-")[0]);
 
 const currencyFormatter = new Intl.NumberFormat("en-IN", {
     maximumFractionDigits: 0
+});
+
+const monthNames = Array.from({ length: 12 }, (_, month) => {
+    return new Date(2026, month, 1).toLocaleDateString("en-IN", { month: "short" });
 });
 
 function getCurrentMonthKey(date = new Date()) {
@@ -557,39 +754,64 @@ function setSaveStatus(message) {
     document.getElementById("saveStatus").textContent = message;
 }
 
-function populateMonthSelector() {
-    const select = document.getElementById("monthSelect");
-    const currentYear = new Date().getFullYear();
-    const fragment = document.createDocumentFragment();
-
-    for (let year = currentYear - 1; year <= currentYear + 1; year++) {
-        for (let month = 0; month < 12; month++) {
-            const value = `${year}-${String(month + 1).padStart(2, "0")}`;
-            const option = document.createElement("option");
-            option.value = value;
-            option.textContent = getMonthLabel(value);
-            fragment.appendChild(option);
-        }
-    }
-
-    select.appendChild(fragment);
-    select.value = currentMonthKey;
-    select.addEventListener("change", () => switchMonth(select.value));
+function updateMonthLabels(monthKey) {
+    const label = getMonthLabel(monthKey);
+    document.getElementById("activeMonth").textContent = label;
+    document.getElementById("monthPickerLabel").textContent = label;
+    document.getElementById("monthPickerButton").setAttribute("aria-label", `Select month, current ${label}`);
 }
 
-function ensureMonthOption(monthKey) {
-    const select = document.getElementById("monthSelect");
-    if (Array.from(select.options).some(option => option.value === monthKey)) {
-        return;
-    }
+function renderMonthPicker() {
+    const grid = document.getElementById("monthGrid");
+    const selectedYear = Number(currentMonthKey.split("-")[0]);
+    const selectedMonth = Number(currentMonthKey.split("-")[1]);
+    const [todayYear, todayMonth] = defaultMonthKey.split("-").map(Number);
 
-    const option = document.createElement("option");
-    option.value = monthKey;
-    option.textContent = getMonthLabel(monthKey);
-    select.appendChild(option);
-    Array.from(select.options)
-        .sort((a, b) => a.value.localeCompare(b.value))
-        .forEach(sortedOption => select.appendChild(sortedOption));
+    document.getElementById("calendarTitle").textContent = pickerYear;
+    grid.innerHTML = "";
+
+    monthNames.forEach((monthName, index) => {
+        const month = index + 1;
+        const monthKey = `${pickerYear}-${String(month).padStart(2, "0")}`;
+        const button = document.createElement("button");
+        button.className = "month-option";
+        button.type = "button";
+        button.textContent = monthName;
+        button.setAttribute("aria-label", getMonthLabel(monthKey));
+
+        if (pickerYear === todayYear && month === todayMonth) {
+            button.classList.add("current");
+        }
+        if (pickerYear === selectedYear && month === selectedMonth) {
+            button.classList.add("selected");
+            button.setAttribute("aria-current", "date");
+        }
+
+        button.addEventListener("click", () => {
+            switchMonth(monthKey);
+            closeCalendarPicker();
+        });
+
+        grid.appendChild(button);
+    });
+}
+
+function openCalendarPicker() {
+    pickerYear = Number(currentMonthKey.split("-")[0]);
+    renderMonthPicker();
+    document.getElementById("calendarBackdrop").classList.add("open");
+    document.body.classList.add("calendar-open");
+    document.getElementById("calendarBackdrop").setAttribute("aria-hidden", "false");
+    document.getElementById("monthPickerButton").setAttribute("aria-expanded", "true");
+    document.querySelector(".month-option.selected")?.focus();
+}
+
+function closeCalendarPicker() {
+    document.getElementById("calendarBackdrop").classList.remove("open");
+    document.body.classList.remove("calendar-open");
+    document.getElementById("calendarBackdrop").setAttribute("aria-hidden", "true");
+    document.getElementById("monthPickerButton").setAttribute("aria-expanded", "false");
+    document.getElementById("monthPickerButton").focus();
 }
 
 function saveData() {
@@ -655,9 +877,9 @@ function loadData(monthKey = currentMonthKey) {
         }
     }
 
-    document.getElementById("activeMonth").textContent = getMonthLabel(monthKey);
-    ensureMonthOption(monthKey);
-    document.getElementById("monthSelect").value = monthKey;
+    updateMonthLabels(monthKey);
+    pickerYear = Number(monthKey.split("-")[0]);
+    renderMonthPicker();
     createDefaultRows(monthKey);
     calculate();
 }
@@ -819,8 +1041,32 @@ document.getElementById("addIncomeBtn").addEventListener("click", addIncome);
 document.getElementById("addDebitBtn").addEventListener("click", addDebit);
 document.getElementById("prevMonth").addEventListener("click", () => switchMonth(moveMonth(currentMonthKey, -1)));
 document.getElementById("nextMonth").addEventListener("click", () => switchMonth(moveMonth(currentMonthKey, 1)));
+document.getElementById("monthPickerButton").addEventListener("click", openCalendarPicker);
+document.getElementById("calendarPrevYear").addEventListener("click", () => {
+    pickerYear -= 1;
+    renderMonthPicker();
+});
+document.getElementById("calendarNextYear").addEventListener("click", () => {
+    pickerYear += 1;
+    renderMonthPicker();
+});
+document.getElementById("calendarToday").addEventListener("click", () => {
+    switchMonth(defaultMonthKey);
+    closeCalendarPicker();
+});
+document.getElementById("calendarClose").addEventListener("click", closeCalendarPicker);
+document.getElementById("calendarBackdrop").addEventListener("click", event => {
+    if (event.target.id === "calendarBackdrop") {
+        closeCalendarPicker();
+    }
+});
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && document.getElementById("calendarBackdrop").classList.contains("open")) {
+        closeCalendarPicker();
+    }
+});
 
-populateMonthSelector();
+renderMonthPicker();
 loadData(currentMonthKey);
 </script>
 </body>
